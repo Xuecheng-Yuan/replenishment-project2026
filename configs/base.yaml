@@ -1,0 +1,18 @@
+project:
+  random_seed: 2026
+
+data:
+  date_column: date
+  item_column: item_id
+  demand_column: demand
+
+split:
+  validation_start: null
+  test_start: null
+
+inventory:
+  holding_cost: 1.0
+  shortage_cost: 5.0
+  order_cost: 0.0
+  lead_time: 1
+

@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments and secrets
+.venv/
+.env
+.env.*
+
+# Editors and operating systems
+.DS_Store
+.vscode/
+.idea/
+~$*
+
+# Data: keep directory placeholders only
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/external/*
+!data/external/.gitkeep
+
+# Generated outputs: keep directory placeholders only
+outputs/figures/*
+!outputs/figures/.gitkeep
+outputs/tables/*
+!outputs/tables/.gitkeep
+outputs/models/*
+!outputs/models/.gitkeep
+
+# Notebook checkpoints and logs
+.ipynb_checkpoints/
+*.log
+
