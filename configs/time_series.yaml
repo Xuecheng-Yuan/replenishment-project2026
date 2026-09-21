@@ -1,0 +1,28 @@
+data:
+  expected_train_periods: 60
+  expected_test_periods: 28
+
+time_series:
+  target_service_level: 0.95
+  lead_time: 1
+  error_window: 12
+  safety_min: 0.0
+  safety_max: 4.0
+  safety_step: 0.25
+  validation_folds:
+    - {history_periods: 30, validation_periods: 10}
+    - {history_periods: 40, validation_periods: 10}
+    - {history_periods: 50, validation_periods: 10}
+
+  # 每一项都是一个透明候选；所有候选使用完全相同的滚动验证标准。
+  models:
+    - {id: naive, name: naive}
+    - {id: moving_average_3, name: moving_average, window: 3}
+    - {id: moving_average_6, name: moving_average, window: 6}
+    - {id: moving_average_12, name: moving_average, window: 12}
+    - {id: drift_12, name: drift, window: 12}
+    - {id: linear_trend_12, name: linear_trend, window: 12}
+    - {id: ses_08, name: ses, alpha: 0.8}
+    - {id: damped_holt, name: damped_holt, alpha: 0.6, beta: 0.2, damping: 0.9}
+    - {id: arima_110, name: arima_110, window: 24}
+    - {id: hierarchical_trend, name: hierarchical_trend, window: 12, share_window: 6}

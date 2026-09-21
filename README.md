@@ -1,6 +1,6 @@
 # Replenishment Project 2026
 
-本项目研究单级库存系统中的需求预测与补货决策。当前第一阶段已经重新实现均值–方差 base-stock baseline，目标是在不使用任何测试信息训练或调参的前提下，使用 60 期训练数据确定策略，再在 28 期测试数据上评价服务水平和周转率。
+本项目研究单级库存系统中的需求预测与补货决策。当前已经完成均值–方差 baseline，并开始重建滚动时间序列强基准。所有方法都只用 60 期 train 选择模型和参数，再在策略冻结后使用 28 期 test 评价服务水平和周转率。
 
 ## 当前数据
 
@@ -27,6 +27,18 @@ s_i = S_i = B_i
 - 模型完全冻结后：才读取 test，并运行一次最终评价。
 
 完整定义、公式和防泄漏说明见 [docs/baseline_method.md](docs/baseline_method.md)。
+
+## 时间序列方法
+
+时间序列阶段只使用历史需求和商品类别，不使用 `x1` 至 `x20`。候选包括 Naive、移动平均、漂移、局部线性趋势、SES、阻尼 Holt、ARIMA(1,1,0) 和分层共同趋势。
+
+train 使用三个扩展窗口滚动验证：
+
+- 第1–30期拟合，第31–40期验证；
+- 第1–40期拟合，第41–50期验证；
+- 第1–50期拟合，第51–60期验证。
+
+每个候选都分别校准爆品和长尾品安全系数，但硬约束仍是总体服务水平。候选必须在每个验证折达到95%，然后选择综合周转率最高者。完整公式和时序见 [docs/time_series_method.md](docs/time_series_method.md)。
 
 ## 评价指标
 
@@ -76,6 +88,26 @@ python -m experiments.run_baseline
 
 分组字段直接加入现有 SKU 明细，分组汇总直接加入现有 JSON，不额外生成文件。
 
+## 运行时间序列实验
+
+```bash
+python -m experiments.run_time_series
+```
+
+默认只生成三份文件：
+
+- `time_series_comparison.csv`：所有冻结候选的 train 验证和 test 汇总，test 不反向参与选择；
+- `time_series_test_per_item_metrics.csv`：最终模型的SKU测试指标；
+- `time_series_summary.json`：最终模型、数据指纹、总体及分类测试指标。
+
+不会为每个候选重复保存大规模预测表和逐期轨迹。
+
+### 时间序列首次结果
+
+train 和 test 按两个任意、不相邻的自然时间窗口处理。train 第60期的需求水平和模型状态不会传入 test；test 第1期使用给定初始库存，观察第1期需求后才冷启动预测第2期。原先按连续时期得到的结果已撤销，不再作为研究结论。
+
+冷启动实验中，train 滚动验证选择了 Naive，验证综合服务水平95.7228%，但 test 服务水平只有91.3073%，未达到约束。十个冻结候选均未达到95%，其中12期漂移模型最高，为93.2138%。该结果说明任意窗口的需求水平可以重置，但 test 的增长规律仍没有被 train 稳定覆盖；当前时间序列方法只能作为未达约束的诊断基准。
+
 ## 本地复现结果
 
 2026-09-21 使用当前原始数据与 `configs/baseline.yaml` 运行得到：
@@ -99,9 +131,9 @@ python -m experiments.run_baseline
 
 ## 防止数据泄漏的实现约束
 
-1. `MeanVarianceBaseline.fit()` 只接受 `train_demand`，接口没有 test 参数。
+1. baseline 的 `fit()` 只接受 train；时间序列候选也只在 train 滚动窗口中比较。
 2. 流水线完成 train 拟合并取得冻结参数后，才打开 test 文件。
-3. test 只传给 `InventoryEvaluator.evaluate()`，不会回流到模型或安全系数搜索。
+3. test 只用于最终库存评价；本期真实需求只允许更新下一期预测。
 4. test 第一时期初库存严格使用 test 文件的 `initial_inventory`，模型不会补写期初到货。
 5. 输出 JSON 保存 train/test SHA-256 和各自用途，便于复现实验。
 
@@ -112,6 +144,6 @@ python -m experiments.run_baseline
 ```bash
 git status
 git add src tests experiments configs docs README.md PROJECT_STRUCTURE.md pyproject.toml
-git commit -m "feat: rebuild leakage-safe baseline"
+git commit -m "feat: add leakage-safe time-series models"
 git push
 ```

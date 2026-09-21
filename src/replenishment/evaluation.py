@@ -171,6 +171,111 @@ class InventoryEvaluator:
         )
         return EvaluationResult(per_item=per_item, summary=summary, trajectory=trajectory)
 
+    def evaluate_dynamic(
+        self,
+        demand: pd.DataFrame,
+        item_info: pd.DataFrame,
+        order_up_to: pd.DataFrame,
+    ) -> EvaluationResult:
+        """评价随时间变化的 base-stock；仅支持当前研究的1期提前期。"""
+
+        if self.lead_time != 1:
+            raise ValueError("动态 base-stock 当前只支持 lead_time=1。")
+        period_columns = self._period_columns(demand)
+        required = {"item_id", *period_columns}
+        if not required.issubset(order_up_to.columns):
+            raise ValueError("动态目标库存缺少 item_id 或时期列。")
+        if order_up_to["item_id"].duplicated().any():
+            raise ValueError("动态目标库存中的 item_id 不能重复。")
+
+        targets = order_up_to[["item_id", *period_columns]].rename(
+            columns={column: f"target_{column}" for column in period_columns}
+        )
+        info_columns = ["item_id", "initial_inventory"]
+        if "category" in item_info.columns:
+            info_columns.append("category")
+        data = (
+            demand[["item_id", *period_columns]]
+            .merge(item_info[info_columns], on="item_id", validate="one_to_one")
+            .merge(targets, on="item_id", validate="one_to_one")
+        )
+        numeric_columns = [column for column in data if column not in {"item_id", "category"}]
+        data[numeric_columns] = data[numeric_columns].apply(pd.to_numeric, errors="coerce")
+        if data[numeric_columns].isna().any().any() or (data[numeric_columns] < 0).any().any():
+            raise ValueError("动态评价输入必须是非负数且不能缺失。")
+
+        demands = data[period_columns].to_numpy(dtype=float)
+        target_values = data[[f"target_{column}" for column in period_columns]].to_numpy(
+            dtype=float
+        )
+        on_hand = data["initial_inventory"].to_numpy(dtype=float, copy=True)
+        arrivals = np.zeros(len(data), dtype=float)
+        total_demand = demands.sum(axis=1)
+        total_sales = np.zeros(len(data), dtype=float)
+        inventory_sum = np.zeros(len(data), dtype=float)
+        order_count = np.zeros(len(data), dtype=int)
+        total_order_quantity = np.zeros(len(data), dtype=float)
+
+        for period in range(demands.shape[1]):
+            on_hand += arrivals
+            sales = np.minimum(on_hand, demands[:, period])
+            on_hand -= sales
+            arrivals = np.maximum(0.0, target_values[:, period] - on_hand)
+            total_sales += sales
+            inventory_sum += on_hand
+            order_count += arrivals > 0
+            total_order_quantity += arrivals
+
+        average_inventory = inventory_sum / demands.shape[1]
+        service_level = np.divide(
+            total_sales, total_demand, out=np.ones_like(total_sales), where=total_demand > 0
+        )
+        turnover = np.divide(
+            total_sales,
+            average_inventory,
+            out=np.where(total_sales > 0, np.inf, 0.0),
+            where=average_inventory > 0,
+        )
+        per_item = pd.DataFrame(
+            {
+                "item_id": data["item_id"].to_numpy(),
+                "service_level": service_level,
+                "fill_rate": service_level,
+                "average_ending_inventory": average_inventory,
+                "turnover": turnover,
+                "total_demand": total_demand,
+                "total_sales": total_sales,
+                "total_lost_sales": total_demand - total_sales,
+                "order_count": order_count,
+                "total_order_quantity": total_order_quantity,
+            }
+        )
+        if "category" in data.columns:
+            per_item.insert(1, "category", data["category"].to_numpy())
+
+        total_demand_all = float(total_demand.sum())
+        total_sales_all = float(total_sales.sum())
+        average_total_inventory = float(inventory_sum.sum() / demands.shape[1])
+        summary: dict[str, object] = {
+            "n_items": len(data),
+            "n_periods": demands.shape[1],
+            "overall_service_level": total_sales_all / total_demand_all if total_demand_all else 1.0,
+            "overall_fill_rate": total_sales_all / total_demand_all if total_demand_all else 1.0,
+            "overall_turnover": (
+                total_sales_all / average_total_inventory
+                if average_total_inventory > 0
+                else (float("inf") if total_sales_all > 0 else 0.0)
+            ),
+            "average_total_ending_inventory": average_total_inventory,
+            "total_demand": total_demand_all,
+            "total_sales": total_sales_all,
+            "total_lost_sales": total_demand_all - total_sales_all,
+            "item_service_level_95_share": float((service_level >= 0.95).mean()),
+        }
+        if "category" in per_item.columns:
+            summary["category_metrics"] = self._category_metrics(per_item)
+        return EvaluationResult(per_item=per_item, summary=summary)
+
     @staticmethod
     def _category_metrics(per_item: pd.DataFrame) -> dict[str, dict[str, float | int]]:
         """按商品类别计算需求加权服务率和测试窗口周转率。"""

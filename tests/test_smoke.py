@@ -6,5 +6,4 @@ def test_package_import() -> None:
 
     import replenishment
 
-    assert replenishment.__version__ == "0.2.0"
-
+    assert replenishment.__version__ == "0.3.0"

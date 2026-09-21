@@ -7,13 +7,15 @@ replenishment_project2026/
 ├── pyproject.toml
 ├── configs/
 │   ├── base.yaml
-│   └── baseline.yaml
+│   ├── baseline.yaml
+│   └── time_series.yaml
 ├── data/
 │   ├── raw/
 │   ├── processed/
 │   └── external/
 ├── docs/
 │   ├── baseline_method.md
+│   ├── time_series_method.md
 │   └── research_plan.md
 ├── src/replenishment/
 │   ├── __init__.py
@@ -22,16 +24,19 @@ replenishment_project2026/
 │   ├── models.py
 │   ├── optimization.py
 │   ├── evaluation.py
-│   └── pipeline.py
+│   ├── pipeline.py
+│   └── time_series.py
 ├── experiments/
-│   └── run_baseline.py
+│   ├── run_baseline.py
+│   └── run_time_series.py
 ├── scripts/
 │   └── run_pipeline.py
 ├── tests/
 │   ├── test_data.py
 │   ├── test_evaluation.py
 │   ├── test_models.py
-│   └── test_smoke.py
+│   ├── test_smoke.py
+│   └── test_time_series.py
 ├── outputs/
 │   ├── figures/
 │   ├── tables/
@@ -53,6 +58,7 @@ replenishment_project2026/
 
 - `configs/base.yaml`：项目通用目录和随机种子配置。
 - `configs/baseline.yaml`：baseline 的时期数、服务水平、提前期和 `z` 搜索网格。
+- `configs/time_series.yaml`：时间序列候选、三个滚动验证窗口和分类安全系数网格。
 
 ## 数据
 
@@ -68,22 +74,29 @@ replenishment_project2026/
 - `src/replenishment/optimization.py`：根据均值、标准差和安全系数生成 `s=S` 策略参数。
 - `src/replenishment/evaluation.py`：统一执行库存流转，计算总体及爆品/长尾品的服务水平、库存和周转率。
 - `src/replenishment/pipeline.py`：先 train 拟合并冻结，再读取 test 评价，保存可审计输出。
+- `src/replenishment/time_series.py`：一步滚动预测、动态误差尺度、分类安全库存和快速验证仿真。
 - `src/replenishment/__init__.py`：公开稳定接口和项目版本。
 
 ## 入口与测试
 
 - `experiments/run_baseline.py`：正式 baseline 实验入口，打印关键结果。
+- `experiments/run_time_series.py`：正式时间序列实验入口。
 - `scripts/run_pipeline.py`：统一入口，当前调用 baseline。
 - `tests/test_data.py`：检查 train/test SKU 边界。
 - `tests/test_evaluation.py`：检查到货—需求—下单顺序、服务水平和周转率。
 - `tests/test_models.py`：检查 42/18 时间切分、`s=S` 和 fit 接口无 test 参数。
 - `tests/test_smoke.py`：检查包能正常导入。
+- `tests/test_time_series.py`：检查滚动预测无未来泄漏、分类缓冲和动态库存时序。
 
 ## 文档与输出
 
 - `docs/baseline_method.md`：数学公式、数据使用边界、指标定义和已知局限。
+- `docs/time_series_method.md`：时间序列候选、滚动验证、安全库存和防泄漏规则。
 - `docs/research_plan.md`：当前进度和下一阶段研究路线。
-- `outputs/tables/`：参数、训练统计、含 category 的测试 SKU 指标和含分组指标的 JSON 摘要，默认不提交 Git；分组分析不另建文件。
+- `outputs/tables/`：参数、训练统计、SKU指标和JSON摘要；当前仅提交三份时间序列正式结果，其他可再生成输出继续忽略。
+- `outputs/tables/time_series_comparison.csv`：十个冻结候选的验证与测试汇总。
+- `outputs/tables/time_series_summary.json`：正式选择、数据指纹、总体与分类指标。
+- `outputs/tables/time_series_test_per_item_metrics.csv`：正式选择的6000个SKU测试指标。
 - `outputs/figures/`：后续自动生成图表。
 - `outputs/models/`：后续需要序列化的模型文件。
 - `paper/`：论文或研究报告草稿。
