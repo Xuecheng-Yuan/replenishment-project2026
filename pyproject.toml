@@ -4,15 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "replenishment-project2026"
-version = "0.1.0"
-description = "Reproducible demand forecasting and replenishment optimization research project"
+version = "0.2.0"
+description = "需求预测与补货优化的可复现实验项目"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
   "numpy>=1.26",
+  "openpyxl>=3.1",
   "pandas>=2.2",
   "pyyaml>=6.0",
-  "scikit-learn>=1.4",
 ]
 
 [project.optional-dependencies]
@@ -26,6 +26,7 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+addopts = "-ra"
 
 [tool.ruff]
 line-length = 100

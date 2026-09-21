@@ -1,2 +1,6 @@
-"""Feature engineering for demand forecasting and inventory decisions."""
+"""后续预测模型的特征工程接口。
+
+当前均值–方差 baseline 不使用 x1 至 x20 或任何测试期特征，
+因此本文件暂不实现特征逻辑，避免把未来可见性尚未确认的字段引入 baseline。
+"""
 
