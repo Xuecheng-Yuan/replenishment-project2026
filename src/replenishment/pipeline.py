@@ -126,14 +126,14 @@ def run_baseline_experiment(
     report = {
         "data_usage": {
             "train": {
-                "path": str(train.source_path),
+                "file": train.source_path.name,
                 "sha256": train.sha256,
                 "n_items": train.n_items,
                 "n_periods": train.n_periods,
                 "usage": "模型估计、train 内部验证校准、最终参数重估",
             },
             "test": {
-                "path": str(test.source_path),
+                "file": test.source_path.name,
                 "sha256": test.sha256,
                 "n_items": test.n_items,
                 "n_periods": test.n_periods,
@@ -260,14 +260,14 @@ def run_time_series_experiment(
     report = {
         "data_usage": {
             "train": {
-                "path": str(train.source_path),
+                "file": train.source_path.name,
                 "sha256": train.sha256,
                 "n_items": train.n_items,
                 "n_periods": train.n_periods,
                 "usage": "学习增长先验和误差比例、滚动验证、模型与安全系数选择",
             },
             "test": {
-                "path": str(test.source_path),
+                "file": test.source_path.name,
                 "sha256": test.sha256,
                 "n_items": test.n_items,
                 "n_periods": test.n_periods,

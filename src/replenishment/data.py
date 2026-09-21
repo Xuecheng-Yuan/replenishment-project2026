@@ -25,7 +25,7 @@ class ReplenishmentWorkbook:
         demand: 宽表需求数据，每行一个 SKU，每列一个时期。
         item_info: SKU 静态信息，至少包含 item_id 和 initial_inventory。
         period_columns: 已按时间顺序排列的需求列名。
-        source_path: 数据文件的绝对路径，仅用于审计和报错。
+        source_path: 运行时绝对路径，仅用于本地读取和报错，不写入共享结果。
         sha256: 原始文件指纹，用于确认实验使用了哪一份数据。
     """
 

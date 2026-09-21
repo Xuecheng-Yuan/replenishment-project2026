@@ -1,14 +1,14 @@
 {
   "data_usage": {
     "train": {
-      "path": "replenishment_train.xlsx",
+      "file": "replenishment_train.xlsx",
       "sha256": "773169c50b878922b67dc15882a758950abed2d9f6eb607774a47cfb326fa608",
       "n_items": 6000,
       "n_periods": 60,
       "usage": "滚动验证、模型和安全系数选择、最终历史状态更新"
     },
     "test": {
-      "path": "replenishment_test.xlsx",
+      "file": "replenishment_test.xlsx",
       "sha256": "9010d3d44b9f56b835efe17bc7e3e628f809f5d2c91d656d6b6876ee18a13074",
       "n_items": 6000,
       "n_periods": 28,
