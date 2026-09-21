@@ -20,6 +20,8 @@ __pycache__/
 # Data: keep directory placeholders only
 data/raw/*
 !data/raw/.gitkeep
+!data/raw/replenishment_train.xlsx
+!data/raw/replenishment_test.xlsx
 data/processed/*
 !data/processed/.gitkeep
 data/external/*
