@@ -1,0 +1,21 @@
+data:
+  expected_train_periods: 60
+  expected_test_periods: 28
+
+problem_based_methods:
+  # 正式约束：所有SKU-时期中无缺货的比例至少为95%。
+  target_service_level: 0.95
+
+  # 当期末下单，下一期期初到货；每一期都重新复查。
+  lead_time: 1
+  review_period: 1
+
+  # 每次规划4期订单，但只执行第一期订单。
+  planning_horizon: 4
+
+  # train前42期估计，后18期选择z；最终再用完整60期重估。
+  validation_periods: 18
+  z_min: 0.0
+  z_max: 4.0
+  z_step: 0.05
+  integer_quantity: true

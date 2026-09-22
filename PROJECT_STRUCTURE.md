@@ -8,96 +8,62 @@ replenishment_project2026/
 ├── configs/
 │   ├── base.yaml
 │   ├── baseline.yaml
-│   └── time_series.yaml
+│   └── problem_based_methods.yaml
 ├── data/
 │   ├── raw/
 │   ├── processed/
 │   └── external/
 ├── docs/
+│   ├── problem_based_methods.md
 │   ├── baseline_method.md
-│   ├── time_series_method.md
 │   └── research_plan.md
 ├── src/replenishment/
 │   ├── __init__.py
 │   ├── data.py
+│   ├── evaluation.py
 │   ├── features.py
 │   ├── models.py
 │   ├── optimization.py
-│   ├── evaluation.py
-│   ├── pipeline.py
-│   └── time_series.py
+│   ├── problem_based_methods.py
+│   ├── problem_evaluation.py
+│   ├── problem_pipeline.py
+│   └── pipeline.py
 ├── experiments/
-│   ├── run_baseline.py
-│   └── run_time_series.py
+│   ├── run_problem_based_methods.py
+│   └── run_baseline.py
 ├── scripts/
 │   └── run_pipeline.py
 ├── tests/
 │   ├── test_data.py
 │   ├── test_evaluation.py
 │   ├── test_models.py
-│   ├── test_smoke.py
-│   └── test_time_series.py
-├── outputs/
-│   ├── figures/
-│   ├── tables/
-│   └── models/
-├── notebooks/
-├── paper/
-└── references/
+│   ├── test_problem_based_methods.py
+│   ├── test_problem_evaluation.py
+│   └── test_smoke.py
+└── outputs/
+    ├── figures/
+    ├── tables/
+    └── models/
 ```
 
-## 根目录
+## 核心文件
 
-- `README.md`：项目目标、baseline 方法、安装、运行和防泄漏规则。
-- `PROJECT_STRUCTURE.md`：当前文件，说明目录和文件职责。
-- `pyproject.toml`：Python 依赖、包发现、pytest 和 Ruff 配置。
-- `.gitignore`：忽略环境、缓存、默认数据和自动生成结果。
-- `.gitattributes`：如使用 Git LFS，则记录 Excel 等大文件的跟踪规则。
+- `src/replenishment/data.py`：读取Excel，校验时期、SKU、缺失值、负值和train/test边界。
+- `src/replenishment/problem_based_methods.py`：估计需求分布、构造 $s=S$、在train内部选择安全系数。
+- `src/replenishment/problem_evaluation.py`：执行1期提前期和4期滚动计划，计算库存需求比及两种服务率。
+- `src/replenishment/problem_pipeline.py`：先train拟合并冻结，再读取test评价，保存两份结果。
+- `src/replenishment/pipeline.py`：兼容入口，转发到新的problem-based流水线。
+- `src/replenishment/evaluation.py`、`models.py`、`optimization.py`：旧导入路径兼容层，内部统一调用当前方法。
+- `experiments/run_problem_based_methods.py`：正式实验入口。
+- `experiments/run_baseline.py`：兼容入口，与正式实验运行同一方法。
+- `docs/problem_based_methods.md`：完整模型、公式、时序、防泄漏规则和结果解释。
+- `docs/baseline_method.md`：旧文件名兼容说明，不再保存旧方法。
 
-## 配置
+## 输出规则
 
-- `configs/base.yaml`：项目通用目录和随机种子配置。
-- `configs/baseline.yaml`：baseline 的时期数、服务水平、提前期和 `z` 搜索网格。
-- `configs/time_series.yaml`：时间序列候选、三个滚动验证窗口和分类安全系数网格。
+`outputs/tables/`默认忽略自动生成结果，只保留目录占位文件。正式运行仅生成：
 
-## 数据
+- `problem_based_methods_summary.json`；
+- `problem_based_methods_per_item_metrics.csv`。
 
-- `data/raw/`：只读原始 Excel。代码不覆盖源文件。
-- `data/processed/`：后续模型产生的可再生成中间数据。
-- `data/external/`：公开或第三方数据。
-
-## 核心代码
-
-- `src/replenishment/data.py`：读取多工作表 Excel，校验时期、SKU、缺失、负值和 train/test 边界，并计算文件指纹。
-- `src/replenishment/features.py`：后续预测模型的特征接口；baseline 明确不使用 `x1`–`x20`。
-- `src/replenishment/models.py`：只接收 train 的均值–方差 baseline、时间切分和安全系数校准。
-- `src/replenishment/optimization.py`：根据均值、标准差和安全系数生成 `s=S` 策略参数。
-- `src/replenishment/evaluation.py`：统一执行库存流转，计算总体及爆品/长尾品的服务水平、库存和周转率。
-- `src/replenishment/pipeline.py`：先 train 拟合并冻结，再读取 test 评价，保存可审计输出。
-- `src/replenishment/time_series.py`：一步滚动预测、动态误差尺度、分类安全库存和快速验证仿真。
-- `src/replenishment/__init__.py`：公开稳定接口和项目版本。
-
-## 入口与测试
-
-- `experiments/run_baseline.py`：正式 baseline 实验入口，打印关键结果。
-- `experiments/run_time_series.py`：正式时间序列实验入口。
-- `scripts/run_pipeline.py`：统一入口，当前调用 baseline。
-- `tests/test_data.py`：检查 train/test SKU 边界。
-- `tests/test_evaluation.py`：检查到货—需求—下单顺序、服务水平和周转率。
-- `tests/test_models.py`：检查 42/18 时间切分、`s=S` 和 fit 接口无 test 参数。
-- `tests/test_smoke.py`：检查包能正常导入。
-- `tests/test_time_series.py`：检查滚动预测无未来泄漏、分类缓冲和动态库存时序。
-
-## 文档与输出
-
-- `docs/baseline_method.md`：数学公式、数据使用边界、指标定义和已知局限。
-- `docs/time_series_method.md`：时间序列候选、滚动验证、安全库存和防泄漏规则。
-- `docs/research_plan.md`：当前进度和下一阶段研究路线。
-- `outputs/tables/`：参数、训练统计、SKU指标和JSON摘要；当前仅提交三份时间序列正式结果，其他可再生成输出继续忽略。
-- `outputs/tables/time_series_comparison.csv`：十个冻结候选的验证与测试汇总。
-- `outputs/tables/time_series_summary.json`：正式选择、数据指纹、总体与分类指标。
-- `outputs/tables/time_series_test_per_item_metrics.csv`：正式选择的6000个SKU测试指标。
-- `outputs/figures/`：后续自动生成图表。
-- `outputs/models/`：后续需要序列化的模型文件。
-- `paper/`：论文或研究报告草稿。
-- `references/`：论文、数据集和参考实现记录。
+原始Excel只读。共享代码和文档不得包含本地绝对路径、用户名、访问令牌或其他凭据。

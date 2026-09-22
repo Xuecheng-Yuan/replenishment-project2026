@@ -1,40 +1,49 @@
-"""库存流转、服务水平和周转率测试。"""
+"""兼容入口下的库存时序和指标回归测试。"""
 
 import pandas as pd
-import pytest
 
 from replenishment.evaluation import InventoryEvaluator
 
 
-def test_evaluator_follows_arrival_demand_order_sequence() -> None:
-    """第一期无模型补货到货，第一期期末订单在第二期初到达。"""
+def test_evaluator_keeps_arrival_demand_order_sequence() -> None:
+    """第一期无到货，本期订单只能在下一期初到达。"""
 
     demand = pd.DataFrame(
-        {"item_id": [1], "period_1": [8], "period_2": [8], "period_3": [8]}
+        {
+            "item_id": [1],
+            "period_1": [8],
+            "period_2": [8],
+            "period_3": [8],
+            "period_4": [8],
+        }
     )
     item_info = pd.DataFrame({"item_id": [1], "initial_inventory": [10]})
-    parameters = pd.DataFrame({"item_id": [1], "s": [10], "S": [10]})
-
-    result = InventoryEvaluator(lead_time=1).evaluate(
-        demand,
-        item_info,
-        parameters,
-        record_trajectory=True,
+    parameters = pd.DataFrame(
+        {"item_id": [1], "mean_demand": [8], "s": [10], "S": [10]}
+    )
+    result = InventoryEvaluator().evaluate(
+        demand, item_info, parameters, record_trajectory=True
     )
 
-    assert result.summary["overall_service_level"] == 1.0
-    assert result.summary["total_sales"] == 24.0
-    assert result.summary["average_total_ending_inventory"] == 2.0
-    assert result.summary["overall_turnover"] == 12.0
     assert result.trajectory is not None
-    assert result.trajectory["arrival"].tolist() == [0.0, 8.0, 8.0]
+    assert result.trajectory["arrival"].tolist() == [0.0, 8.0, 8.0, 8.0]
+    metrics = result.summary["windows"]["first_4"]
+    assert metrics["no_stockout_service_rate"] == 1.0
+    assert metrics["positive_inventory_service_rate"] == 1.0
+    assert metrics["inventory_demand_ratio"] == 0.25
 
 
-def test_service_level_is_demand_weighted() -> None:
-    """总体服务水平必须等于总销售/总需求，而不是 SKU 服务水平简单平均。"""
+def test_category_service_is_counted_by_sku_period() -> None:
+    """分类服务率按无缺货SKU-时期计数，不按需求量加权。"""
 
     demand = pd.DataFrame(
-        {"item_id": [1, 2], "period_1": [100, 10], "period_2": [0, 0]}
+        {
+            "item_id": [1, 2],
+            "period_1": [100, 10],
+            "period_2": [0, 0],
+            "period_3": [0, 0],
+            "period_4": [0, 0],
+        }
     )
     item_info = pd.DataFrame(
         {
@@ -43,11 +52,18 @@ def test_service_level_is_demand_weighted() -> None:
             "initial_inventory": [50, 10],
         }
     )
-    parameters = pd.DataFrame({"item_id": [1, 2], "s": [0, 0], "S": [0, 0]})
+    parameters = pd.DataFrame(
+        {
+            "item_id": [1, 2],
+            "mean_demand": [0, 0],
+            "s": [0, 0],
+            "S": [0, 0],
+        }
+    )
+    metrics = InventoryEvaluator().evaluate(demand, item_info, parameters).summary[
+        "windows"
+    ]["first_4"]
 
-    result = InventoryEvaluator().evaluate(demand, item_info, parameters)
-    assert result.summary["overall_service_level"] == pytest.approx(60 / 110)
-    assert result.per_item["category"].tolist() == ["爆品", "长尾品"]
-    assert result.summary["category_metrics"]["爆品"]["service_level"] == 0.5
-    assert result.summary["category_metrics"]["长尾品"]["service_level"] == 1.0
-    assert result.summary["category_metrics"]["长尾品"]["turnover"] == float("inf")
+    assert metrics["no_stockout_service_rate"] == 7 / 8
+    assert metrics["category_metrics"]["爆品"]["no_stockout_service_rate"] == 0.75
+    assert metrics["category_metrics"]["长尾品"]["no_stockout_service_rate"] == 1.0

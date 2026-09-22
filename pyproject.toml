@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "replenishment-project2026"
-version = "0.3.0"
+version = "0.4.0"
 description = "需求预测与补货优化的可复现实验项目"
 readme = "README.md"
 requires-python = ">=3.11"

@@ -1,40 +1,38 @@
-"""均值–方差 baseline 的训练逻辑测试。"""
+"""兼容模型入口的训练边界测试。"""
+
+import inspect
 
 import pandas as pd
 
 from replenishment.models import BaselineConfig, MeanVarianceBaseline
 
 
-def test_baseline_uses_train_internal_time_split() -> None:
-    """确认前段估计、后段校准，并在最终阶段使用完整 train。"""
+def test_baseline_alias_uses_current_train_split_and_refit() -> None:
+    """兼容名称仍执行当前problem-based方法。"""
 
     train = pd.DataFrame(
         {
             "item_id": [1, 2],
-            "period_1": [10, 20],
-            "period_2": [10, 20],
-            "period_3": [12, 18],
-            "period_4": [11, 19],
-            "period_5": [10, 20],
-            "period_6": [11, 21],
+            **{
+                f"period_{period}": [10 + period % 2, 20 + period % 3]
+                for period in range(1, 11)
+            },
         }
     )
     model = MeanVarianceBaseline(
-        BaselineConfig(validation_periods=2, z_min=0, z_max=2, z_step=0.5)
+        BaselineConfig(validation_periods=4, z_min=0, z_max=1, z_step=0.5)
     ).fit(train)
     artifacts = model.get_artifacts()
 
-    assert artifacts.fit_periods == 4
-    assert artifacts.validation_periods == 2
+    assert artifacts.fit_periods == 6
+    assert artifacts.validation_periods == 4
     assert len(artifacts.parameters) == 2
     assert (artifacts.parameters["s"] == artifacts.parameters["S"]).all()
-    assert artifacts.train_statistics["mean_demand"].tolist() == [10.666666666666666, 19.666666666666668]
+    assert artifacts.parameters["mean_demand"].tolist() == [10.5, 21.0]
 
 
 def test_fit_interface_does_not_accept_test_data() -> None:
-    """拟合接口只有 train_demand，防止把 test 指标用于参数选择。"""
-
-    import inspect
+    """拟合接口只有train需求，防止test参与参数选择。"""
 
     parameters = list(inspect.signature(MeanVarianceBaseline.fit).parameters)
     assert parameters == ["self", "train_demand"]

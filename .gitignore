@@ -32,9 +32,6 @@ outputs/figures/*
 !outputs/figures/.gitkeep
 outputs/tables/*
 !outputs/tables/.gitkeep
-!outputs/tables/time_series_comparison.csv
-!outputs/tables/time_series_summary.json
-!outputs/tables/time_series_test_per_item_metrics.csv
 outputs/models/*
 !outputs/models/.gitkeep
 
