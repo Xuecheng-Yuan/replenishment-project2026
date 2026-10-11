@@ -1,5 +1,29 @@
 # Replenishment Project 2026
 
+## 当前交付：四期滚动分布鲁棒补货
+
+可运行代码、可视化和最终结果位于[experiments/rolling_dro_v3](experiments/rolling_dro_v3/README.md)，采用**需求满足率（销量/需求）≥95%、提前期1、无额外盘点等待、缺货丢失**。包含特征聚类DRO、不分组DRO、爆品/长尾DRO、传统(s,S)和零半径经验模型，预测4期、只执行最近1期。
+
+完整测试集6000个SKU×28期上，爆品/长尾DRO需求满足率96.56%，库存需求比0.168340，低于传统(s,S)的0.172097，降低2.18%。库存需求比＝所有SKU、所有评价时期的期末库存之和÷总需求，越低越好。已按此指标重新选参并完整重跑。
+
+- [交付报告与文件导航](docs/rolling_dro_v3/DELIVERY_REPORT.md)
+- [图表与离线交互展示](experiments/rolling_dro_v3/visualization/README.md)
+- [最终数学模型与实验报告](experiments/rolling_dro_v3/outputs_v4/REPORT.md)
+- [Excel决策对照表](experiments/rolling_dro_v3/outputs_v4/replenishment_comparison.xlsx)
+- [特征聚类依据](docs/rolling_dro_v3/CLUSTERING.md)
+
+从仓库根目录运行：
+
+```bash
+python -m pip install -r experiments/rolling_dro_v3/requirements_v3.txt
+python experiments/rolling_dro_v3/run_v3.py
+python experiments/rolling_dro_v3/build_visualizations.py
+```
+
+默认使用`data/raw/`中的Git LFS原始Excel，也可通过`--data-dir`指定现有数据目录。详细复现和校验命令见实验目录README。
+
+## 既有problem-based基准（另一套评价口径）
+
 本项目研究单级、多SKU、周期复查库存系统中的补货决策。当前正式基准为 `problem_based_methods`：仅使用60期train估计需求分布和选择安全系数，冻结后在28期test上评价前4期与完整28期表现。
 
 ## 数据

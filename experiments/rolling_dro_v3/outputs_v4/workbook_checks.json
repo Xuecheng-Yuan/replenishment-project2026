@@ -1,0 +1,17 @@
+{
+  "workbook": "replenishment_comparison.xlsx",
+  "sheets": [
+    "结论",
+    "逐期比较",
+    "SKU汇总",
+    "决策明细示例",
+    "最近一期全部SKU"
+  ],
+  "summary_methods": 5,
+  "compared_period_rows": 140,
+  "sku_aggregate_rows": 6000,
+  "latest_decision_rows": 6000,
+  "illustrative_rows": 336,
+  "source_rows": 168000,
+  "status": "pass"
+}

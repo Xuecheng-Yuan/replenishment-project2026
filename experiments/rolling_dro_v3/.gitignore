@@ -1,0 +1,8 @@
+.cache/
+__pycache__/
+outputs_v4/*.inspect.ndjson
+outputs_v4/detail_*.csv
+outputs_v4/decision_comparison_full.csv
+outputs_v4/*.zip
+node_modules/
+rerun_checks/
