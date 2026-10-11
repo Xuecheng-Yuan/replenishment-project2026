@@ -45,5 +45,9 @@ book.close()
 check=dict(workbook='replenishment_comparison.xlsx',sheets=names,summary_methods=5,
            compared_period_rows=140,sku_aggregate_rows=6000,latest_decision_rows=6000,
            illustrative_rows=336,source_rows=len(full),status='pass')
-(out/'workbook_checks.json').write_text(json.dumps(check,ensure_ascii=False,indent=2),encoding='utf-8')
+check_path=out/'workbook_checks.json'
+# A read-only verification must not alter published SHA256 hashes on Linux.
+previous=json.loads(check_path.read_text(encoding='utf-8')) if check_path.exists() else None
+if previous!=check:
+    check_path.write_text(json.dumps(check,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps(check,ensure_ascii=False,indent=2))

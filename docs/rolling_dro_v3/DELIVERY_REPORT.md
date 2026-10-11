@@ -2,6 +2,8 @@
 
 交付日期：2026年10月11日。目标仓库：[Xuecheng-Yuan/replenishment-project2026](https://github.com/Xuecheng-Yuan/replenishment-project2026)。
 
+上传状态：代码及结果已发布到独立分支`codex/rolling-dro-delivery-20261011`，通过[Pull Request #1](https://github.com/Xuecheng-Yuan/replenishment-project2026/pull/1)交付，尚未合并到`main`。核心代码及结果提交为`0196364`，后续补充交付状态与跨平台核验说明。可以直接在PR的Files changed页或该分支中查阅所有文件。
+
 ## 结论与查阅入口
 
 当前可运行模型、可视化、Excel对照表及全量最终结果集中在`experiments/rolling_dro_v3/`，方法解读和交付说明集中在`docs/rolling_dro_v3/`。本次迁移完整重跑后，全部10行汇总结果与此前交付结果一致。
@@ -67,7 +69,7 @@ python experiments/rolling_dro_v3/build_visualizations.py
 - 完整轨迹gzip、发布哈希清单及离线HTML图表生成完成。
 - 离线HTML核验通过：140条逐期数据、5个策略选择、每策略28行显示及本地文件链接。
 
-重复验证命令见运行说明。持续集成只运行模型测试和已发布结果核对，不重新执行训练选参或下载LFS原始数据。首次GitHub运行结果需在仓库Actions页查看。
+重复验证命令见运行说明。持续集成只运行模型测试和已发布结果核对，不重新执行训练选参或下载LFS原始数据。[GitHub自动检查运行记录](https://github.com/Xuecheng-Yuan/replenishment-project2026/actions/workflows/rolling-dro-v3.yml)可查阅各提交的执行状态。
 
 ## 方法与结果的解释边界
 
