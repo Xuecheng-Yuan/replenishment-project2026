@@ -43,6 +43,6 @@
 | 4 | 1,210 | 173.43 | 1.1595 |
 | 5 | 1,491 | 227.66 | 1.1747 |
 
-第3组全部为爆品，其他组以长尾品为主；第2组含14个爆品，第4组含2个爆品。组号是无顺序标识。聚类DRO总体满足率96.55%，周转率41.477次；爆品/长尾DRO分别为96.56%与41.522次。各方法分别选择风险参数，比较同时包含分组与选参的效果。
+第3组全部为爆品，其他组以长尾品为主；第2组含14个爆品，第4组含2个爆品。组号是无顺序标识。聚类DRO总体满足率96.55%，库存需求比0.169025；爆品/长尾DRO分别为96.56%与0.168340。库存需求比为累计期末库存÷累计需求，越低越好。各方法分别选择风险参数，比较同时包含分组与选参的效果。
 
 代码位于[model_v2.py](../../experiments/rolling_dro_v3/model_v2.py)，实际标签在[cluster_assignment.csv](../../experiments/rolling_dro_v3/outputs_v4/cluster_assignment.csv)，风险组统计在[risk_group_profile.csv](../../experiments/rolling_dro_v3/outputs_v4/risk_group_profile.csv)。

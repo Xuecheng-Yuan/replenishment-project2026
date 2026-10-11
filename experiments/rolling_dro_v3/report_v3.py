@@ -10,44 +10,44 @@ ORDER=list(LABELS)
 def build_report(out:Path,runs,settings,forecast_scores,seconds):
     selected=settings['selected']
     baseline=runs['sS']['summary']
-    winner=max(ORDER,key=lambda m:runs[m]['summary']['turnover'] if runs[m]['summary']['fill_rate']>=.95 else -1)
+    winner=min(ORDER,key=lambda m:runs[m]['summary']['inventory_demand_ratio'] if runs[m]['summary']['fill_rate']>=.95 else float('inf'))
     main=runs[winner]['summary']; clustered=runs['DRO_cluster']['summary']
     valid=[m for m in ORDER if runs[m]['summary']['fill_rate']>=.95]
-    turnover_gain=main['turnover']/baseline['turnover']-1
+    ratio_change=main['inventory_demand_ratio']/baseline['inventory_demand_ratio']-1
     stock_change=main['avg_inventory_per_sku']/baseline['avg_inventory_per_sku']-1
     lines=[
         '# 多周期补货实验报告：三种分组的分布鲁棒策略',
         '',
         '## 一、结论先行',
         '',
-        f'**结论：三种分组的分布鲁棒模型均使用相同的需求预测、提前期与缺货处理；完整测试集上，满足95%需求满足率且库存周转率最高的方法为{LABELS[winner]}。**'
+        f'**结论：三种分组的分布鲁棒模型均使用相同的需求预测、提前期与缺货处理；完整测试集上，满足95%需求满足率且库存需求比最低的方法为{LABELS[winner]}。**'
         if valid else '**结论：本次所有方法均未达到95%需求满足率。**',
         '',
-        f'{LABELS[winner]}的需求满足率为 **{main["fill_rate"]:.2%}**，平均库存为 **{main["avg_inventory_per_sku"]:.2f} 件/品种**，**28期库存周转率为 {main["turnover"]:.3f} 次**。与传统(s,S)相比，库存周转率变化 **{turnover_gain:+.2%}**，平均库存变化 **{stock_change:+.2%}**。六类特征聚类DRO的对应结果为 **{clustered["fill_rate"]:.2%}**、**{clustered["turnover"]:.3f} 次**。各方法实际满足率略有不同，所以该对比是选定策略在本测试集上的表现。',
+        f'{LABELS[winner]}的需求满足率为 **{main["fill_rate"]:.2%}**，平均库存为 **{main["avg_inventory_per_sku"]:.2f} 件/品种**，**28期库存需求比为 {main["inventory_demand_ratio"]:.6f}**。与传统(s,S)相比，库存需求比变化 **{ratio_change:+.2%}**，平均库存变化 **{stock_change:+.2%}**。六类特征聚类DRO的对应结果为 **{clustered["fill_rate"]:.2%}**、**{clustered["inventory_demand_ratio"]:.6f}**。各方法实际满足率略有不同，所以该对比是选定策略在本测试集上的表现。',
         '',
         '支撑结论的证据依次是：①五种方法在同一测试路径上的服务与库存对照；②聚类、不分组、爆品/长尾三种DRO只改变风险样本分组；③库存与丢失销售遵守相同的提前期和滚动执行规则。以下先给结果，再解释模型，最后给复现方法。',
         '',
         '## 二、同一数据与时序下的比较',
         '',
-        '| 方法 | 需求满足率 | 是否达95% | 平均库存/品种 | 28期库存周转率（次） | 损失需求 |',
+        '| 方法 | 需求满足率 | 是否达95% | 平均库存/品种 | 28期库存需求比 | 损失需求 |',
         '|---|---:|:---:|---:|---:|---:|',
     ]
     for method in ORDER:
         s=runs[method]['summary']
-        lines.append(f'| {LABELS[method]} | {s["fill_rate"]:.2%} | {"是" if s["fill_rate"]>=.95 else "否"} | {s["avg_inventory_per_sku"]:.2f} | {s["turnover"]:.3f} | {s["lost_units"]:,.0f} |')
+        lines.append(f'| {LABELS[method]} | {s["fill_rate"]:.2%} | {"是" if s["fill_rate"]>=.95 else "否"} | {s["avg_inventory_per_sku"]:.2f} | {s["inventory_demand_ratio"]:.6f} | {s["lost_units"]:,.0f} |')
     lines.extend(['',
-        '需求满足率是总销量除以总需求。**库存周转率（28期，数量口径）=28期总销量÷28期平均在手库存**，单位为“次”，越高越好。每期平均在手库存取该期需求前可用库存与需求后库存的均值，再对28期取平均；缺货直接丢失，因此分子用实际销量，不用需求量。本数据没有单位成本，也没有每期对应的日历长度，所以不计算货币口径或年化周转率。完整测试期包含无法预先补货的第1期；`summary.csv` 另列第2–28期结果。',
+        '需求满足率是总销量除以总需求。**库存需求比（原项目口径）=所有SKU、所有评价周期的期末库存之和÷同期总需求，越低越好**。该指标无量纲，分母包括未满足的需求；不使用销量或平均在手库存。表中的平均在手库存仅作描述。完整测试期包含无法预先补货的第1期；`summary.csv` 另列第2–28期结果。',
         '',
         f'第1期起始在途库存设为0，只能销售原表中的初始库存，因此所有方法共享第1期损失 **{(runs["DRO_cluster"]["summary"]["lost_units"]-runs["DRO_cluster"]["controlled"]["lost_units"]):,.0f} 件**。第28期下单在第29期到货，单列 `final_pipeline`，不计入28期销量或在手库存。',
         '',
         '### 三种DRO的单一变化',
         '',
-        '| 变体 | 残差分组 | 训练期选定的目标 β | 鲁棒半径 ε | 测试满足率 | 28期库存周转率（次） |',
+        '| 变体 | 残差分组 | 训练期选定的目标 β | 鲁棒半径 ε | 测试满足率 | 28期库存需求比 |',
         '|---|---|---:|---:|---:|---:|',
     ])
     for method,description in [('DRO_cluster','6个特征聚类'),('DRO_global','所有6000品种共用1组'),('DRO_category','爆品/长尾共2组')]:
         s=runs[method]['summary']; p=selected[method]
-        lines.append(f'| {LABELS[method]} | {description} | {p["beta"]:.4f} | {p["radius"]:.3f} | {s["fill_rate"]:.2%} | {s["turnover"]:.3f} |')
+        lines.append(f'| {LABELS[method]} | {description} | {p["beta"]:.4f} | {p["radius"]:.6f} | {s["fill_rate"]:.2%} | {s["inventory_demand_ratio"]:.6f} |')
     lines.extend(['',
         '三种变体使用同一份SKU级点预测、同一需求实现路径和同一库存模拟。各自的 β 与 ε 在训练集内部验证后固定；因此表中的差异同时反映分组方式及各组独立选定的参数。`risk_group_profile.csv` 给出每组样本量与水位，`policy_validation.csv` 保留全部候选结果。',
         '',
@@ -110,19 +110,19 @@ def build_report(out:Path,runs,settings,forecast_scores,seconds):
         '',
         '代码还沿着四期预测均值路径计算远期的候选订单；那些订单不在本期执行。下一期真实需求出现后，更新状态、重新预测四期并只执行新的第一笔订单。未来状态的策略仍由当时已实现的需求决定。',
         '',
-        '本数据没有给出共享产能、预算、固定订货费或采购价格变化，所以各期的最低可行水位是即时补货：提前囤入的额外库存不会提高未来可达到的最低可行水位。四期计划因此可分解，报告不把远期计划描述成独立的周转收益。若增加跨期耦合约束，需重新求解真正耦合的多阶段模型。',
+        '本数据没有给出共享产能、预算、固定订货费或采购价格变化，所以各期的最低可行水位是即时补货：提前囤入的额外库存不会提高未来可达到的最低可行水位。四期计划因此可分解，报告不把远期计划描述成独立的库存需求比改善。若增加跨期耦合约束，需重新求解真正耦合的多阶段模型。',
         '',
         '### 5. 传统 (s,S) 基线与指标',
         '',
         '基线在相同预测 $m_{i,t+1}$ 上，用SKU残差与相应聚类残差的收缩经验分位得到两档水位：$s_{it}=m_{i,t+1}Q_i(p_s)$，$S_{it}=m_{i,t+1}Q_i(p_S)$。若需求后库存低于 $s_{it}$，订至 $S_{it}$，否则订单为零。训练验证允许 $p_s=p_S$，即包含每期订货至目标水位的特例。',
         '',
-        '$$\\mathrm{Fill}=\\frac{\\sum_{it}Y_{it}}{\\sum_{it}D_{it}},\\qquad \\overline I=\\frac1{28}\\sum_{t=1}^{28}\\sum_i\\frac{A_{it}+B_{it}}2,\\qquad \\mathrm{ITR}_{28}=\\frac{\\sum_{it}Y_{it}}{\\overline I}.$$',
+        '$$\\mathrm{Fill}=\\frac{\\sum_{it}Y_{it}}{\\sum_{it}D_{it}},\\qquad J_H=\\frac{\\sum_{t=1}^{H}\\sum_i B_{it}}{\\sum_{t=1}^{H}\\sum_i D_{it}},\\qquad \\min J_H\\quad\\mathrm{s.t.}\\quad\\mathrm{Fill}\\ge0.95.$$',
         '',
-        f'其中 $\\mathrm{{ITR}}_{{28}}$ 是28期库存周转率。以{LABELS[winner]}为例，销量 **{main["sales_units"]:,.0f} 件**，全仓平均在手库存 **{main["avg_inventory_per_sku"]*main["skus"]:,.2f} 件**，所以库存周转率为 **{main["turnover"]:.3f} 次**。',
+        f'其中 $J_H$ 是原项目的库存需求比，$H=28$。以{LABELS[winner]}为例，28期累计期末库存 **{main["ending_inventory_units"]:,.0f} 件**，总需求 **{main["demand_units"]:,.0f} 件**，所以库存需求比为 **{main["inventory_demand_ratio"]:.6f}**。原项目曾将该指标称为周转指标；本报告统一写为库存需求比，改善方向为降低。',
         '',
         '## 四、参数选择、可信范围与复现',
         '',
-        '预测参数和每种策略的风险参数均由训练集内部两个验证折选择：前向折拟合第1–36期、验证第37–60期；重启折拟合第29–60期、验证第1–28期。重启折是离线分块验证，用来对应测试集从Period_1重新起算的情形。对每个方法，候选需在重启折完整周期达到95%，并在前向折的可控制期达到按训练初始缺货预算修正的目标，然后按重启折平均库存最小选参。确认参数后，全部60期重新拟合；测试期只做评估。',
+        '预测参数和每种策略的风险参数均由训练集内部两个验证折选择：前向折拟合第1–36期、验证第37–60期；重启折拟合第29–60期、验证第1–28期。重启折是离线分块验证，用来对应测试集从Period_1重新起算的情形。对每个方法，候选需在重启折完整周期达到95%，并在前向折的可控制期达到按训练初始缺货预算修正的目标，然后按重启折库存需求比最小选参；并列时取前向折库存需求比更小的候选。确认参数后，全部60期重新拟合；测试期只做评估。',
         '',
         '先前版本已经用测试结果发现早期重启预测偏差，因而这次属于**修订后的重复测试**。此处结果不能当作从未看过测试集的独立泛化保证。训练和测试两份原始Excel的哈希与解析检查记在 `input_audit.json`，库存守恒及实际订单可用 `verify_results_v3.py` 复核。',
         '',

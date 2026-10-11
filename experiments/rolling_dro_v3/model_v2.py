@@ -167,8 +167,8 @@ def summarize(demand,sold,ending,commencing,orders):
     sales=sold.sum(); total=demand.sum()
     return dict(fill_rate=float(sales/total),cycle_service=float(np.mean(sold>=demand-1e-9)),
                 avg_inventory_per_sku=float(mean_stock/n),avg_ending_inventory_per_sku=float(end_stock/n),
-                turnover=float(sales/mean_stock) if mean_stock else float('inf'),
-                turnover_ending=float(sales/end_stock) if end_stock else float('inf'),
+                inventory_demand_ratio=float(ending.sum()/total) if total else float('nan'),
+                ending_inventory_units=float(ending.sum()),
                 demand_units=float(total),sales_units=float(sales),lost_units=float(total-sales),
                 order_units=float(orders.sum()),final_stock=float(ending[-1].sum()),
                 final_pipeline=float(orders[-1].sum()),periods=T,skus=n)

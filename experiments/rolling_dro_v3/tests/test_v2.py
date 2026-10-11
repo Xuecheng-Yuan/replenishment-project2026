@@ -4,11 +4,29 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import unittest
 import numpy as np
-from model_v2 import (Forecaster, make_forecasts, robust_fill_level,
+from model_v2 import (summarize, Forecaster, make_forecasts, robust_fill_level,
                       robust_fill_lp_check, simulate)
 
 
 class RevisedModelTests(unittest.TestCase):
+    def test_original_inventory_demand_ratio(self):
+        result=summarize(np.array([[10.],[20.]]),np.array([[8.],[12.]]),
+                         np.array([[2.],[3.]]),np.array([[10.],[15.]]),np.zeros((2,1)))
+        self.assertAlmostEqual(result['inventory_demand_ratio'],5/30)
+        self.assertEqual(result['ending_inventory_units'],5.)
+        self.assertAlmostEqual(result['fill_rate'],20/30)
+        self.assertNotIn('turnover',result)
+
+    def test_selection_minimizes_original_ratio(self):
+        from run_v3 import selected
+        rows=[dict(name='A',reset_fill=.96,forward_fill=.96,
+                   reset_inventory_ratio=.2,forward_inventory_ratio=.1),
+              dict(name='B',reset_fill=.96,forward_fill=.96,
+                   reset_inventory_ratio=.1,forward_inventory_ratio=.2),
+              dict(name='infeasible',reset_fill=.94,forward_fill=.96,
+                   reset_inventory_ratio=.01,forward_inventory_ratio=.01)]
+        self.assertEqual(selected(rows,.95)['name'],'B')
+
     def test_robust_root_matches_independent_lp(self):
         rng=np.random.default_rng(62)
         for beta in (.7,.95,.99):

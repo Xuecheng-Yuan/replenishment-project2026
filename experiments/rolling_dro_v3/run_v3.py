@@ -71,12 +71,12 @@ def variant_labels(cluster_labels,is_hot):
 def selected(candidates,forward_target,reset_target=.95):
     eligible=[r for r in candidates if r['forward_fill']>=forward_target and r['reset_fill']>=reset_target]
     if not eligible: return None
-    return min(eligible,key=lambda r:(r['reset_inventory'],r['forward_inventory']))
+    return min(eligible,key=lambda r:(r['reset_inventory_ratio'],r['forward_inventory_ratio']))
 
 
 def main():
     ap=argparse.ArgumentParser(description='Cluster/global/category DRO rolling inventory benchmark')
-    ap.add_argument('--data-dir',type=Path,default=ROOT.parents[1]/'data'/'raw')
+    ap.add_argument('--data-dir',type=Path,default=(ROOT.parents[1]/'data'/'raw' if (ROOT.parents[1]/'data'/'raw').is_dir() else ROOT.parent))
     ap.add_argument('--output-dir',type=Path,default=ROOT/'outputs_v4')
     ap.add_argument('--refresh-cache',action='store_true')
     args=ap.parse_args(); out=args.output_dir.resolve(); out.mkdir(parents=True,exist_ok=True)
@@ -126,8 +126,8 @@ def main():
                 sf=simulate(y[36:],initial,fc_f,zf)['controlled']
                 sr=simulate(y[:28],initial,fc_r,zr)['summary']
                 row=dict(method=method,beta=beta,radius=radius,forward_fill=sf['fill_rate'],
-                         forward_inventory=sf['avg_inventory_per_sku'],reset_fill=sr['fill_rate'],
-                         reset_inventory=sr['avg_inventory_per_sku'])
+                         forward_inventory_ratio=sf['inventory_demand_ratio'],reset_fill=sr['fill_rate'],
+                         reset_inventory_ratio=sr['inventory_demand_ratio'])
                 candidates.append(row); method_candidates.append(row)
         chosen[method]=selected(method_candidates,forward_target)
         if chosen[method] is None:
@@ -143,8 +143,8 @@ def main():
             sf=simulate(y[36:],initial,fc_f,lf,uf)['controlled']
             sr=simulate(y[:28],initial,fc_r,lr,ur)['summary']
             row=dict(method='sS',p_s=p,p_S=pS,forward_fill=sf['fill_rate'],
-                     forward_inventory=sf['avg_inventory_per_sku'],reset_fill=sr['fill_rate'],
-                     reset_inventory=sr['avg_inventory_per_sku'])
+                     forward_inventory_ratio=sf['inventory_demand_ratio'],reset_fill=sr['fill_rate'],
+                     reset_inventory_ratio=sr['inventory_demand_ratio'])
             candidates.append(row); ss_rows.append(row)
     chosen['sS']=selected(ss_rows,forward_target)
     if chosen['sS'] is None: raise RuntimeError('(s,S) has no training-feasible parameter')
@@ -155,8 +155,8 @@ def main():
         sf=simulate(y[36:],initial,fc_f,zf)['controlled']
         sr=simulate(y[:28],initial,fc_r,zr)['summary']
         row=dict(method='SAA',beta=beta,radius=0.,forward_fill=sf['fill_rate'],
-                 forward_inventory=sf['avg_inventory_per_sku'],reset_fill=sr['fill_rate'],
-                 reset_inventory=sr['avg_inventory_per_sku'])
+                 forward_inventory_ratio=sf['inventory_demand_ratio'],reset_fill=sr['fill_rate'],
+                 reset_inventory_ratio=sr['inventory_demand_ratio'])
         candidates.append(row); saa_rows.append(row)
     chosen['SAA']=selected(saa_rows,forward_target)
     if chosen['SAA'] is None: chosen['SAA']=max(saa_rows,key=lambda r:r['reset_fill'])
@@ -177,6 +177,8 @@ def main():
     frozen=dict(target_fill=target,forward_control_target=forward_target,forecast=settings,selected=chosen,
                 lead_time=1,review_period=0,horizon=4,test_periods_restart=True,
                 inventory_rule='after demand t, order; receive before demand t+1',
+                objective='minimize sum of period-ending inventory / sum of demand',
+                objective_metric='inventory_demand_ratio',objective_direction='min',
                 ambiguity='rectangular W-infinity balls around nonnegative relative residual samples',
                 selection='training-only forward and early-reset blocked validation',
                 test_used_in_prior_revision_diagnosis=True,training_periods=60,test_periods=28,skus=len(ids))
@@ -203,7 +205,7 @@ def main():
         if method=='sS': result=simulate(test,initial,forecasts,sslo,sshi,keep=True)
         else: result=simulate(test,initial,forecasts,multipliers[method],keep=True)
         runs[method]=result
-        print('[test]',method,'fill',round(result['summary']['fill_rate'],6),'turnover',round(result['summary']['turnover'],6),flush=True)
+        print('[test]',method,'fill',round(result['summary']['fill_rate'],6),'inventory_demand_ratio',round(result['summary']['inventory_demand_ratio'],6),flush=True)
     output_results(out,runs,test,forecasts,ids,labels,hot)
     forecast_scores=[]
     for h in range(4):

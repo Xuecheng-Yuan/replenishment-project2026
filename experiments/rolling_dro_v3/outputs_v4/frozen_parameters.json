@@ -12,45 +12,45 @@
       "beta": 0.9580576277958447,
       "radius": 0.1,
       "forward_fill": 0.9937332018155695,
-      "forward_inventory": 969.5374347826087,
+      "forward_inventory_ratio": 0.16731875437134477,
       "reset_fill": 0.9506763050922835,
-      "reset_inventory": 328.333875
+      "reset_inventory_ratio": 0.136262662824173
     },
     "DRO_global": {
       "method": "DRO_global",
       "beta": 0.9680576277958447,
       "radius": 0.05,
       "forward_fill": 0.99662590127956,
-      "forward_inventory": 1013.9409891304348,
+      "forward_inventory_ratio": 0.1962912306300961,
       "reset_fill": 0.9504945437502589,
-      "reset_inventory": 326.88002083333333
+      "reset_inventory_ratio": 0.13364539041849516
     },
     "DRO_category": {
       "method": "DRO_category",
       "beta": 0.9580576277958447,
       "radius": 0.1,
       "forward_fill": 0.9942693309178798,
-      "forward_inventory": 967.7021594202898,
+      "forward_inventory_ratio": 0.165793427362005,
       "reset_fill": 0.9516564835927209,
-      "reset_inventory": 328.7413392857143
+      "reset_inventory_ratio": 0.1365315738122853
     },
     "sS": {
       "method": "sS",
       "p_s": 0.75,
       "p_S": 0.85,
       "forward_fill": 0.9929290528395291,
-      "forward_inventory": 967.1537355072464,
+      "forward_inventory_ratio": 0.16608786648649881,
       "reset_fill": 0.9504238150489366,
-      "reset_inventory": 327.8877083333333
+      "reset_inventory_ratio": 0.13555781511402162
     },
     "SAA": {
       "method": "SAA",
       "beta": 0.9880576277958447,
       "radius": 0.0,
       "forward_fill": 0.9959332969417504,
-      "forward_inventory": 1020.6200724637681,
+      "forward_inventory_ratio": 0.20121306457068913,
       "reset_fill": 0.953528171926959,
-      "reset_inventory": 333.4789494047619
+      "reset_inventory_ratio": 0.14442066801534256
     }
   },
   "lead_time": 1,
@@ -58,6 +58,9 @@
   "horizon": 4,
   "test_periods_restart": true,
   "inventory_rule": "after demand t, order; receive before demand t+1",
+  "objective": "minimize sum of period-ending inventory / sum of demand",
+  "objective_metric": "inventory_demand_ratio",
+  "objective_direction": "min",
   "ambiguity": "rectangular W-infinity balls around nonnegative relative residual samples",
   "selection": "training-only forward and early-reset blocked validation",
   "test_used_in_prior_revision_diagnosis": true,

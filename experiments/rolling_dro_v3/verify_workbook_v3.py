@@ -14,15 +14,18 @@ methods=('DRO_cluster','DRO_global','DRO_category','sS','SAA')
 cover=book.worksheets[0]
 for row,method in enumerate(methods,start=7):
     source=summary.loc[method]
-    for letter,column in [('B','fill_rate'),('C','avg_inventory_per_sku'),('D','turnover'),('E','lost_units')]:
+    for letter,column in [('B','fill_rate'),('C','avg_inventory_per_sku'),('D','inventory_demand_ratio'),('E','lost_units')]:
         assert np.isclose(cover[f'{letter}{row}'].value,source[column]),(method,column)
     assert cover[f'G{row}'].value=='达到'
+    expected=source.inventory_demand_ratio/summary.loc['sS','inventory_demand_ratio']-1
+    assert np.isclose(cover[f'F{row}'].value,expected)
 period=pd.read_csv(out/'results_by_period.csv')
 period_sheet=book.worksheets[1]
 assert period_sheet.max_row==143
 for idx,record in enumerate(period.itertuples(index=False),start=4):
     assert period_sheet[f'A{idx}'].value==record.period
     assert np.isclose(period_sheet[f'C{idx}'].value,record.fill_rate)
+    assert np.isclose(period_sheet[f'I{idx}'].value,record.inventory_demand_ratio)
 sku=book.worksheets[2]; latest=book.worksheets[4]; sample=book.worksheets[3]
 assert sku.max_row==6003 and latest.max_row==6003 and sample.max_row==339
 full_path=out/'decision_comparison_full.csv'

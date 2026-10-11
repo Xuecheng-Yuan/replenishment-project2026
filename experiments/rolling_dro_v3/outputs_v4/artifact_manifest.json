@@ -80,8 +80,8 @@
     },
     {
       "file": "frozen_parameters.json",
-      "bytes": 2040,
-      "sha256": "7c82f8edae0aff0884b017695cc02713c0513cf94a38fe7da7dd9057c2dc405c"
+      "bytes": 2275,
+      "sha256": "0fc7702385fa7b740984afc4e45c4eae945add58984318b062efe04a336ea4e8"
     },
     {
       "file": "input_audit.json",
@@ -114,19 +114,24 @@
       "sha256": "63576d089bcc666e7afa4b075b9adcc8e3b3d72b5356c5b02e4dba583163e5f1"
     },
     {
+      "file": "period_workbook_preview.png",
+      "bytes": 120890,
+      "sha256": "4914f6d8effb383048ba1316885dec79e32f5ee629b210ded15ad1234784a7af"
+    },
+    {
       "file": "policy_validation.csv",
-      "bytes": 21610,
-      "sha256": "01b6626938b5eaa9366cc97b3f51c605edfb3fa4ed1318fe915114f90b23849f"
+      "bytes": 22104,
+      "sha256": "497493b1d44c50b15dc2890f247f2da409ad83eeddae381b2496239b67eb9d5f"
     },
     {
       "file": "replenishment_comparison.xlsx",
-      "bytes": 1216865,
-      "sha256": "75bd8b2b45a0ff3c2b91f3e048545a25b03ea0844fed9b497005cbd8da50bd40"
+      "bytes": 1217011,
+      "sha256": "ce4f865054abedbad053f791aa7a0809fe14dfb53602512314c0d4c4a5e0cd32"
     },
     {
       "file": "REPORT.md",
-      "bytes": 11397,
-      "sha256": "c195c6fa1c46dbfef02910130dfa40132e787b4018f3b373c15520975b60482c"
+      "bytes": 11476,
+      "sha256": "18aafc7444c2cd5f6232d504b157ba600763c941572cf9a05e786a3bfdeea386"
     },
     {
       "file": "result_checks.json",
@@ -135,8 +140,8 @@
     },
     {
       "file": "results_by_period.csv",
-      "bytes": 24856,
-      "sha256": "749f6d2d1ebdfa1c753c8b687e2dfd55ecd0096fa588defb3e0960892e8db272"
+      "bytes": 23719,
+      "sha256": "4fbac4e167b5e25c9fe2396431bdae4fac5936b853bda4bf9ff4327d92165051"
     },
     {
       "file": "risk_group_profile.csv",
@@ -145,13 +150,13 @@
     },
     {
       "file": "summary.csv",
-      "bytes": 2333,
-      "sha256": "4039f006f1b76590e34556ed61d225bfb8ffd2d66d5ff4efe2accdd859872240"
+      "bytes": 2290,
+      "sha256": "e1e759e518a20fdd068134c8d53fa27988ec9ba75877aef3fc5b9eef7e196ace"
     },
     {
       "file": "summary_by_segment.csv",
-      "bytes": 2186,
-      "sha256": "740f5ceea35b4e4b5832e3c84e0f9d0621d28365193630d885c8ba27a45b9101"
+      "bytes": 2138,
+      "sha256": "725bbe2fa372bcba8e3738a11ebb19c312f6d3fdb9d4afc7d619778a5ec7df8f"
     },
     {
       "file": "workbook_checks.json",
@@ -160,8 +165,8 @@
     },
     {
       "file": "workbook_preview.png",
-      "bytes": 157169,
-      "sha256": "2382d5dc9bf1a7eb9fb10a8c7504d6553d83f9d452591ecee74449e874df798e"
+      "bytes": 156776,
+      "sha256": "f61c6da5ecb922a5f98b5b2aff6a797022b0a2c2240024d78c2f84d2898cd903"
     }
   ]
 }

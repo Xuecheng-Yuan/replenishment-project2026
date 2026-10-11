@@ -26,8 +26,9 @@ for method in METHODS:
     if not ((orders>=0).all() and (orders==np.ceil(orders)).all() and (ending*lost==0).all()):
         raise AssertionError(f'{method}: order integrality or lost-sales rule failed')
     assert np.isclose(sales.sum()/y.sum(),results.loc[method,'fill_rate'])
-    turnover=sales.sum()/((available+ending)/2).sum()*T
-    assert np.isclose(turnover,results.loc[method,'turnover'])
+    inventory_ratio=ending.sum()/y.sum()
+    assert np.isclose(inventory_ratio,results.loc[method,'inventory_demand_ratio'])
+    assert np.isclose(ending.sum(),results.loc[method,'ending_inventory_units'])
     for h in range(1,5):
         np.testing.assert_array_equal(col(f'forecast_h{h}'),comparisons[f'forecast_h{h}'].to_numpy().reshape(T,n))
     report.append(dict(method=method,rows=len(frame),balances='pass',lead_time='pass',

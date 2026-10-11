@@ -4,7 +4,7 @@
 
 ## 五种策略的最终比较
 
-![需求满足率、28期库存周转率、平均库存](strategy_comparison.png)
+![需求满足率、库存需求比（越低越好）、平均库存](strategy_comparison.png)
 
 ## 28期滚动表现
 

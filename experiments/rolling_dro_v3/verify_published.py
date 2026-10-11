@@ -46,8 +46,9 @@ def main():
         for h in range(1, 5):
             np.testing.assert_array_equal(col(f'forecast_h{h}').ravel(), full[f'forecast_h{h}'])
         assert np.isclose(sales.sum()/demand.sum(), summary.loc[method, 'fill_rate'])
-        assert np.isclose(sales.sum()/((available+ending)/2).sum()*28,
-                          summary.loc[method, 'turnover'])
+        assert np.isclose(ending.sum()/demand.sum(),
+                          summary.loc[method, 'inventory_demand_ratio'])
+        assert np.isclose(ending.sum(), summary.loc[method, 'ending_inventory_units'])
         assert summary.loc[method, 'fill_rate'] >= .95
         check.append(dict(method=method, rows=len(detail), balances='pass',
                           lead_time='pass', integer_orders='pass', summary='pass'))
