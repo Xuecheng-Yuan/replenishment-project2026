@@ -1,1 +1,6 @@
 data/raw/*.xlsx filter=lfs diff=lfs merge=lfs -text
+# Preserve published SHA256 hashes across Windows/Linux checkouts.
+experiments/rolling_dro_v3/outputs_v4/* -text whitespace=cr-at-eol
+# Matplotlib emits valid SVG path data with trailing spaces.
+experiments/rolling_dro_v3/visualization/*.svg whitespace=-blank-at-eol
+experiments/rolling_dro_v3/visualization/index.html whitespace=-blank-at-eol

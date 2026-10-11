@@ -1,5 +1,27 @@
 # 项目目录与文件职责
 
+## 当前滚动DRO交付
+
+当前代码及最终结果在`experiments/rolling_dro_v3/`；中文交付报告和聚类解释在`docs/rolling_dro_v3/`。该实验使用“需求满足率≥95%”口径，与下方既有problem-based基准分别运行和保存。
+
+```text
+experiments/rolling_dro_v3/
+├── README.md                     # 运行、查看和核验说明
+├── run_v3.py                     # 当前五策略实验入口
+├── model_v2.py                   # 聚类、预测、DRO与库存模拟
+├── build_visualizations.py       # 普通Python生成图表和HTML
+├── publish_results.py           # gzip全量结果与哈希清单
+├── verify_published.py          # 无需重跑即可核验发布结果
+├── tests/test_v2.py             # 5项模型数学与因果性测试
+├── visualization/               # HTML、PNG、SVG展示
+└── outputs_v4/                  # 报告、Excel、CSV、完整CSV.gz轨迹
+docs/rolling_dro_v3/
+├── DELIVERY_REPORT.md
+└── CLUSTERING.md
+```
+
+## 既有目录
+
 ```text
 replenishment_project2026/
 ├── README.md
