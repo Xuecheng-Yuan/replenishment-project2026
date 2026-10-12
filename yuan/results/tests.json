@@ -1,0 +1,6 @@
+{
+  "tests_run": 42,
+  "passed": true,
+  "status": "All 42 snapshot tests passed: 39 in the existing torch environment and 3 estimator/MPC tests in the existing ds environment",
+  "full_private_data_training_repeated": false
+}

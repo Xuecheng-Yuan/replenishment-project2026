@@ -1,0 +1,292 @@
+[
+  {
+    "path": "common/__init__.py",
+    "sha256": "713929faf940f8632c93878f79cab73081ef20537e3cbe0c64fea25a6f53bc89",
+    "lines": 1
+  },
+  {
+    "path": "common/cli.py",
+    "sha256": "69bb2d4c943a7fc5809f3c00dc18b60e129aaf19361d486eb2036a15f6ad393f",
+    "lines": 97
+  },
+  {
+    "path": "common/data.py",
+    "sha256": "51cbf2b8af5c665242d2125bb70f19c2570bf3f887035690db1e3a8dbc222cae",
+    "lines": 62
+  },
+  {
+    "path": "common/evaluation.py",
+    "sha256": "f801f839aca110c61986188e6c0aa35455d9f8626a4cddb21227137154f3da7e",
+    "lines": 183
+  },
+  {
+    "path": "common/features.py",
+    "sha256": "87263953130b77266428600cc30e35042e49bcffb8de6234cd5ecc1680145bc0",
+    "lines": 138
+  },
+  {
+    "path": "common/lead_one_evaluation.py",
+    "sha256": "270f6b8098cf575c375fdfc01e09cfabad44da1f24d91955d6ecede6e1927866",
+    "lines": 57
+  },
+  {
+    "path": "common/lead_one_training.py",
+    "sha256": "0397d3c36b2987e1abfba21d6639b275ab211e18f2a5b50c23262d903e0d6a17",
+    "lines": 33
+  },
+  {
+    "path": "common/ml_training.py",
+    "sha256": "be140b01665361ae55624ca62f7bace3b6341f5cd699d0aab99d60c160a7742d",
+    "lines": 303
+  },
+  {
+    "path": "common/policy_state.py",
+    "sha256": "a386787c6e7937e87d6b03776fc60f56af43d868b47e68f05c4ee6504b60ee94",
+    "lines": 193
+  },
+  {
+    "path": "common/prepare.py",
+    "sha256": "e97b3cc45be29ad5b7d7c97b7383aaf5e196beb056f83ef1eddc3eb0df238883",
+    "lines": 137
+  },
+  {
+    "path": "common/ready_evaluation.py",
+    "sha256": "e52cdf7a70eb0cb0b199f9001cbb5f2c404fa718b4c965a793e2c83284645ec8",
+    "lines": 69
+  },
+  {
+    "path": "common/ready_training.py",
+    "sha256": "f659496a6eb6f951c94b0d405bd7a7135dc78f68d33b45469b0ba7f43d0df832",
+    "lines": 108
+  },
+  {
+    "path": "common/regressors.py",
+    "sha256": "cdecbbdd54675fc5dc6b2317878087956f1e8052f653b7dc3eaa29cb0cf5b4fd",
+    "lines": 31
+  },
+  {
+    "path": "common/trajectories.py",
+    "sha256": "c4c343105e991ffe55487f907e96122573ba60853e108ac95d9b866e199d6601",
+    "lines": 146
+  },
+  {
+    "path": "common/ts_runner.py",
+    "sha256": "27c89b7d020eb8b0ea10dbd54bea19655bf7219257bd64628752374496b1074f",
+    "lines": 50
+  },
+  {
+    "path": "common/ts_support.py",
+    "sha256": "a371b4257575250e7d30aa99c2ddf7772e78e2c0ab81a9d1fce7159810182152",
+    "lines": 42
+  },
+  {
+    "path": "common/ts_training.py",
+    "sha256": "ae3cf073021d2165820148358a184c65158a0a6d8bcac69dd11a6466be285985",
+    "lines": 148
+  },
+  {
+    "path": "models/__init__.py",
+    "sha256": "d98f2b40e4e12a73e80f296d0a7f151c9b184cb4ade4208d92390719a0de66c0",
+    "lines": 1
+  },
+  {
+    "path": "models/adaptive_mpc.py",
+    "sha256": "9efb0b751f2b9bfa1cfaeaae84584103016c3706117d53b9fe1bdaa44d330d70",
+    "lines": 618
+  },
+  {
+    "path": "models/arima.py",
+    "sha256": "13fe9d171fc3a70fd77706ac450be56a11a74d3c5b39899b38e67a4082c10b47",
+    "lines": 114
+  },
+  {
+    "path": "models/baseline.py",
+    "sha256": "3f502560e9c9840ea920d7600f9b2f489f372af61f045717aa846e9feb5a3f8a",
+    "lines": 162
+  },
+  {
+    "path": "models/catboost.py",
+    "sha256": "b1afefe88ba7a53a5d14223000693b06a9370bf468b4d9831bd67b89849bd0cb",
+    "lines": 29
+  },
+  {
+    "path": "models/dfl_improved.py",
+    "sha256": "e1e992845b38165c6eeb3bfbbda46eb127cc705c255735c669fd5bee5bb4c406",
+    "lines": 239
+  },
+  {
+    "path": "models/direct_lightgbm.py",
+    "sha256": "a79a4ad45f622b6346383c31692d054c82a06eb3484f88e12e51a417c9350763",
+    "lines": 320
+  },
+  {
+    "path": "models/direct_xgboost.py",
+    "sha256": "5c13b0e44f651dd49f57d6cb45b147180de782ddbf6581dce3c19eb181ad1d96",
+    "lines": 358
+  },
+  {
+    "path": "models/dro_chi_square.py",
+    "sha256": "3f93c6f1112f5f8184345f230b1aa0379d4947f9dddae634fd13f12700c88a30",
+    "lines": 294
+  },
+  {
+    "path": "models/dro_moment.py",
+    "sha256": "89d8b3f96a62c0af592211a5048fc676d6a34265155cbc78d8139ffd4d011a1b",
+    "lines": 294
+  },
+  {
+    "path": "models/dro_wasserstein.py",
+    "sha256": "49e6233c5b0bdfb1fba65779f05be15e25e6ef544c2ad15c9d2d23dbf8ae6ece",
+    "lines": 294
+  },
+  {
+    "path": "models/elastic_net.py",
+    "sha256": "8cd7d4131b92572092755ebdf8379ea4b41f2599993634372a8d5a76991e7a08",
+    "lines": 32
+  },
+  {
+    "path": "models/exponential_smoothing.py",
+    "sha256": "d4fc4a2100499e4f6dd23f000c0c6153ae3395d30c1a216af3598893fca96655",
+    "lines": 59
+  },
+  {
+    "path": "models/lasso.py",
+    "sha256": "b57b365c4673fcac700835deab5bfb49ed9736283cf770490b414f8f679163b3",
+    "lines": 32
+  },
+  {
+    "path": "models/lightgbm.py",
+    "sha256": "440e2ffb974ef5d5d9470ce7a42ad5f2b45d5681c84bc26c2c9cb035e96eb99c",
+    "lines": 29
+  },
+  {
+    "path": "models/lightgbm_spo.py",
+    "sha256": "e98fe4a98936357226d986952934f60bf7d90b1bea81a1887382164f2bf03665",
+    "lines": 292
+  },
+  {
+    "path": "models/linear_regression.py",
+    "sha256": "3816da3394e73ed85fac65df8279b0a0dc136d6e95f8eaa111266d56bf4d7802",
+    "lines": 32
+  },
+  {
+    "path": "models/moving_average.py",
+    "sha256": "ded68d988473e07db9398748136f7fd0c75d0684ba0f1090292736ca232890d4",
+    "lines": 33
+  },
+  {
+    "path": "models/naive.py",
+    "sha256": "bbe5c61d5fe1659e44456c5813068df521dc4d51b2cf70088d328307569c7a7d",
+    "lines": 30
+  },
+  {
+    "path": "models/nn_scenario.py",
+    "sha256": "9b9a686e1fc34def01c8deb8e4b5b09fd9b8ffbb03f91bb7dbef69159a67905c",
+    "lines": 592
+  },
+  {
+    "path": "models/online_learning.py",
+    "sha256": "b3d719d28015af009ce209f6215ee127fd4c9a75126d4e97ee7558bf92adaee8",
+    "lines": 220
+  },
+  {
+    "path": "models/random_forest.py",
+    "sha256": "5cfcad40093588c2d75fb8b17f5fa56685ceb4020d14d078f3960c24cb4d075e",
+    "lines": 30
+  },
+  {
+    "path": "models/ridge.py",
+    "sha256": "608bd1a6edeb83b1753ae208d7f97c5e39c79c1da3dd520cecb7fead025e9910",
+    "lines": 32
+  },
+  {
+    "path": "models/service_policy.py",
+    "sha256": "8438768cebae7378858d6df8b4c529c7090afe9aef1f7255c8dfc69422643d03",
+    "lines": 236
+  },
+  {
+    "path": "models/spo_linear.py",
+    "sha256": "35057f356a2694e3b96e3564e7d8c31a1fa0418994a19c3e54e8cc4d9ca5c3c6",
+    "lines": 367
+  },
+  {
+    "path": "models/svr.py",
+    "sha256": "46ec3770b6e80b2d128086a6192a4f990a1a22dcaf26b197f7978bf2ac3ac528",
+    "lines": 35
+  },
+  {
+    "path": "models/turnover_dfl.py",
+    "sha256": "aac4882ef214761ed7e3c6df48c908216082050d8a7641a00ff81d242bf0f309",
+    "lines": 223
+  },
+  {
+    "path": "models/xgboost.py",
+    "sha256": "7d9fd7fd867fc40883fb0ad5a3456219e2a7b789c44106c21777e6f7bcdb7e94",
+    "lines": 29
+  },
+  {
+    "path": "models/xgboost_spo.py",
+    "sha256": "478cda11459ec1b6e1f99b1f1a2c50e955cbcb08e35d1c0eb4b1377c56d145dc",
+    "lines": 393
+  },
+  {
+    "path": "tests/test_dro.py",
+    "sha256": "ea8e8d8aee7627202100f346570e10e63178a4160e3b57051bf71e3ac923056b",
+    "lines": 29
+  },
+  {
+    "path": "tests/test_inventory_evaluator.py",
+    "sha256": "5c180fef112f0209430eae25655d518836faaa21a75ced0fc99da47680ec2467",
+    "lines": 55
+  },
+  {
+    "path": "tests/test_lead_one_ready_rate.py",
+    "sha256": "72d71d7a24587c1ff90d4d207855f6ace987a16e8f28302345a9d4b9648d2ba4",
+    "lines": 25
+  },
+  {
+    "path": "tests/test_ml_features.py",
+    "sha256": "23431aa24ebc6089468dbb9b2d17cdde073a9250f7bfe5baae03d8a839258143",
+    "lines": 32
+  },
+  {
+    "path": "tests/test_ready_rate_evaluator.py",
+    "sha256": "c298fe44e24fc8062390c35c1db905660406933b32199f49e764b36e25660f4e",
+    "lines": 28
+  },
+  {
+    "path": "tests/test_ready_rate_improved.py",
+    "sha256": "4f778d7756e8ab0711ef7053b8bc08f846101cb07b172a633a579d9a38768e30",
+    "lines": 36
+  },
+  {
+    "path": "tests/test_restructured_models.py",
+    "sha256": "6bc11cafbdd303435847c6b3e389dd579a9bca7c1c37f57d7198169dc2464b4c",
+    "lines": 39
+  },
+  {
+    "path": "tests/test_service_constrained_policy.py",
+    "sha256": "d7220a923488c3ffd46d3a79fea875ce22a731d401359c00920479645cad5547",
+    "lines": 57
+  },
+  {
+    "path": "tests/test_spo_plus.py",
+    "sha256": "ac4673067f572664799390ccbf51db73ce3fddbf8bcaa33438f5ee7382125cbf",
+    "lines": 116
+  },
+  {
+    "path": "tests/test_time_series_forecasters.py",
+    "sha256": "406fb2dfed188c3a2dd420f327d1623dd4f1380e97e9b9e6808dd52d55dde361",
+    "lines": 27
+  },
+  {
+    "path": "tests/test_turnover_task.py",
+    "sha256": "825c1cf866f3ab5495384d106b42a739f53f7155dc248fca26d0255fda8c07f7",
+    "lines": 29
+  },
+  {
+    "path": "verify.py",
+    "sha256": "527fcbcbd9c9ba20bde6d606e2f9b30de716bfcbe374f5a40016109dd67e23ba",
+    "lines": 79
+  }
+]

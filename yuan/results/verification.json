@@ -1,0 +1,206 @@
+{
+  "kind": "source_restructuring_not_new_model_training",
+  "models": 28,
+  "result_variants": 125,
+  "syntax_checked": 58,
+  "runtime": [
+    {
+      "model": "baseline",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "naive",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "moving_average",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "exponential_smoothing",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "arima",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "linear_regression",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "ridge",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "lasso",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "elastic_net",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "svr",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "random_forest",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "xgboost",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "lightgbm",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "catboost",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "dro_moment",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "dro_wasserstein",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "dro_chi_square",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "spo_linear",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "xgboost_spo",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "lightgbm_spo",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "direct_xgboost",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "direct_lightgbm",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "service_policy",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "nn_scenario",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "dfl_improved",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "adaptive_mpc",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "online_learning",
+      "passed": [
+        "default",
+        "help"
+      ]
+    },
+    {
+      "model": "turnover_dfl",
+      "passed": [
+        "default",
+        "help"
+      ]
+    }
+  ],
+  "passed": true,
+  "limitation": "No full private-data training of all models repeated; old service failures remain failures."
+}

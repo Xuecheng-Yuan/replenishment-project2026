@@ -1,0 +1,153 @@
+{
+  "normalized_mathematical_bodies_checked": 29,
+  "mathematical_bodies": [
+    {
+      "model_file": "models/naive.py",
+      "symbol": "naive_path",
+      "normalized_ast_sha256": "6bb71fbf468a54c8cd1030da97110b76ba234329a0341b73f711d841fab69f76"
+    },
+    {
+      "model_file": "models/moving_average.py",
+      "symbol": "moving_average_path",
+      "normalized_ast_sha256": "ad059abeacf81977f99d66bbf503b0c001e0e24f0e9b3575556694430b6fed7d"
+    },
+    {
+      "model_file": "models/exponential_smoothing.py",
+      "symbol": "exponential_smoothing_path",
+      "normalized_ast_sha256": "a6f6b6e9bb3d0f30a5f5ab0bc4872e444b27a0fae30d7872f6c901a6fc85c1ce"
+    },
+    {
+      "model_file": "models/arima.py",
+      "symbol": "arima_paths",
+      "normalized_ast_sha256": "8b4ee89d4201b2dbd21499603ae00dd3901d3251c4bb228210eab300149f55fa"
+    },
+    {
+      "model_file": "models/arima.py",
+      "symbol": "_best_arima",
+      "normalized_ast_sha256": "3ba73a7442b7e0ff60c4ab04dac6717f05f2fcf8ddec26f121046065f0653ee8"
+    },
+    {
+      "model_file": "models/arima.py",
+      "symbol": "_rolling_arima",
+      "normalized_ast_sha256": "921577aab9bc062d61c291dcd950fe92df8617b4126020209d37ddcc091cb6bc"
+    },
+    {
+      "model_file": "models/spo_linear.py",
+      "symbol": "SPOPlusLinear",
+      "normalized_ast_sha256": "966c0d54be84d426a67d55a2fd1185b72e56008c3a2b20d8760e0da5d9b16c98"
+    },
+    {
+      "model_file": "models/spo_linear.py",
+      "symbol": "action_costs",
+      "normalized_ast_sha256": "32fe4f39d0f7d7f7ab75bffac6e21e19a1f4a5ae59ce8242a7a772899e86eea0"
+    },
+    {
+      "model_file": "models/spo_linear.py",
+      "symbol": "action_targets",
+      "normalized_ast_sha256": "ff17b7562576ca28c6f764cf4d15fd52fb5e4a521af331c9529d1387421efee0"
+    },
+    {
+      "model_file": "models/xgboost_spo.py",
+      "symbol": "hybrid_grad_hess",
+      "normalized_ast_sha256": "97d07649fc640c89a7f68ce5cc3717f6eb1ffc248fb43313e1e826d743e3783d"
+    },
+    {
+      "model_file": "models/xgboost_spo.py",
+      "symbol": "XGBSPOHybrid",
+      "normalized_ast_sha256": "e27574bacdc6737d77f46abd0b5e084cf59ae8fe4f73d8c707251b210f94cb14"
+    },
+    {
+      "model_file": "models/lightgbm_spo.py",
+      "symbol": "LGBMSPOHybrid",
+      "normalized_ast_sha256": "81f31deba5a41c47e170e3e197cbdcebce3a22be6f8e391a8b1b6a7a0bc0b782"
+    },
+    {
+      "model_file": "models/direct_lightgbm.py",
+      "symbol": "direct_spo_rank_grad_hess",
+      "normalized_ast_sha256": "c08e8a4ebfba5ea9b661a2daa0af8c42b9b4f7537ea355ca9ec4c3c4fe8ce6ae"
+    },
+    {
+      "model_file": "models/direct_lightgbm.py",
+      "symbol": "LGBMDirectSPOPolicy",
+      "normalized_ast_sha256": "e8b7df08bf0d687cbf0cad90785aca41c98ea7af45113af917c03da42546391e"
+    },
+    {
+      "model_file": "models/service_policy.py",
+      "symbol": "ServicePolicy",
+      "normalized_ast_sha256": "1ad187a5c8df82f9c5bdf4b8e153f9337716d2743a05fd1e670ec13eae8a40ad"
+    },
+    {
+      "model_file": "models/service_policy.py",
+      "symbol": "rollout",
+      "normalized_ast_sha256": "84691aba9e272e56541856dd6089dbf8e3f0db7552a26594746d9878f1876bcb"
+    },
+    {
+      "model_file": "models/service_policy.py",
+      "symbol": "service_loss",
+      "normalized_ast_sha256": "41afc46f2510a8a92fdb5fb1aa996389c514677217ff0cbe3923c444f24a5dea"
+    },
+    {
+      "model_file": "models/nn_scenario.py",
+      "symbol": "GlobalDemandNet",
+      "normalized_ast_sha256": "8af37f6824c771860486b600c2578c7ad5e6b3b7801ba083013e5beb4fb8fd48"
+    },
+    {
+      "model_file": "models/nn_scenario.py",
+      "symbol": "gaussian_nll_log1p",
+      "normalized_ast_sha256": "42f338a036bc25da4ad5211c39cf98e5030442f0c3243bced74e773c095cc6cb"
+    },
+    {
+      "model_file": "models/dfl_improved.py",
+      "symbol": "order",
+      "normalized_ast_sha256": "b87bbd328e560b61051f60737350f097e4a1409029ab5109685c099bb6a0cf0f"
+    },
+    {
+      "model_file": "models/dfl_improved.py",
+      "symbol": "project_capacity",
+      "normalized_ast_sha256": "8004db15041780bc54a3d8430aef66fedcc22c8927e8d1933eedbcdbcd9c0839"
+    },
+    {
+      "model_file": "models/dfl_improved.py",
+      "symbol": "ready_surrogate",
+      "normalized_ast_sha256": "f368e7899ea868af2c4911d4bc67a31f2a8053570e0b9d6ab84beac27284f468"
+    },
+    {
+      "model_file": "models/adaptive_mpc.py",
+      "symbol": "ScenarioPolicy",
+      "normalized_ast_sha256": "fdc4d7e642d9087bcdef930db04f83900701609f9cfb864e82ba070f0d1d07dd"
+    },
+    {
+      "model_file": "models/adaptive_mpc.py",
+      "symbol": "simulate",
+      "normalized_ast_sha256": "13448ba7cf7dd8a700d59c804db3eced02074ed20f2a959fb171ce107f7bf834"
+    },
+    {
+      "model_file": "models/adaptive_mpc.py",
+      "symbol": "project_orders",
+      "normalized_ast_sha256": "b3efe73f86b83202a58200ddc2c3c605081a9a9b7bfe78108ca29e4abcbaf522"
+    },
+    {
+      "model_file": "models/online_learning.py",
+      "symbol": "Learner",
+      "normalized_ast_sha256": "afacea1ceeafe1ad11a0e51d2cd77779e16ef4b506f7dfb38cab11c590cc935d"
+    },
+    {
+      "model_file": "models/online_learning.py",
+      "symbol": "evaluate",
+      "normalized_ast_sha256": "a4295ceee068c5f093e0d3bd85414b6d1c3013cbb91b11b7012850f3cec58b61"
+    },
+    {
+      "model_file": "models/turnover_dfl.py",
+      "symbol": "window_loss",
+      "normalized_ast_sha256": "72d85156154d13506c33782e3a8657bf5963d527b653600a8eeec62cc44cb216"
+    },
+    {
+      "model_file": "models/turnover_dfl.py",
+      "symbol": "train_epoch",
+      "normalized_ast_sha256": "b7b5ee4b7eb65a0d5aef7bab555255a9e1c278a89f40847755f239598f770d3b"
+    }
+  ],
+  "historical_records_unchanged": 125,
+  "passed": true,
+  "method": "AST equality after import/path transformation; plus separate numerical unit tests, not full retraining"
+}

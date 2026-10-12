@@ -1,0 +1,427 @@
+[
+  {
+    "name": "baseline",
+    "code": "models/baseline.py",
+    "doc": "docs/baseline.md",
+    "historical_entries": [
+      "014_legacy_baseline",
+      "034_immediate_historical_baseline",
+      "052_lead1_historical_baseline_no_safety",
+      "053_lead1_historical_baseline_fixed_z4_reference"
+    ],
+    "groups": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "name": "naive",
+    "code": "models/naive.py",
+    "doc": "docs/naive.md",
+    "historical_entries": [
+      "016_legacy_naive"
+    ],
+    "groups": [
+      "A"
+    ]
+  },
+  {
+    "name": "moving_average",
+    "code": "models/moving_average.py",
+    "doc": "docs/moving_average.md",
+    "historical_entries": [
+      "008_legacy_moving_average_12",
+      "024_legacy_moving_average_3",
+      "025_legacy_moving_average_6"
+    ],
+    "groups": [
+      "A"
+    ]
+  },
+  {
+    "name": "exponential_smoothing",
+    "code": "models/exponential_smoothing.py",
+    "doc": "docs/exponential_smoothing.md",
+    "historical_entries": [
+      "017_legacy_exponential_smoothing"
+    ],
+    "groups": [
+      "A"
+    ]
+  },
+  {
+    "name": "arima",
+    "code": "models/arima.py",
+    "doc": "docs/arima.md",
+    "historical_entries": [
+      "023_legacy_arima"
+    ],
+    "groups": [
+      "A"
+    ]
+  },
+  {
+    "name": "linear_regression",
+    "code": "models/linear_regression.py",
+    "doc": "docs/linear_regression.md",
+    "historical_entries": [
+      "022_legacy_linear_regression",
+      "035_immediate_linear_regression",
+      "054_lead1_linear_regression_no_safety",
+      "055_lead1_linear_regression_fixed_z4_reference"
+    ],
+    "groups": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "name": "ridge",
+    "code": "models/ridge.py",
+    "doc": "docs/ridge.md",
+    "historical_entries": [
+      "019_legacy_ridge",
+      "036_immediate_ridge",
+      "056_lead1_ridge_no_safety",
+      "057_lead1_ridge_fixed_z4_reference"
+    ],
+    "groups": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "name": "lasso",
+    "code": "models/lasso.py",
+    "doc": "docs/lasso.md",
+    "historical_entries": [
+      "018_legacy_lasso",
+      "037_immediate_lasso",
+      "058_lead1_lasso_no_safety",
+      "059_lead1_lasso_fixed_z4_reference"
+    ],
+    "groups": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "name": "elastic_net",
+    "code": "models/elastic_net.py",
+    "doc": "docs/elastic_net.md",
+    "historical_entries": [
+      "021_legacy_elastic_net",
+      "038_immediate_elastic_net",
+      "060_lead1_elastic_net_no_safety",
+      "061_lead1_elastic_net_fixed_z4_reference"
+    ],
+    "groups": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "name": "svr",
+    "code": "models/svr.py",
+    "doc": "docs/svr.md",
+    "historical_entries": [
+      "015_legacy_svr",
+      "039_immediate_svr",
+      "062_lead1_svr_no_safety",
+      "063_lead1_svr_fixed_z4_reference"
+    ],
+    "groups": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "name": "random_forest",
+    "code": "models/random_forest.py",
+    "doc": "docs/random_forest.md",
+    "historical_entries": [
+      "020_legacy_random_forest",
+      "040_immediate_random_forest",
+      "064_lead1_random_forest_no_safety",
+      "065_lead1_random_forest_fixed_z4_reference"
+    ],
+    "groups": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "name": "xgboost",
+    "code": "models/xgboost.py",
+    "doc": "docs/xgboost.md",
+    "historical_entries": [
+      "003_legacy_xgboost",
+      "041_immediate_xgboost",
+      "066_lead1_xgboost_no_safety",
+      "067_lead1_xgboost_fixed_z4_reference"
+    ],
+    "groups": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "name": "lightgbm",
+    "code": "models/lightgbm.py",
+    "doc": "docs/lightgbm.md",
+    "historical_entries": [
+      "001_legacy_lightgbm",
+      "042_immediate_lightgbm",
+      "068_lead1_lightgbm_no_safety",
+      "069_lead1_lightgbm_fixed_z4_reference"
+    ],
+    "groups": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "name": "catboost",
+    "code": "models/catboost.py",
+    "doc": "docs/catboost.md",
+    "historical_entries": [
+      "005_legacy_catboost",
+      "043_immediate_catboost",
+      "070_lead1_catboost_no_safety",
+      "071_lead1_catboost_fixed_z4_reference"
+    ],
+    "groups": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "name": "dro_moment",
+    "code": "models/dro_moment.py",
+    "doc": "docs/dro_moment.md",
+    "historical_entries": [
+      "012_legacy_moment_dro_ma12"
+    ],
+    "groups": [
+      "A"
+    ]
+  },
+  {
+    "name": "dro_wasserstein",
+    "code": "models/dro_wasserstein.py",
+    "doc": "docs/dro_wasserstein.md",
+    "historical_entries": [
+      "009_legacy_wasserstein_dro_ma12"
+    ],
+    "groups": [
+      "A"
+    ]
+  },
+  {
+    "name": "dro_chi_square",
+    "code": "models/dro_chi_square.py",
+    "doc": "docs/dro_chi_square.md",
+    "historical_entries": [
+      "010_legacy_chi_square_dro_ma12"
+    ],
+    "groups": [
+      "A"
+    ]
+  },
+  {
+    "name": "spo_linear",
+    "code": "models/spo_linear.py",
+    "doc": "docs/spo_linear.md",
+    "historical_entries": [
+      "011_legacy_spo_plus_linear"
+    ],
+    "groups": [
+      "A"
+    ]
+  },
+  {
+    "name": "xgboost_spo",
+    "code": "models/xgboost_spo.py",
+    "doc": "docs/xgboost_spo.md",
+    "historical_entries": [
+      "002_legacy_xgb_spo_hybrid"
+    ],
+    "groups": [
+      "A"
+    ]
+  },
+  {
+    "name": "lightgbm_spo",
+    "code": "models/lightgbm_spo.py",
+    "doc": "docs/lightgbm_spo.md",
+    "historical_entries": [
+      "004_legacy_lgbm_spo_hybrid"
+    ],
+    "groups": [
+      "A"
+    ]
+  },
+  {
+    "name": "direct_xgboost",
+    "code": "models/direct_xgboost.py",
+    "doc": "docs/direct_xgboost.md",
+    "historical_entries": [
+      "006_legacy_direct_xgb_spo_rollout",
+      "013_legacy_direct_xgb_spo_one_step"
+    ],
+    "groups": [
+      "A"
+    ]
+  },
+  {
+    "name": "direct_lightgbm",
+    "code": "models/direct_lightgbm.py",
+    "doc": "docs/direct_lightgbm.md",
+    "historical_entries": [
+      "007_legacy_direct_lgbm_spo_rank"
+    ],
+    "groups": [
+      "A"
+    ]
+  },
+  {
+    "name": "service_policy",
+    "code": "models/service_policy.py",
+    "doc": "docs/service_policy.md",
+    "historical_entries": [
+      "026_service_primal_dual_rho100_seed42",
+      "027_service_primal_dual_rho500_seed42",
+      "028_service_dual_no_square_seed42",
+      "029_service_fixed_shortage_seed42",
+      "030_service_history_only_seed42",
+      "031_service_primal_dual_rho100_seed7",
+      "032_service_primal_dual_rho100_seed2026",
+      "033_service_service_constrained_policy"
+    ],
+    "groups": [
+      "A"
+    ]
+  },
+  {
+    "name": "nn_scenario",
+    "code": "models/nn_scenario.py",
+    "doc": "docs/nn_scenario.md",
+    "historical_entries": [
+      "044_immediate_nn_deterministic",
+      "045_immediate_nn_stochastic",
+      "046_immediate_nn_robust",
+      "047_immediate_dfl_robust_selected",
+      "048_immediate_dfl_robust_3epochs"
+    ],
+    "groups": [
+      "B"
+    ]
+  },
+  {
+    "name": "dfl_improved",
+    "code": "models/dfl_improved.py",
+    "doc": "docs/dfl_improved.md",
+    "historical_entries": [
+      "049_improved_nn_inventory_gap",
+      "050_improved_nn_projected",
+      "051_improved_dfl_v2_selected"
+    ],
+    "groups": [
+      "B"
+    ]
+  },
+  {
+    "name": "adaptive_mpc",
+    "code": "models/adaptive_mpc.py",
+    "doc": "docs/adaptive_mpc.md",
+    "historical_entries": [
+      "072_adaptive_scenario_mpc_ablation_horizon_one",
+      "073_adaptive_scenario_mpc_ablation_no_adaptation",
+      "074_adaptive_scenario_mpc_ablation_no_buffer",
+      "075_adaptive_scenario_mpc_ablation_no_inner_optimization",
+      "076_adaptive_scenario_mpc_full_ablation_group_only_buffer",
+      "077_adaptive_scenario_mpc_full_ablation_no_adaptation",
+      "078_adaptive_scenario_mpc_full_ablation_no_optimization",
+      "079_adaptive_scenario_mpc_full_ablation_one_period",
+      "080_adaptive_scenario_mpc_full_components_selected",
+      "081_adaptive_scenario_mpc_full_sensitivity_buffer_high",
+      "082_adaptive_scenario_mpc_full_sensitivity_buffer_low",
+      "083_adaptive_scenario_mpc_full_stability_seed_43",
+      "084_adaptive_scenario_mpc_full_stability_seed_44",
+      "085_adaptive_scenario_mpc_new_selected",
+      "086_adaptive_scenario_mpc_residual_scale_buffer_high",
+      "087_adaptive_scenario_mpc_residual_scale_buffer_low",
+      "088_adaptive_scenario_mpc_residual_scale_no_adaptation",
+      "089_adaptive_scenario_mpc_residual_scale_no_optimization",
+      "090_adaptive_scenario_mpc_residual_scale_one_period",
+      "091_adaptive_scenario_mpc_residual_scale_seed43",
+      "092_adaptive_scenario_mpc_residual_scale_seed44",
+      "093_adaptive_scenario_mpc_residual_scale_selected",
+      "094_adaptive_scenario_mpc_sensitivity_buffer_high",
+      "095_adaptive_scenario_mpc_sensitivity_buffer_low",
+      "096_adaptive_scenario_mpc_sensitivity_steps_double",
+      "097_adaptive_scenario_mpc_stability_seed_43",
+      "098_adaptive_scenario_mpc_stability_seed_44",
+      "099_adaptive_scenario_mpc_targeted_buffer_high",
+      "100_adaptive_scenario_mpc_targeted_buffer_low",
+      "101_adaptive_scenario_mpc_targeted_no_adaptation",
+      "102_adaptive_scenario_mpc_targeted_no_optimization",
+      "103_adaptive_scenario_mpc_targeted_one_period",
+      "104_adaptive_scenario_mpc_targeted_seed43",
+      "105_adaptive_scenario_mpc_targeted_seed44",
+      "106_adaptive_scenario_mpc_targeted_selected"
+    ],
+    "groups": [
+      "C"
+    ]
+  },
+  {
+    "name": "online_learning",
+    "code": "models/online_learning.py",
+    "doc": "docs/online_learning.md",
+    "historical_entries": [
+      "107_online_original_inner_bias",
+      "108_online_original_inner_combined",
+      "109_online_original_inner_combined_seed43",
+      "110_online_original_inner_combined_seed44",
+      "111_online_original_inner_frozen",
+      "112_online_original_inner_online",
+      "113_online_original_inner_online_lr0_8",
+      "114_online_original_inner_online_lr1_2",
+      "115_online_original_inner_online_seed43",
+      "116_online_original_inner_online_seed44"
+    ],
+    "groups": [
+      "C"
+    ]
+  },
+  {
+    "name": "turnover_dfl",
+    "code": "models/turnover_dfl.py",
+    "doc": "docs/turnover_dfl.md",
+    "historical_entries": [
+      "117_turnover_service_dfl_dfl_fixed3",
+      "118_turnover_service_dfl_dfl_lr0_8",
+      "119_turnover_service_dfl_dfl_lr1_2",
+      "120_turnover_service_dfl_dfl_positive_seed43",
+      "121_turnover_service_dfl_dfl_positive_seed44",
+      "122_turnover_service_dfl_dfl_positive_selected",
+      "123_turnover_service_dfl_dfl_selected",
+      "124_turnover_service_dfl_frozen",
+      "125_turnover_service_dfl_nll_extra_training"
+    ],
+    "groups": [
+      "C"
+    ]
+  }
+]
