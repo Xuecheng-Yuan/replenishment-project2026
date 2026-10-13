@@ -2,6 +2,8 @@
 
 ## 当前交付：四期滚动分布鲁棒补货
 
+旧的需求满足率约束版已完整独立保存在[experiments/demand_fill_v3](experiments/demand_fill_v3/README.md)，包含原报告、Excel、代码和结果。[两版对比报告](experiments/version_comparison/COMPARISON.md)同时列出服务定义、建模差异和五种策略的结果。
+
 可运行代码、可视化和最终结果位于[experiments/rolling_dro_v3](experiments/rolling_dro_v3/README.md)，采用**正库存服务水平95%–95.5%、提前期1、无额外盘点等待、缺货丢失**。包含特征聚类DRO、不分组DRO、爆品/长尾DRO、传统(s,S)和零半径经验模型，预测4期、只执行最近1期。
 
 本版已将服务约束改为所有商品期末库存大于0的商品－天占比，范围95%–95.5%；优化目标仍为累计期末库存÷累计需求最小。五种策略在完整28天测试中均落在服务范围内，传统(s,S)库存需求比最低，为0.515894；三种DRO中，特征聚类DRO最低，为0.550971，比传统(s,S)高6.80%，本次没有获得优于传统基线的库存结果。

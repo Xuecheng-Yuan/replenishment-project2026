@@ -1,0 +1,182 @@
+{
+  "schema": 1,
+  "source": "run_v3.py outputs; full CSV traces published as gzip",
+  "compression": "gzip mtime=0; numeric contents unchanged",
+  "files": [
+    {
+      "file": "cluster_assignment.csv",
+      "bytes": 2426614,
+      "sha256": "28f83fb72d757452b5734eb88004334ec45d675c17aca83781b3dd784593ccb1"
+    },
+    {
+      "file": "decision_comparison_full.csv.gz",
+      "bytes": 9454446,
+      "sha256": "0c73ca5e587bc16d800f25fa754b7c87a5f9b5546bc9bbeca531ca06d174699f"
+    },
+    {
+      "file": "detail_DRO_category.csv.gz",
+      "bytes": 15542413,
+      "sha256": "071f5be7244f15377a21c56bf2ff8ca0e6e17e7a01804bc29e33503f21e824f6"
+    },
+    {
+      "file": "detail_DRO_cluster.csv.gz",
+      "bytes": 15546302,
+      "sha256": "85e4e0881a3eba82a9c34cfab5f95cbf04d2ad3e1db6b551885f248dc6f128b9"
+    },
+    {
+      "file": "detail_DRO_global.csv.gz",
+      "bytes": 15533335,
+      "sha256": "0206fc8cbc90740c59ea20ac55b428791811602caf7377e0e7d66a6dc615acdb"
+    },
+    {
+      "file": "detail_SAA.csv.gz",
+      "bytes": 15564639,
+      "sha256": "9407dc70ac03bed435657f01693e0d12887dcbc3545140a5fd262b570034e387"
+    },
+    {
+      "file": "detail_sS.csv.gz",
+      "bytes": 15549191,
+      "sha256": "2caba369ddc1764e9a9f083d9a4c2c8f15750949a2e04dfd5f0d49f2b981de36"
+    },
+    {
+      "file": "feature_diagnostics.csv",
+      "bytes": 847,
+      "sha256": "071800ab5f5b815826a37844ab4bfbd7e6f73e80ab7eb086c9b89b9b8b297b74"
+    },
+    {
+      "file": "fitted_model.npz",
+      "bytes": 1991525,
+      "sha256": "9cfee00b94dd9a9a7012d40fb4c3ddfd66643ae8bdef6d4ad25cae2a8cf823f6"
+    },
+    {
+      "file": "forecast_h1.csv",
+      "bytes": 3100419,
+      "sha256": "a2289d697a363c2cf67c2225997e9e4b55c103a50dbee507340c781c43c2382f"
+    },
+    {
+      "file": "forecast_h2.csv",
+      "bytes": 3109435,
+      "sha256": "c91dfc2021ff8843026bda8ba2801d943eaea5f397a4c6b6ca5f1993d8fd527d"
+    },
+    {
+      "file": "forecast_h3.csv",
+      "bytes": 3117415,
+      "sha256": "13bf8960e331c36c677af325d1c8059226ea8f7252068f161cc4b93be35ec0d7"
+    },
+    {
+      "file": "forecast_h4.csv",
+      "bytes": 3125084,
+      "sha256": "e458bb17e18450d8b8f5b0cabc735c660510ddf626a05f65ebc859a0acc0d409"
+    },
+    {
+      "file": "forecast_test_metrics.csv",
+      "bytes": 222,
+      "sha256": "a510922489a955c782c218984d0878b76780babe95c627660c3987d39677a5ff"
+    },
+    {
+      "file": "forecast_validation.csv",
+      "bytes": 2598,
+      "sha256": "4348cffb944e424fa72ec3242ff419fef8fe79bf609d1589b25479c073a05365"
+    },
+    {
+      "file": "frozen_parameters.json",
+      "bytes": 2275,
+      "sha256": "0fc7702385fa7b740984afc4e45c4eae945add58984318b062efe04a336ea4e8"
+    },
+    {
+      "file": "input_audit.json",
+      "bytes": 514,
+      "sha256": "d6c8f9610410da28bbe77a9e36ce4e55419aae6c88d39bd8a4b9f4e28aff681a"
+    },
+    {
+      "file": "orders_DRO_category.csv",
+      "bytes": 976062,
+      "sha256": "02cfa2dda3535c69369d52524201edf05460a7caac465faf0756491cb620fc25"
+    },
+    {
+      "file": "orders_DRO_cluster.csv",
+      "bytes": 975961,
+      "sha256": "01e5837d1e4eee34becbab3d3c4bd64cf56950f41b329efb31bd4bf8516d6db6"
+    },
+    {
+      "file": "orders_DRO_global.csv",
+      "bytes": 975517,
+      "sha256": "6b64fc076050f9cdfbc093f286a30075da70894e0fde02e3b94f0f7e35499016"
+    },
+    {
+      "file": "orders_SAA.csv",
+      "bytes": 977139,
+      "sha256": "ab3ab63929889456e97a423d00e44064b5d1aa574f541d64db30863d99dcbebb"
+    },
+    {
+      "file": "orders_sS.csv",
+      "bytes": 975765,
+      "sha256": "63576d089bcc666e7afa4b075b9adcc8e3b3d72b5356c5b02e4dba583163e5f1"
+    },
+    {
+      "file": "period_workbook_preview.png",
+      "bytes": 120890,
+      "sha256": "4914f6d8effb383048ba1316885dec79e32f5ee629b210ded15ad1234784a7af"
+    },
+    {
+      "file": "policy_validation.csv",
+      "bytes": 22104,
+      "sha256": "497493b1d44c50b15dc2890f247f2da409ad83eeddae381b2496239b67eb9d5f"
+    },
+    {
+      "file": "positive_stock_by_sku.csv",
+      "bytes": 1123480,
+      "sha256": "30f6e2ed1de22cbdd1691b5a3abf6c61993a38209f373f32b1d3bacad3ab3108"
+    },
+    {
+      "file": "positive_stock_service.csv",
+      "bytes": 725,
+      "sha256": "72c237d2c9c7d1281f27a17ca68d3ffc34194e228604cd95ed17caf9d5c5ef0b"
+    },
+    {
+      "file": "replenishment_comparison.xlsx",
+      "bytes": 1217011,
+      "sha256": "ce4f865054abedbad053f791aa7a0809fe14dfb53602512314c0d4c4a5e0cd32"
+    },
+    {
+      "file": "REPORT.md",
+      "bytes": 12971,
+      "sha256": "531eae4e2d9719b9e57125382f6fa2ccba426b00406c3ee6e4fc633a530f9c16"
+    },
+    {
+      "file": "result_checks.json",
+      "bytes": 956,
+      "sha256": "fe0f1cbaac0203aa735522ea373463a91f0dd6ffa3dd2e24c839d376d498c943"
+    },
+    {
+      "file": "results_by_period.csv",
+      "bytes": 23719,
+      "sha256": "4fbac4e167b5e25c9fe2396431bdae4fac5936b853bda4bf9ff4327d92165051"
+    },
+    {
+      "file": "risk_group_profile.csv",
+      "bytes": 944,
+      "sha256": "c6edfb379f9ce46e8b499f79c262e7673e2dac3076d70b2205c9668154220944"
+    },
+    {
+      "file": "summary.csv",
+      "bytes": 2290,
+      "sha256": "e1e759e518a20fdd068134c8d53fa27988ec9ba75877aef3fc5b9eef7e196ace"
+    },
+    {
+      "file": "summary_by_segment.csv",
+      "bytes": 2138,
+      "sha256": "725bbe2fa372bcba8e3738a11ebb19c312f6d3fdb9d4afc7d619778a5ec7df8f"
+    },
+    {
+      "file": "workbook_checks.json",
+      "bytes": 379,
+      "sha256": "7c80d090fd30e06dba4032be1977873d39ffcdc8c8f8c606d22387f0fd9843e6"
+    },
+    {
+      "file": "workbook_preview.png",
+      "bytes": 156776,
+      "sha256": "f61c6da5ecb922a5f98b5b2aff6a797022b0a2c2240024d78c2f84d2898cd903"
+    }
+  ]
+}
