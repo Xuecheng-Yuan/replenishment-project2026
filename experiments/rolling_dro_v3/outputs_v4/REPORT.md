@@ -22,6 +22,22 @@
 
 第1期起始在途库存设为0，只能销售原表中的初始库存，因此所有方法共享第1期损失 **763,368 件**。第28期下单在第29期到货，单列 `final_pipeline`，不计入28期销量或在手库存。
 
+### 所有商品库存大于0的周期比例
+
+按每个SKU每一期的期末库存判断是否大于0，严格使用 $I^{end}_{it}>0$，计算 $S_{stock}=\frac{\sum_i\sum_{t=1}^{T}\mathbf{1}(I^{end}_{it}>0)}{N T}$。完整测试集分母为6000×28＝168,000个SKU－周期。每个SKU的比例为正库存周期数÷28；因所有SKU周期数相同，下表总体比例也等于6000个SKU各自比例的平均值。
+
+数据单位是“周期”；若一个周期为一天，才可将其称为正库存天数比例。这是期末库存口径，不能据此判断一天中库存是否始终大于0。期末库存恰好为0但当天需求全部满足的周期，在此指标中也记为0，所以它不同于无缺货周期占比，不能直接使用 `cycle_service` 替代。
+
+| 方法 | 正库存SKU－周期数 | 全部SKU－周期数 | 完整28期正库存比例 | 第2–28期正库存比例 |
+|---|---:|---:|---:|---:|
+| 特征聚类DRO | 128,404 | 168,000 | 76.43% | 75.95% |
+| 不分组DRO | 125,504 | 168,000 | 74.70% | 74.16% |
+| 爆品/长尾DRO | 128,885 | 168,000 | 76.72% | 76.25% |
+| 传统(s,S) | 127,934 | 168,000 | 76.15% | 75.66% |
+| 零半径经验模型 | 135,934 | 168,000 | 80.91% | 80.60% |
+
+该项为补充报告指标；本次选参和95%目标仍采用销量÷需求的需求满足率，并未改为正库存周期比例。`positive_stock_service.csv`保存总体计数和比例；`positive_stock_by_sku.csv`给出全部6000个商品在五种策略下各自的正库存周期数、评价周期数及比例。
+
 ### 三种DRO的单一变化
 
 | 变体 | 残差分组 | 训练期选定的目标 β | 鲁棒半径 ε | 测试满足率 | 28期库存需求比 |
@@ -120,6 +136,6 @@ python verify_results_v3.py
 python -m unittest discover -s tests -p test_v2.py -v
 ```
 
-首次解析两份大工作簿需要等待；相同源文件的后续运行复用哈希核验的缓存。本次模型运行约 25.8 秒（不含Excel导出）。实验输出在 `outputs_v4`，其中 `decision_comparison_full.csv` 是6000×28行、五种策略并列的完整对照；`forecast_h1.csv` 至 `forecast_h4.csv` 为四个预测跨度的完整矩阵；`orders_*.csv` 为各方法所有实际下单量；`summary.csv` 和 `results_by_period.csv` 给出汇总。Git中的完整并列对照与五种策略明细采用 `.csv.gz` 无损压缩，Pandas可直接读取。Excel `replenishment_comparison.xlsx` 展示主要对照，CSV保留全部逐格结果。
+首次解析两份大工作簿需要等待；相同源文件的后续运行复用哈希核验的缓存。实验输出在 `outputs_v4`，其中 `decision_comparison_full.csv` 是6000×28行、五种策略并列的完整对照；`forecast_h1.csv` 至 `forecast_h4.csv` 为四个预测跨度的完整矩阵；`orders_*.csv` 为各方法所有实际下单量；`summary.csv` 和 `results_by_period.csv` 给出汇总。Git中的完整并列对照与五种策略明细采用 `.csv.gz` 无损压缩，Pandas可直接读取。Excel `replenishment_comparison.xlsx` 展示主要对照，CSV保留全部逐格结果。
 
 方法参考：[RSOME多阶段库存示例](https://xiongpengnus.github.io/rsome/example_dro_inv)、[RSOME分布鲁棒建模文档](https://xiongpengnus.github.io/rsome/dro_rsome)。本实现采用该示例的样本邻域思想，并针对本题的丢失销售和需求满足率写出可直接求解的端点等价式；运行时不依赖商业求解器或RSOME安装。

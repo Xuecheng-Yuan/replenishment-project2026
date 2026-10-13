@@ -124,14 +124,24 @@
       "sha256": "497493b1d44c50b15dc2890f247f2da409ad83eeddae381b2496239b67eb9d5f"
     },
     {
+      "file": "positive_stock_by_sku.csv",
+      "bytes": 1123480,
+      "sha256": "30f6e2ed1de22cbdd1691b5a3abf6c61993a38209f373f32b1d3bacad3ab3108"
+    },
+    {
+      "file": "positive_stock_service.csv",
+      "bytes": 725,
+      "sha256": "72c237d2c9c7d1281f27a17ca68d3ffc34194e228604cd95ed17caf9d5c5ef0b"
+    },
+    {
       "file": "replenishment_comparison.xlsx",
       "bytes": 1217011,
       "sha256": "ce4f865054abedbad053f791aa7a0809fe14dfb53602512314c0d4c4a5e0cd32"
     },
     {
       "file": "REPORT.md",
-      "bytes": 11476,
-      "sha256": "18aafc7444c2cd5f6232d504b157ba600763c941572cf9a05e786a3bfdeea386"
+      "bytes": 12971,
+      "sha256": "531eae4e2d9719b9e57125382f6fa2ccba426b00406c3ee6e4fc633a530f9c16"
     },
     {
       "file": "result_checks.json",
