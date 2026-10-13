@@ -33,6 +33,7 @@ for(const method of ['DRO_cluster','DRO_global','DRO_category','sS','SAA']) {
   assert(rendered.includes('<tr><td>28</td>'));
   const source=records.find(r=>r.method===method && r.period===28);
   assert(rendered.includes(source.avg_inventory_per_sku.toFixed(2)));
+  assert(rendered.includes((source.positive_stock_ratio*100).toFixed(2)));
   assert(rendered.includes(source.inventory_demand_ratio.toFixed(6)));
   for(const r of records.filter(r=>r.method===method)) {
     assert(Math.abs(r.inventory_demand_ratio-r.ending_inventory_units/r.demand_units)<1e-12);

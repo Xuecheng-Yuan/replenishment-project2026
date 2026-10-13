@@ -2,7 +2,7 @@
 
 ## 当前滚动DRO交付
 
-当前代码及最终结果在`experiments/rolling_dro_v3/`；中文交付报告和聚类解释在`docs/rolling_dro_v3/`。该实验使用“需求满足率≥95%”口径，与下方既有problem-based基准分别运行和保存。
+当前代码及最终结果在`experiments/rolling_dro_v3/`；中文交付报告和聚类解释在`docs/rolling_dro_v3/`。该实验使用“期末正库存服务水平95%–95.5%”口径，与下方既有problem-based基准分别运行和保存。
 
 ```text
 experiments/rolling_dro_v3/
@@ -12,7 +12,7 @@ experiments/rolling_dro_v3/
 ├── build_visualizations.py       # 普通Python生成图表和HTML
 ├── publish_results.py           # gzip全量结果与哈希清单
 ├── verify_published.py          # 无需重跑即可核验发布结果
-├── tests/test_v2.py             # 5项模型数学与因果性测试
+├── tests/test_v2.py             # 10项模型数学、正库存边界及因果性测试
 ├── visualization/               # HTML、PNG、SVG展示
 └── outputs_v4/                  # 报告、Excel、CSV、完整CSV.gz轨迹
 docs/rolling_dro_v3/

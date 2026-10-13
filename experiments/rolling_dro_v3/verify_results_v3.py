@@ -29,6 +29,8 @@ for method in METHODS:
     inventory_ratio=ending.sum()/y.sum()
     assert np.isclose(inventory_ratio,results.loc[method,'inventory_demand_ratio'])
     assert np.isclose(ending.sum(),results.loc[method,'ending_inventory_units'])
+    assert np.isclose(np.mean(ending>0),results.loc[method,'positive_stock_ratio'])
+    assert np.count_nonzero(ending>0)==results.loc[method,'positive_stock_sku_periods']
     for h in range(1,5):
         np.testing.assert_array_equal(col(f'forecast_h{h}'),comparisons[f'forecast_h{h}'].to_numpy().reshape(T,n))
     report.append(dict(method=method,rows=len(frame),balances='pass',lead_time='pass',

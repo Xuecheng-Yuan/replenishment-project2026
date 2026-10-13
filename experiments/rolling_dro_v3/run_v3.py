@@ -68,10 +68,12 @@ def variant_labels(cluster_labels,is_hot):
             'DRO_category':np.asarray(is_hot,dtype=int)}
 
 
-def selected(candidates,forward_target,reset_target=.95):
-    eligible=[r for r in candidates if r['forward_fill']>=forward_target and r['reset_fill']>=reset_target]
+def selected(candidates,forward_target=None,reset_target=.95):
+    # The reset fold matches the test's Period_1 restart. Forward fold is
+    # a separate temporal-transfer diagnostic, not a hidden second objective.
+    eligible=[r for r in candidates if .95<=r['reset_service']<=.955]
     if not eligible: return None
-    return min(eligible,key=lambda r:(r['reset_inventory_ratio'],r['forward_inventory_ratio']))
+    return min(eligible,key=lambda r:(r['reset_inventory_ratio'],abs(r['reset_service']-.95)))
 
 
 def main():
@@ -112,10 +114,9 @@ def main():
     residual_f,_=residual_oof(y[:36],group_f,**settings)
     residual_r,_=residual_oof(y[28:],group_r,**settings,time_start=28)
     target=.95
-    total=y[:28].sum(); startup=np.maximum(y[0]-initial,0).sum(); later=y[1:28].sum()
-    forward_target=float(np.clip(1-((1-target)*total-startup)/later,target,.999))
-    beta_grid=sorted(set(min(v,.999) for v in (forward_target,forward_target+.005,forward_target+.01,forward_target+.02,forward_target+.03)))
-    radius_grid=(0.,.025,.05,.1,.2,.35,.5,.75,1.,1.5,2.)
+    forward_target=.95
+    beta_grid=(.95,.96,.97,.98,.99,.995,.999)
+    radius_grid=(0.,.005,.01,.025,.05,.075,.1,.15,.2,.3,.5)
     candidates=[]; chosen={}
     for method in ('DRO_cluster','DRO_global','DRO_category'):
         method_candidates=[]
@@ -123,10 +124,10 @@ def main():
             for radius in radius_grid[1:]:
                 zf,_=risk_levels(residual_f,groups_f[method],beta,radius)
                 zr,_=risk_levels(residual_r,groups_r[method],beta,radius)
-                sf=simulate(y[36:],initial,fc_f,zf)['controlled']
-                sr=simulate(y[:28],initial,fc_r,zr)['summary']
-                row=dict(method=method,beta=beta,radius=radius,forward_fill=sf['fill_rate'],
-                         forward_inventory_ratio=sf['inventory_demand_ratio'],reset_fill=sr['fill_rate'],
+                sf=simulate(y[36:],initial,fc_f,zf,positive_guard=True)['controlled']
+                sr=simulate(y[:28],initial,fc_r,zr,positive_guard=True)['summary']
+                row=dict(method=method,beta=beta,radius=radius,forward_service=sf['positive_stock_ratio'],forward_fill=sf['fill_rate'],
+                         forward_inventory_ratio=sf['inventory_demand_ratio'],reset_service=sr['positive_stock_ratio'],reset_fill=sr['fill_rate'],
                          reset_inventory_ratio=sr['inventory_demand_ratio'])
                 candidates.append(row); method_candidates.append(row)
         chosen[method]=selected(method_candidates,forward_target)
@@ -135,46 +136,58 @@ def main():
             raise RuntimeError(f'{method} has no training-feasible parameter; inspect policy_validation.csv')
         print('[selected]',method,chosen[method],flush=True)
     ss_rows=[]
-    for p in (.5,.6,.65,.75,.8,.85,.9,.925,.95,.975,.99,.995,.999):
-        for gap in (0.,.025,.05,.1):
+    for p in (.95,.975,.99,.999):
+      for scale in np.arange(1.,2.001,.025):
+        for gap in (0.,.025,.05):
             pS=min(p+gap,.999)
             lf=ss_quantiles(residual_f,group_f,p); uf=ss_quantiles(residual_f,group_f,pS)
             lr=ss_quantiles(residual_r,group_r,p); ur=ss_quantiles(residual_r,group_r,pS)
-            sf=simulate(y[36:],initial,fc_f,lf,uf)['controlled']
-            sr=simulate(y[:28],initial,fc_r,lr,ur)['summary']
-            row=dict(method='sS',p_s=p,p_S=pS,forward_fill=sf['fill_rate'],
-                     forward_inventory_ratio=sf['inventory_demand_ratio'],reset_fill=sr['fill_rate'],
+            lf*=scale; uf*=scale; lr*=scale; ur*=scale
+            sf=simulate(y[36:],initial,fc_f,lf,uf,positive_guard=True)['controlled']
+            sr=simulate(y[:28],initial,fc_r,lr,ur,positive_guard=True)['summary']
+            row=dict(method='sS',p_s=p,p_S=pS,scale=float(scale),forward_service=sf['positive_stock_ratio'],forward_fill=sf['fill_rate'],
+                     forward_inventory_ratio=sf['inventory_demand_ratio'],reset_service=sr['positive_stock_ratio'],reset_fill=sr['fill_rate'],
                      reset_inventory_ratio=sr['inventory_demand_ratio'])
             candidates.append(row); ss_rows.append(row)
     chosen['sS']=selected(ss_rows,forward_target)
     if chosen['sS'] is None: raise RuntimeError('(s,S) has no training-feasible parameter')
     saa_rows=[]
     for beta in beta_grid:
+      for scale in np.arange(1.,2.001,.025):
         zf,_=risk_levels(residual_f,group_f,beta,0.)
         zr,_=risk_levels(residual_r,group_r,beta,0.)
-        sf=simulate(y[36:],initial,fc_f,zf)['controlled']
-        sr=simulate(y[:28],initial,fc_r,zr)['summary']
-        row=dict(method='SAA',beta=beta,radius=0.,forward_fill=sf['fill_rate'],
-                 forward_inventory_ratio=sf['inventory_demand_ratio'],reset_fill=sr['fill_rate'],
+        zf*=scale; zr*=scale
+        sf=simulate(y[36:],initial,fc_f,zf,positive_guard=True)['controlled']
+        sr=simulate(y[:28],initial,fc_r,zr,positive_guard=True)['summary']
+        row=dict(method='SAA',beta=beta,radius=0.,scale=float(scale),forward_service=sf['positive_stock_ratio'],forward_fill=sf['fill_rate'],
+                 forward_inventory_ratio=sf['inventory_demand_ratio'],reset_service=sr['positive_stock_ratio'],reset_fill=sr['fill_rate'],
                  reset_inventory_ratio=sr['inventory_demand_ratio'])
         candidates.append(row); saa_rows.append(row)
     chosen['SAA']=selected(saa_rows,forward_target)
-    if chosen['SAA'] is None: chosen['SAA']=max(saa_rows,key=lambda r:r['reset_fill'])
+    if chosen['SAA'] is None: raise RuntimeError('SAA has no training-feasible positive-stock parameter')
     csv(pd.DataFrame(candidates),out/'policy_validation.csv')
 
     # Freeze all selected parameters before touching the test outcomes.
-    labels,_,xmean=cluster(y,x)
+    # Keep the exact fitted model and residual bank whose policies were
+    # calibrated on the disjoint restart block; refitting invalidates the band.
+    labels=group_r
+    xmean=x[28:].mean(0)
     groups=variant_labels(labels,hot)
-    final=Forecaster(y,labels,**settings)
-    relative,_=residual_oof(y,labels,**settings)
+    final=mr
+    relative=residual_r
     multipliers={}; risk_profiles={}
     for method in ('DRO_cluster','DRO_global','DRO_category'):
         row=chosen[method]
         multipliers[method],risk_profiles[method]=risk_levels(relative,groups[method],row['beta'],row['radius'])
     multipliers['SAA'],_=risk_levels(relative,labels,chosen['SAA']['beta'],0.)
-    sslo=ss_quantiles(relative,labels,chosen['sS']['p_s'])
-    sshi=ss_quantiles(relative,labels,chosen['sS']['p_S'])
-    frozen=dict(target_fill=target,forward_control_target=forward_target,forecast=settings,selected=chosen,
+    multipliers['SAA']*=chosen['SAA']['scale']
+    sslo=ss_quantiles(relative,labels,chosen['sS']['p_s'])*chosen['sS']['scale']
+    sshi=ss_quantiles(relative,labels,chosen['sS']['p_S'])*chosen['sS']['scale']
+    frozen=dict(target_service=target,service_lower=.95,service_upper=.955,service_metric="positive_stock_ratio",
+                service_definition="mean of period-ending inventory > 0 across all SKU-periods",
+                calibration_scope="training reset fold all 28 periods; forward fold diagnostic only",
+                model_fit_periods="29-60",calibration_periods="1-28",refit_after_calibration=False,
+                positive_integer_guard=True,forecast=settings,selected=chosen,
                 lead_time=1,review_period=0,horizon=4,test_periods_restart=True,
                 inventory_rule='after demand t, order; receive before demand t+1',
                 objective='minimize sum of period-ending inventory / sum of demand',
@@ -202,10 +215,10 @@ def main():
     forecasts=make_forecasts(final,test,start=0)
     runs={}
     for method in METHODS:
-        if method=='sS': result=simulate(test,initial,forecasts,sslo,sshi,keep=True)
-        else: result=simulate(test,initial,forecasts,multipliers[method],keep=True)
+        if method=='sS': result=simulate(test,initial,forecasts,sslo,sshi,keep=True,positive_guard=True)
+        else: result=simulate(test,initial,forecasts,multipliers[method],keep=True,positive_guard=True)
         runs[method]=result
-        print('[test]',method,'fill',round(result['summary']['fill_rate'],6),'inventory_demand_ratio',round(result['summary']['inventory_demand_ratio'],6),flush=True)
+        print('[test]',method,'positive_stock_service',round(result['summary']['positive_stock_ratio'],6),'fill',round(result['summary']['fill_rate'],6),'inventory_demand_ratio',round(result['summary']['inventory_demand_ratio'],6),flush=True)
     output_results(out,runs,test,forecasts,ids,labels,hot)
     forecast_scores=[]
     for h in range(4):

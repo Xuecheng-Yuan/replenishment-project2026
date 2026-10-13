@@ -5,7 +5,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import unittest
 import numpy as np
 from model_v2 import (summarize, Forecaster, make_forecasts, robust_fill_level,
-                      robust_fill_lp_check, simulate)
+                      robust_fill_lp_check, robust_positive_level, simulate)
 
 
 class RevisedModelTests(unittest.TestCase):
@@ -19,13 +19,38 @@ class RevisedModelTests(unittest.TestCase):
 
     def test_selection_minimizes_original_ratio(self):
         from run_v3 import selected
-        rows=[dict(name='A',reset_fill=.96,forward_fill=.96,
+        rows=[dict(name='A',reset_service=.951,forward_fill=.96,
                    reset_inventory_ratio=.2,forward_inventory_ratio=.1),
-              dict(name='B',reset_fill=.96,forward_fill=.96,
+              dict(name='B',reset_service=.953,forward_fill=.96,
                    reset_inventory_ratio=.1,forward_inventory_ratio=.2),
-              dict(name='infeasible',reset_fill=.94,forward_fill=.96,
+              dict(name='infeasible',reset_service=.94,forward_fill=.96,
                    reset_inventory_ratio=.01,forward_inventory_ratio=.01)]
+        rows.append(dict(name='too_high',reset_service=.956,
+                         reset_inventory_ratio=.001,forward_inventory_ratio=.001))
         self.assertEqual(selected(rows,.95)['name'],'B')
+
+    def test_positive_chance_bound_with_ties_and_integer_target(self):
+        samples=np.array([0.,1.,1.,2.,3.])
+        for beta in (.6,.95,1.):
+            for radius in (0.,.1,.5):
+                z=robust_positive_level(samples,beta,radius)
+                for forecast in (1.,2.,13.7):
+                    target=np.floor(forecast*z)+1
+                    self.assertGreaterEqual(np.mean(forecast*(samples+radius)<target),beta)
+                    self.assertLess(np.mean(forecast*(samples+radius)<target-1),beta)
+
+    def test_positive_stock_metric_excludes_exact_sellout(self):
+        result=summarize(np.array([[5.,0.]]),np.array([[5.,0.]]),
+                         np.array([[0.,1.]]),np.array([[5.,1.]]),np.zeros((1,2)))
+        self.assertEqual(result['positive_stock_ratio'],.5)
+        self.assertEqual(result['cycle_service'],1.)
+        self.assertEqual(result['positive_stock_sku_periods'],1)
+
+    def test_positive_guard_keeps_one_unit_at_tied_demand(self):
+        y=np.ones((3,1))*10
+        r=simulate(y,np.array([11.]),np.ones((3,4,1))*10,
+                   np.ones(1),keep=True,positive_guard=True)
+        np.testing.assert_array_equal(r['ending'],np.ones((3,1)))
 
     def test_robust_root_matches_independent_lp(self):
         rng=np.random.default_rng(62)
