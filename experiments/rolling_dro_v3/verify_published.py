@@ -25,6 +25,10 @@ def main():
     assert len(full) == 6000*28
     assert not full.duplicated(['period', 'item_id']).any()
     summary = read_csv('summary.csv').query("scope == 'all_28_periods'").set_index('method')
+    positive=read_csv('positive_stock_service.csv')
+    sku_positive=read_csv('positive_stock_by_sku.csv')
+    assert len(sku_positive)==30000
+    assert not sku_positive.duplicated(['item_id','method']).any()
     check = []
     for method in METHODS:
         detail = read_csv(f'detail_{method}.csv')
@@ -49,9 +53,24 @@ def main():
         assert np.isclose(ending.sum()/demand.sum(),
                           summary.loc[method, 'inventory_demand_ratio'])
         assert np.isclose(ending.sum(), summary.loc[method, 'ending_inventory_units'])
-        assert summary.loc[method, 'fill_rate'] >= .95
+        assert np.isclose(np.mean(ending>0),summary.loc[method,'positive_stock_ratio'])
+        assert np.count_nonzero(ending>0)==summary.loc[method,'positive_stock_sku_periods']
+        for scope,values in [('all_28_periods',ending),('controllable_periods_2_to_28',ending[1:])]:
+            row=positive[(positive.method==method)&(positive.scope==scope)].iloc[0]
+            assert row.positive_stock_sku_periods==np.count_nonzero(values>0)
+            assert row.total_sku_periods==values.size
+            assert np.isclose(row.positive_stock_ratio,np.mean(values>0))
+        per_sku=sku_positive[sku_positive.method==method].set_index('item_id')
+        expected=detail.assign(positive=detail.ending>0).groupby('item_id').positive.agg(['sum','count'])
+        np.testing.assert_array_equal(per_sku.loc[expected.index,'positive_stock_periods'],expected['sum'])
+        np.testing.assert_array_equal(per_sku.loc[expected.index,'total_periods'],expected['count'])
+        np.testing.assert_allclose(per_sku.loc[expected.index,'positive_stock_ratio'],expected['sum']/expected['count'])
         check.append(dict(method=method, rows=len(detail), balances='pass',
                           lead_time='pass', integer_orders='pass', summary='pass'))
+    parameters=json.loads((OUT/'frozen_parameters.json').read_text(encoding='utf-8'))
+    assert parameters['service_metric']=='positive_stock_ratio'
+    for method in METHODS:
+        assert .95<=parameters['selected'][method]['reset_service']<=.955
     print(json.dumps(dict(artifact_hashes=len(manifest['files']), methods=check,
                           status='pass'), ensure_ascii=False, indent=2))
 

@@ -1,10 +1,10 @@
-"""Causal clustered forecasting and exact scalar W-infinity fill-rate DRO.
+"""Causal clustered forecasting and W-infinity positive-stock chance DRO.
 
 L=1: after observing period t, q_t arrives before demand t+1.
 There are no order/setup/capacity costs in the supplied data. Four-stage
 conditional service constraints consequently admit just-in-time base stocks.
-The scalar robust stop-loss root is solved exactly (to numerical tolerance),
-not by an affine inventory relaxation that permits artificial lost sales.
+The active policy uses a robust upper order statistic and strict integer
+stock target. Historical stop-loss helpers remain for regression checks only.
 """
 from dataclasses import dataclass
 import numpy as np
@@ -148,12 +148,25 @@ def robust_fill_lp_check(samples,beta,radius):
     return result.x[0]
 
 
+def robust_positive_level(samples,beta,radius):
+    """W-infinity chance bound: kth upper endpoint, k=ceil(beta*N).
+
+    Integer target floor(forecast*level)+1 strictly exceeds k endpoints,
+    including tied samples. Thus worst-case P(ending stock>0) >= beta.
+    """
+    r=np.asarray(samples,float).ravel()
+    if not len(r) or not 0<beta<=1 or radius<0 or not np.isfinite(r).all() or (r<0).any():
+        raise ValueError('Require nonnegative finite samples, 0<beta<=1 and radius>=0')
+    k=int(np.ceil(beta*len(r)))-1
+    return float(np.partition(r,k)[k]+radius)
+
+
 def risk_levels(residual,labels,beta,radius):
     z=np.zeros(len(labels)); raw={}
     for g in np.unique(labels):
         samples=residual[:,labels==g].ravel()
         # Keep all tails: no trimming or synthetic circular scenario shifts.
-        level=robust_fill_level(samples,beta,radius)
+        level=robust_positive_level(samples,beta,radius)
         z[labels==g]=level
         raw[int(g)]=dict(level=float(level),n=len(samples),mean=float(samples.mean()),
                          q95=float(np.quantile(samples,.95)))
@@ -166,6 +179,8 @@ def summarize(demand,sold,ending,commencing,orders):
     end_stock=ending.sum()/T
     sales=sold.sum(); total=demand.sum()
     return dict(fill_rate=float(sales/total),cycle_service=float(np.mean(sold>=demand-1e-9)),
+                positive_stock_ratio=float(np.mean(ending>0)),
+                positive_stock_sku_periods=int(np.count_nonzero(ending>0)),total_sku_periods=int(ending.size),
                 avg_inventory_per_sku=float(mean_stock/n),avg_ending_inventory_per_sku=float(end_stock/n),
                 inventory_demand_ratio=float(ending.sum()/total) if total else float('nan'),
                 ending_inventory_units=float(ending.sum()),
@@ -174,7 +189,7 @@ def summarize(demand,sold,ending,commencing,orders):
                 final_pipeline=float(orders[-1].sum()),periods=T,skus=n)
 
 
-def simulate(y,initial,forecast,low,high=None,keep=False):
+def simulate(y,initial,forecast,low,high=None,keep=False,positive_guard=False):
     """Forecast[t,h] is formed AFTER seeing y[t], for t+1+h.
 
     Plan all four periods using mean-path stock, execute only q[0]. Future
@@ -189,6 +204,9 @@ def simulate(y,initial,forecast,low,high=None,keep=False):
         sale=np.minimum(available,y[t]); inventory=available-sale
         highlevel=forecast[t]*(low if high is None else high)[None,:]
         lowlevel=forecast[t]*low[None,:]
+        if positive_guard:
+            highlevel=np.floor(highlevel)+1
+            lowlevel=np.floor(lowlevel)+1
         projected=inventory.copy(); plan=[]
         for h in range(4):
             q=np.maximum(0,np.ceil(highlevel[h]-projected))
