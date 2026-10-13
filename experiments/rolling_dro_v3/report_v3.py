@@ -7,7 +7,32 @@ LABELS={'DRO_cluster':'特征聚类DRO','DRO_global':'不分组DRO','DRO_categor
 ORDER=list(LABELS)
 
 
+def stock_presence(out:Path):
+    """Count positive period-ending stock, including exact-demand stockouts."""
+    totals=[]; by_sku=[]
+    for method in ORDER:
+        path=out/f'detail_{method}.csv'
+        frame=pd.read_csv(path if path.exists() else path.with_suffix('.csv.gz'),
+                          usecols=['period','item_id','ending'])
+        frame['positive']=frame.ending>0
+        for scope,part in [('all_28_periods',frame),
+                           ('controllable_periods_2_to_28',frame[frame.period>=2])]:
+            totals.append(dict(method=method,scope=scope,
+                positive_stock_sku_periods=int(part.positive.sum()),
+                total_sku_periods=len(part),positive_stock_ratio=float(part.positive.mean())))
+        grouped=frame.groupby('item_id').positive.agg(['sum','count']).reset_index()
+        grouped.columns=['item_id','positive_stock_periods','total_periods']
+        grouped.insert(1,'method',method)
+        grouped['positive_stock_ratio']=grouped.positive_stock_periods/grouped.total_periods
+        by_sku.append(grouped)
+    overall=pd.DataFrame(totals)
+    overall.to_csv(out/'positive_stock_service.csv',index=False)
+    pd.concat(by_sku,ignore_index=True).to_csv(out/'positive_stock_by_sku.csv',index=False)
+    return overall
+
+
 def build_report(out:Path,runs,settings,forecast_scores,seconds):
+    presence=stock_presence(out)
     selected=settings['selected']
     baseline=runs['sS']['summary']
     winner=min(ORDER,key=lambda m:runs[m]['summary']['inventory_demand_ratio'] if runs[m]['summary']['fill_rate']>=.95 else float('inf'))
@@ -39,6 +64,22 @@ def build_report(out:Path,runs,settings,forecast_scores,seconds):
         '需求满足率是总销量除以总需求。**库存需求比（原项目口径）=所有SKU、所有评价周期的期末库存之和÷同期总需求，越低越好**。该指标无量纲，分母包括未满足的需求；不使用销量或平均在手库存。表中的平均在手库存仅作描述。完整测试期包含无法预先补货的第1期；`summary.csv` 另列第2–28期结果。',
         '',
         f'第1期起始在途库存设为0，只能销售原表中的初始库存，因此所有方法共享第1期损失 **{(runs["DRO_cluster"]["summary"]["lost_units"]-runs["DRO_cluster"]["controlled"]["lost_units"]):,.0f} 件**。第28期下单在第29期到货，单列 `final_pipeline`，不计入28期销量或在手库存。',
+        '',
+        '### 所有商品库存大于0的周期比例',
+        '',
+        '按每个SKU每一期的期末库存判断是否大于0，严格使用 $I^{end}_{it}>0$，计算 $S_{stock}=\\frac{\\sum_i\\sum_{t=1}^{T}\\mathbf{1}(I^{end}_{it}>0)}{N T}$。完整测试集分母为6000×28＝168,000个SKU－周期。每个SKU的比例为正库存周期数÷28；因所有SKU周期数相同，下表总体比例也等于6000个SKU各自比例的平均值。',
+        '',
+        '数据单位是“周期”；若一个周期为一天，才可将其称为正库存天数比例。这是期末库存口径，不能据此判断一天中库存是否始终大于0。期末库存恰好为0但当天需求全部满足的周期，在此指标中也记为0，所以它不同于无缺货周期占比，不能直接使用 `cycle_service` 替代。',
+        '',
+        '| 方法 | 正库存SKU－周期数 | 全部SKU－周期数 | 完整28期正库存比例 | 第2–28期正库存比例 |',
+        '|---|---:|---:|---:|---:|',
+    ])
+    for method in ORDER:
+        values=presence[presence.method==method].set_index('scope')
+        full=values.loc['all_28_periods']; controlled=values.loc['controllable_periods_2_to_28']
+        lines.append(f'| {LABELS[method]} | {int(full.positive_stock_sku_periods):,} | {int(full.total_sku_periods):,} | {full.positive_stock_ratio:.2%} | {controlled.positive_stock_ratio:.2%} |')
+    lines.extend(['',
+        '该项为补充报告指标；本次选参和95%目标仍采用销量÷需求的需求满足率，并未改为正库存周期比例。`positive_stock_service.csv`保存总体计数和比例；`positive_stock_by_sku.csv`给出全部6000个商品在五种策略下各自的正库存周期数、评价周期数及比例。',
         '',
         '### 三种DRO的单一变化',
         '',
