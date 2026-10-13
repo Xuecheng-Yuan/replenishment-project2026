@@ -1,0 +1,11 @@
+method,scope,positive_stock_sku_periods,total_sku_periods,positive_stock_ratio
+DRO_cluster,all_28_periods,128404,168000,0.7643095238095238
+DRO_cluster,controllable_periods_2_to_28,123047,162000,0.7595493827160494
+DRO_global,all_28_periods,125504,168000,0.7470476190476191
+DRO_global,controllable_periods_2_to_28,120147,162000,0.7416481481481482
+DRO_category,all_28_periods,128885,168000,0.767172619047619
+DRO_category,controllable_periods_2_to_28,123528,162000,0.7625185185185185
+sS,all_28_periods,127934,168000,0.7615119047619048
+sS,controllable_periods_2_to_28,122577,162000,0.7566481481481482
+SAA,all_28_periods,135934,168000,0.8091309523809523
+SAA,controllable_periods_2_to_28,130577,162000,0.8060308641975309

@@ -1,0 +1,47 @@
+[
+  {
+    "method": "DRO_cluster",
+    "rows": 168000,
+    "balances": "pass",
+    "lead_time": "pass",
+    "integer_orders": "pass",
+    "summary": "pass",
+    "comparison": "pass"
+  },
+  {
+    "method": "DRO_global",
+    "rows": 168000,
+    "balances": "pass",
+    "lead_time": "pass",
+    "integer_orders": "pass",
+    "summary": "pass",
+    "comparison": "pass"
+  },
+  {
+    "method": "DRO_category",
+    "rows": 168000,
+    "balances": "pass",
+    "lead_time": "pass",
+    "integer_orders": "pass",
+    "summary": "pass",
+    "comparison": "pass"
+  },
+  {
+    "method": "sS",
+    "rows": 168000,
+    "balances": "pass",
+    "lead_time": "pass",
+    "integer_orders": "pass",
+    "summary": "pass",
+    "comparison": "pass"
+  },
+  {
+    "method": "SAA",
+    "rows": 168000,
+    "balances": "pass",
+    "lead_time": "pass",
+    "integer_orders": "pass",
+    "summary": "pass",
+    "comparison": "pass"
+  }
+]

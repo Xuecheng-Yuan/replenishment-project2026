@@ -1,0 +1,455 @@
+{
+  "source_commit": "f569b116d7f13bee0cb2d34c5242c8240e9dda88",
+  "source_directory": "experiments/rolling_dro_v3",
+  "service_metric": "demand fill rate >= 95%",
+  "files": [
+    {
+      "source": "docs/rolling_dro_v3/CLUSTERING.md",
+      "file": "docs/CLUSTERING.md",
+      "source_sha256": "12995c4d8f77f83bd355d7ada83ed661c2de41dc4f71aba6365f81cbf3314f46",
+      "archived_sha256": "71ba370f52ba76de8daa1deec2b009561c61b0465bd1322c049ffd669e3ee3ee",
+      "adapted_navigation": true
+    },
+    {
+      "source": "docs/rolling_dro_v3/DELIVERY_REPORT.md",
+      "file": "docs/DELIVERY_REPORT.md",
+      "source_sha256": "97391e394e1e140255e899510f23a22d7fb88a3dc2eff631623f346dd4ea67ab",
+      "archived_sha256": "eb2ea9cd6aa114d02286606b8760468bdf4f87d71e015328ce9d60fff05d3001",
+      "adapted_navigation": true
+    },
+    {
+      "source": "experiments/rolling_dro_v3/.gitignore",
+      "file": ".gitignore",
+      "source_sha256": "d0a785f58cd34d2dbc5e7cf2f3764673b20bef78781b8aed33660beba122aba6",
+      "archived_sha256": "d0a785f58cd34d2dbc5e7cf2f3764673b20bef78781b8aed33660beba122aba6",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/README.md",
+      "file": "README.md",
+      "source_sha256": "4962852e241e308b9f7afaaa318fbccbbb0c430be1a8adbd75e203f72e82d5dc",
+      "archived_sha256": "6c23c938e6d12124deba4ea8ed41d048b621e010321272c0f4e0fdcad85a46d3",
+      "adapted_navigation": true
+    },
+    {
+      "source": "experiments/rolling_dro_v3/build_visualizations.py",
+      "file": "build_visualizations.py",
+      "source_sha256": "9210325002547b1e92d778466891b831316b9f5cdc2c365c4a90db24ec4ac9ca",
+      "archived_sha256": "b0280073bfb87cde0e394ad974e94a098cef9e92727dfe63d28c4d610f56addc",
+      "adapted_navigation": true
+    },
+    {
+      "source": "experiments/rolling_dro_v3/build_workbook_v3.mjs",
+      "file": "build_workbook_v3.mjs",
+      "source_sha256": "a9e4b7bd1883160166783afeb4d5cd1364df7cb3e9d13186a7789a20b10eca87",
+      "archived_sha256": "a9e4b7bd1883160166783afeb4d5cd1364df7cb3e9d13186a7789a20b10eca87",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/config.py",
+      "file": "config.py",
+      "source_sha256": "180deda75a3cefa27ac6698dc678b73cdff8ae4b3e0a9ca2076aa7e43b02191c",
+      "archived_sha256": "180deda75a3cefa27ac6698dc678b73cdff8ae4b3e0a9ca2076aa7e43b02191c",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/data_io.py",
+      "file": "data_io.py",
+      "source_sha256": "7f485ad04473d04943ab2ed16a18c1f0d93d1041c68e1d141e354286a0c64889",
+      "archived_sha256": "7f485ad04473d04943ab2ed16a18c1f0d93d1041c68e1d141e354286a0c64889",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/model_v2.py",
+      "file": "model_v2.py",
+      "source_sha256": "75513efbaf10841d61f62f3cef12707f5c6bc22fc80ad813b3c8bab71c3a685f",
+      "archived_sha256": "75513efbaf10841d61f62f3cef12707f5c6bc22fc80ad813b3c8bab71c3a685f",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/REPORT.md",
+      "file": "outputs_v4/REPORT.md",
+      "source_sha256": "531eae4e2d9719b9e57125382f6fa2ccba426b00406c3ee6e4fc633a530f9c16",
+      "archived_sha256": "531eae4e2d9719b9e57125382f6fa2ccba426b00406c3ee6e4fc633a530f9c16",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/artifact_manifest.json",
+      "file": "outputs_v4/artifact_manifest.json",
+      "source_sha256": "53abe83c9015b84a00588280ca9e6688a0a4066fbb3c4e2a809eb39a6b126f0f",
+      "archived_sha256": "53abe83c9015b84a00588280ca9e6688a0a4066fbb3c4e2a809eb39a6b126f0f",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/cluster_assignment.csv",
+      "file": "outputs_v4/cluster_assignment.csv",
+      "source_sha256": "28f83fb72d757452b5734eb88004334ec45d675c17aca83781b3dd784593ccb1",
+      "archived_sha256": "28f83fb72d757452b5734eb88004334ec45d675c17aca83781b3dd784593ccb1",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/decision_comparison_full.csv.gz",
+      "file": "outputs_v4/decision_comparison_full.csv.gz",
+      "source_sha256": "0c73ca5e587bc16d800f25fa754b7c87a5f9b5546bc9bbeca531ca06d174699f",
+      "archived_sha256": "0c73ca5e587bc16d800f25fa754b7c87a5f9b5546bc9bbeca531ca06d174699f",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/detail_DRO_category.csv.gz",
+      "file": "outputs_v4/detail_DRO_category.csv.gz",
+      "source_sha256": "071f5be7244f15377a21c56bf2ff8ca0e6e17e7a01804bc29e33503f21e824f6",
+      "archived_sha256": "071f5be7244f15377a21c56bf2ff8ca0e6e17e7a01804bc29e33503f21e824f6",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/detail_DRO_cluster.csv.gz",
+      "file": "outputs_v4/detail_DRO_cluster.csv.gz",
+      "source_sha256": "85e4e0881a3eba82a9c34cfab5f95cbf04d2ad3e1db6b551885f248dc6f128b9",
+      "archived_sha256": "85e4e0881a3eba82a9c34cfab5f95cbf04d2ad3e1db6b551885f248dc6f128b9",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/detail_DRO_global.csv.gz",
+      "file": "outputs_v4/detail_DRO_global.csv.gz",
+      "source_sha256": "0206fc8cbc90740c59ea20ac55b428791811602caf7377e0e7d66a6dc615acdb",
+      "archived_sha256": "0206fc8cbc90740c59ea20ac55b428791811602caf7377e0e7d66a6dc615acdb",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/detail_SAA.csv.gz",
+      "file": "outputs_v4/detail_SAA.csv.gz",
+      "source_sha256": "9407dc70ac03bed435657f01693e0d12887dcbc3545140a5fd262b570034e387",
+      "archived_sha256": "9407dc70ac03bed435657f01693e0d12887dcbc3545140a5fd262b570034e387",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/detail_sS.csv.gz",
+      "file": "outputs_v4/detail_sS.csv.gz",
+      "source_sha256": "2caba369ddc1764e9a9f083d9a4c2c8f15750949a2e04dfd5f0d49f2b981de36",
+      "archived_sha256": "2caba369ddc1764e9a9f083d9a4c2c8f15750949a2e04dfd5f0d49f2b981de36",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/feature_diagnostics.csv",
+      "file": "outputs_v4/feature_diagnostics.csv",
+      "source_sha256": "071800ab5f5b815826a37844ab4bfbd7e6f73e80ab7eb086c9b89b9b8b297b74",
+      "archived_sha256": "071800ab5f5b815826a37844ab4bfbd7e6f73e80ab7eb086c9b89b9b8b297b74",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/fitted_model.npz",
+      "file": "outputs_v4/fitted_model.npz",
+      "source_sha256": "9cfee00b94dd9a9a7012d40fb4c3ddfd66643ae8bdef6d4ad25cae2a8cf823f6",
+      "archived_sha256": "9cfee00b94dd9a9a7012d40fb4c3ddfd66643ae8bdef6d4ad25cae2a8cf823f6",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/forecast_h1.csv",
+      "file": "outputs_v4/forecast_h1.csv",
+      "source_sha256": "a2289d697a363c2cf67c2225997e9e4b55c103a50dbee507340c781c43c2382f",
+      "archived_sha256": "a2289d697a363c2cf67c2225997e9e4b55c103a50dbee507340c781c43c2382f",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/forecast_h2.csv",
+      "file": "outputs_v4/forecast_h2.csv",
+      "source_sha256": "c91dfc2021ff8843026bda8ba2801d943eaea5f397a4c6b6ca5f1993d8fd527d",
+      "archived_sha256": "c91dfc2021ff8843026bda8ba2801d943eaea5f397a4c6b6ca5f1993d8fd527d",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/forecast_h3.csv",
+      "file": "outputs_v4/forecast_h3.csv",
+      "source_sha256": "13bf8960e331c36c677af325d1c8059226ea8f7252068f161cc4b93be35ec0d7",
+      "archived_sha256": "13bf8960e331c36c677af325d1c8059226ea8f7252068f161cc4b93be35ec0d7",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/forecast_h4.csv",
+      "file": "outputs_v4/forecast_h4.csv",
+      "source_sha256": "e458bb17e18450d8b8f5b0cabc735c660510ddf626a05f65ebc859a0acc0d409",
+      "archived_sha256": "e458bb17e18450d8b8f5b0cabc735c660510ddf626a05f65ebc859a0acc0d409",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/forecast_test_metrics.csv",
+      "file": "outputs_v4/forecast_test_metrics.csv",
+      "source_sha256": "a510922489a955c782c218984d0878b76780babe95c627660c3987d39677a5ff",
+      "archived_sha256": "a510922489a955c782c218984d0878b76780babe95c627660c3987d39677a5ff",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/forecast_validation.csv",
+      "file": "outputs_v4/forecast_validation.csv",
+      "source_sha256": "4348cffb944e424fa72ec3242ff419fef8fe79bf609d1589b25479c073a05365",
+      "archived_sha256": "4348cffb944e424fa72ec3242ff419fef8fe79bf609d1589b25479c073a05365",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/frozen_parameters.json",
+      "file": "outputs_v4/frozen_parameters.json",
+      "source_sha256": "0fc7702385fa7b740984afc4e45c4eae945add58984318b062efe04a336ea4e8",
+      "archived_sha256": "0fc7702385fa7b740984afc4e45c4eae945add58984318b062efe04a336ea4e8",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/input_audit.json",
+      "file": "outputs_v4/input_audit.json",
+      "source_sha256": "d6c8f9610410da28bbe77a9e36ce4e55419aae6c88d39bd8a4b9f4e28aff681a",
+      "archived_sha256": "d6c8f9610410da28bbe77a9e36ce4e55419aae6c88d39bd8a4b9f4e28aff681a",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/orders_DRO_category.csv",
+      "file": "outputs_v4/orders_DRO_category.csv",
+      "source_sha256": "02cfa2dda3535c69369d52524201edf05460a7caac465faf0756491cb620fc25",
+      "archived_sha256": "02cfa2dda3535c69369d52524201edf05460a7caac465faf0756491cb620fc25",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/orders_DRO_cluster.csv",
+      "file": "outputs_v4/orders_DRO_cluster.csv",
+      "source_sha256": "01e5837d1e4eee34becbab3d3c4bd64cf56950f41b329efb31bd4bf8516d6db6",
+      "archived_sha256": "01e5837d1e4eee34becbab3d3c4bd64cf56950f41b329efb31bd4bf8516d6db6",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/orders_DRO_global.csv",
+      "file": "outputs_v4/orders_DRO_global.csv",
+      "source_sha256": "6b64fc076050f9cdfbc093f286a30075da70894e0fde02e3b94f0f7e35499016",
+      "archived_sha256": "6b64fc076050f9cdfbc093f286a30075da70894e0fde02e3b94f0f7e35499016",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/orders_SAA.csv",
+      "file": "outputs_v4/orders_SAA.csv",
+      "source_sha256": "ab3ab63929889456e97a423d00e44064b5d1aa574f541d64db30863d99dcbebb",
+      "archived_sha256": "ab3ab63929889456e97a423d00e44064b5d1aa574f541d64db30863d99dcbebb",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/orders_sS.csv",
+      "file": "outputs_v4/orders_sS.csv",
+      "source_sha256": "63576d089bcc666e7afa4b075b9adcc8e3b3d72b5356c5b02e4dba583163e5f1",
+      "archived_sha256": "63576d089bcc666e7afa4b075b9adcc8e3b3d72b5356c5b02e4dba583163e5f1",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/period_workbook_preview.png",
+      "file": "outputs_v4/period_workbook_preview.png",
+      "source_sha256": "4914f6d8effb383048ba1316885dec79e32f5ee629b210ded15ad1234784a7af",
+      "archived_sha256": "4914f6d8effb383048ba1316885dec79e32f5ee629b210ded15ad1234784a7af",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/policy_validation.csv",
+      "file": "outputs_v4/policy_validation.csv",
+      "source_sha256": "497493b1d44c50b15dc2890f247f2da409ad83eeddae381b2496239b67eb9d5f",
+      "archived_sha256": "497493b1d44c50b15dc2890f247f2da409ad83eeddae381b2496239b67eb9d5f",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/positive_stock_by_sku.csv",
+      "file": "outputs_v4/positive_stock_by_sku.csv",
+      "source_sha256": "30f6e2ed1de22cbdd1691b5a3abf6c61993a38209f373f32b1d3bacad3ab3108",
+      "archived_sha256": "30f6e2ed1de22cbdd1691b5a3abf6c61993a38209f373f32b1d3bacad3ab3108",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/positive_stock_service.csv",
+      "file": "outputs_v4/positive_stock_service.csv",
+      "source_sha256": "72c237d2c9c7d1281f27a17ca68d3ffc34194e228604cd95ed17caf9d5c5ef0b",
+      "archived_sha256": "72c237d2c9c7d1281f27a17ca68d3ffc34194e228604cd95ed17caf9d5c5ef0b",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/replenishment_comparison.xlsx",
+      "file": "outputs_v4/replenishment_comparison.xlsx",
+      "source_sha256": "ce4f865054abedbad053f791aa7a0809fe14dfb53602512314c0d4c4a5e0cd32",
+      "archived_sha256": "ce4f865054abedbad053f791aa7a0809fe14dfb53602512314c0d4c4a5e0cd32",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/result_checks.json",
+      "file": "outputs_v4/result_checks.json",
+      "source_sha256": "fe0f1cbaac0203aa735522ea373463a91f0dd6ffa3dd2e24c839d376d498c943",
+      "archived_sha256": "fe0f1cbaac0203aa735522ea373463a91f0dd6ffa3dd2e24c839d376d498c943",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/results_by_period.csv",
+      "file": "outputs_v4/results_by_period.csv",
+      "source_sha256": "4fbac4e167b5e25c9fe2396431bdae4fac5936b853bda4bf9ff4327d92165051",
+      "archived_sha256": "4fbac4e167b5e25c9fe2396431bdae4fac5936b853bda4bf9ff4327d92165051",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/risk_group_profile.csv",
+      "file": "outputs_v4/risk_group_profile.csv",
+      "source_sha256": "c6edfb379f9ce46e8b499f79c262e7673e2dac3076d70b2205c9668154220944",
+      "archived_sha256": "c6edfb379f9ce46e8b499f79c262e7673e2dac3076d70b2205c9668154220944",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/summary.csv",
+      "file": "outputs_v4/summary.csv",
+      "source_sha256": "e1e759e518a20fdd068134c8d53fa27988ec9ba75877aef3fc5b9eef7e196ace",
+      "archived_sha256": "e1e759e518a20fdd068134c8d53fa27988ec9ba75877aef3fc5b9eef7e196ace",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/summary_by_segment.csv",
+      "file": "outputs_v4/summary_by_segment.csv",
+      "source_sha256": "725bbe2fa372bcba8e3738a11ebb19c312f6d3fdb9d4afc7d619778a5ec7df8f",
+      "archived_sha256": "725bbe2fa372bcba8e3738a11ebb19c312f6d3fdb9d4afc7d619778a5ec7df8f",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/workbook_checks.json",
+      "file": "outputs_v4/workbook_checks.json",
+      "source_sha256": "7c80d090fd30e06dba4032be1977873d39ffcdc8c8f8c606d22387f0fd9843e6",
+      "archived_sha256": "7c80d090fd30e06dba4032be1977873d39ffcdc8c8f8c606d22387f0fd9843e6",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/outputs_v4/workbook_preview.png",
+      "file": "outputs_v4/workbook_preview.png",
+      "source_sha256": "f61c6da5ecb922a5f98b5b2aff6a797022b0a2c2240024d78c2f84d2898cd903",
+      "archived_sha256": "f61c6da5ecb922a5f98b5b2aff6a797022b0a2c2240024d78c2f84d2898cd903",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/publish_results.py",
+      "file": "publish_results.py",
+      "source_sha256": "3223d1f9fc4d44698d0db228e30870e6f7e3d3ccc34fcdfe0242cf32e77bef8c",
+      "archived_sha256": "3223d1f9fc4d44698d0db228e30870e6f7e3d3ccc34fcdfe0242cf32e77bef8c",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/regenerate_report_v3.py",
+      "file": "regenerate_report_v3.py",
+      "source_sha256": "95b78649d473e5cdc9a2edd64e724d0b96eda22f66b85c0560f53fa2e6c44d82",
+      "archived_sha256": "95b78649d473e5cdc9a2edd64e724d0b96eda22f66b85c0560f53fa2e6c44d82",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/report_v3.py",
+      "file": "report_v3.py",
+      "source_sha256": "44be3d6ca9691b57576458bf4cc1bc10919079c0ac7392f061b67c53f052325f",
+      "archived_sha256": "44be3d6ca9691b57576458bf4cc1bc10919079c0ac7392f061b67c53f052325f",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/requirements_v3.txt",
+      "file": "requirements_v3.txt",
+      "source_sha256": "938b7ce525c3c2af6fb8a2cb834b58bb85a2609fb7b35d7147997b4996a1d451",
+      "archived_sha256": "938b7ce525c3c2af6fb8a2cb834b58bb85a2609fb7b35d7147997b4996a1d451",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/run_v2.py",
+      "file": "run_v2.py",
+      "source_sha256": "fde2500f436d97f09c3ba352ed4d77c8094acbb15c129af28a18e69e23f44352",
+      "archived_sha256": "fde2500f436d97f09c3ba352ed4d77c8094acbb15c129af28a18e69e23f44352",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/run_v3.py",
+      "file": "run_v3.py",
+      "source_sha256": "bd86003d4b46e27314e59d8217ac435094cb9f760fc93a3ad23ebba9f1c883f8",
+      "archived_sha256": "bd86003d4b46e27314e59d8217ac435094cb9f760fc93a3ad23ebba9f1c883f8",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/tests/test_v2.py",
+      "file": "tests/test_v2.py",
+      "source_sha256": "dd0e0fd45eeaa275d4ff61b386be7c79acfd06ce423bb364ff6e142945684453",
+      "archived_sha256": "dd0e0fd45eeaa275d4ff61b386be7c79acfd06ce423bb364ff6e142945684453",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/verify_dashboard.mjs",
+      "file": "verify_dashboard.mjs",
+      "source_sha256": "93dc7eb14a838448f50d1ed29b9c1bec1316aba0698e2a2a2af9ced2234b25bf",
+      "archived_sha256": "93dc7eb14a838448f50d1ed29b9c1bec1316aba0698e2a2a2af9ced2234b25bf",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/verify_published.py",
+      "file": "verify_published.py",
+      "source_sha256": "e250480e0c9f688a8256dfc2e6b6cca7d846e9bf23f6fc10a91c1a23a6f4b292",
+      "archived_sha256": "e250480e0c9f688a8256dfc2e6b6cca7d846e9bf23f6fc10a91c1a23a6f4b292",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/verify_results_v3.py",
+      "file": "verify_results_v3.py",
+      "source_sha256": "3de73701f5d47d8bb737bec712f2c577824a79cb3faec3ca2f9eb02f5a1aa070",
+      "archived_sha256": "3de73701f5d47d8bb737bec712f2c577824a79cb3faec3ca2f9eb02f5a1aa070",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/verify_workbook_v3.py",
+      "file": "verify_workbook_v3.py",
+      "source_sha256": "1f4052d40c85c34ada2c6c4a672a1b466fa287cfe6d4b13156f77bc6cced0b85",
+      "archived_sha256": "1f4052d40c85c34ada2c6c4a672a1b466fa287cfe6d4b13156f77bc6cced0b85",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/visualization/README.md",
+      "file": "visualization/README.md",
+      "source_sha256": "f3cda5ecacdc090bc71e6fcc8066c882c9216eda7b30ee7d06e60d4f91a49042",
+      "archived_sha256": "afbf2a09dc53073cf9069e7b2ab6d0239d4618b9e246a51c1260bdc71ff9b8ea",
+      "adapted_navigation": true
+    },
+    {
+      "source": "experiments/rolling_dro_v3/visualization/cluster_profile.png",
+      "file": "visualization/cluster_profile.png",
+      "source_sha256": "8f8fd1945d559401870e5ff49ad0bf5cece5539be3c09de3664651d4d8595c34",
+      "archived_sha256": "8f8fd1945d559401870e5ff49ad0bf5cece5539be3c09de3664651d4d8595c34",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/visualization/cluster_profile.svg",
+      "file": "visualization/cluster_profile.svg",
+      "source_sha256": "1eb316ce6ddd5d2947db7a72552f575818be16db7f987ca26a6119223d36aebe",
+      "archived_sha256": "1eb316ce6ddd5d2947db7a72552f575818be16db7f987ca26a6119223d36aebe",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/visualization/index.html",
+      "file": "visualization/index.html",
+      "source_sha256": "0f9153384ef80f3fd135aa65dc4af5c405c1d5a0b642fdeafb78748d249f9ef1",
+      "archived_sha256": "86ea1dbca9276bea530e7dc8bcac4178c7d9131618fccc98b5ff0232eb650b8a",
+      "adapted_navigation": true
+    },
+    {
+      "source": "experiments/rolling_dro_v3/visualization/period_comparison.png",
+      "file": "visualization/period_comparison.png",
+      "source_sha256": "2692f9a7f76cebb27484d7f76380e429a1fb51094427bb6634b7b19526271153",
+      "archived_sha256": "2692f9a7f76cebb27484d7f76380e429a1fb51094427bb6634b7b19526271153",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/visualization/period_comparison.svg",
+      "file": "visualization/period_comparison.svg",
+      "source_sha256": "f8ffd331dfa91a8112f15df338403cf6be5aafac338f8702576aa136361498d7",
+      "archived_sha256": "f8ffd331dfa91a8112f15df338403cf6be5aafac338f8702576aa136361498d7",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/visualization/strategy_comparison.png",
+      "file": "visualization/strategy_comparison.png",
+      "source_sha256": "76cd4531f5495e8fbc352effd6fcbb0127a6b631743a4f6c78f027ddd7c6dbb8",
+      "archived_sha256": "76cd4531f5495e8fbc352effd6fcbb0127a6b631743a4f6c78f027ddd7c6dbb8",
+      "adapted_navigation": false
+    },
+    {
+      "source": "experiments/rolling_dro_v3/visualization/strategy_comparison.svg",
+      "file": "visualization/strategy_comparison.svg",
+      "source_sha256": "fdeb3020f3d1fb5265b01c6e1bcee6a4c0210f8c1f94add06756b192374c0251",
+      "archived_sha256": "fdeb3020f3d1fb5265b01c6e1bcee6a4c0210f8c1f94add06756b192374c0251",
+      "adapted_navigation": false
+    }
+  ]
+}
