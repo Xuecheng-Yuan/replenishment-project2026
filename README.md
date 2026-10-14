@@ -1,5 +1,13 @@
 # Replenishment Project 2026
 
+## 最新联合汇报与交互网站（2026-10-14）
+
+- [最新汇报PPT](汇报成果/2026-10-14/补货项目汇报_20261014.pptx)
+- [交互网站离线版](汇报成果/2026-10-14/补货方案对比网站_离线版.html)
+- [打开方式与版本说明](汇报成果/2026-10-14/README.md)
+
+本轮展示区分yuan xuecheng的预测与决策学习方向、kristina的鲁棒优化方向。既有代码与历史汇报保留不变。
+
 ## 当前交付：四期滚动分布鲁棒补货
 
 旧的需求满足率约束版已完整独立保存在[experiments/demand_fill_v3](experiments/demand_fill_v3/README.md)，包含原报告、Excel、代码和结果。[两版对比报告](experiments/version_comparison/COMPARISON.md)同时列出服务定义、建模差异和五种策略的结果。
