@@ -10,5 +10,6 @@ experiments/demand_fill_v3/visualization/*.svg whitespace=cr-at-eol,-blank-at-eo
 experiments/demand_fill_v3/visualization/index.html whitespace=cr-at-eol,-blank-at-eol
 experiments/rolling_dro_v3/with_ro/outputs_v4/* -text whitespace=cr-at-eol
 experiments/full60_revision/** -text whitespace=cr-at-eol
+experiments/service95_revision/** -text whitespace=cr-at-eol
 # Keep the animation delivery checksums stable across platforms.
 汇报成果/2026-10-15/** -text whitespace=cr-at-eol

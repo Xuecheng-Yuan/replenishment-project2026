@@ -11,9 +11,10 @@ const read=async(out,name)=>{
  const cols=lines.shift().split(',');
  return lines.map(l=>Object.fromEntries(l.split(',').map((v,i)=>[cols[i],v!==''&&Number.isFinite(Number(v))?Number(v):v])));
 };
-const full60=process.argv.includes('--full60');
+const service95=process.argv.includes('--service95');
+const full60=process.argv.includes('--full60')||service95;
 for(const version of (full60?['rolling_dro_v3']:['demand_fill_v3','rolling_dro_v3'])){
- const out=full60?path.join(root,'experiments/full60_revision/new_positive/outputs_v4'):path.join(root,'experiments',version,'with_ro/outputs_v4');
+ const out=service95?path.join(root,'experiments/service95_revision/outputs_v4'):full60?path.join(root,'experiments/full60_revision/new_positive/outputs_v4'):path.join(root,'experiments',version,'with_ro/outputs_v4');
  const old=version==='demand_fill_v3';
  const data=(await read(out,'summary.csv')).filter(r=>r.scope==='all_28_periods');
  const wb=Workbook.create();
@@ -46,7 +47,7 @@ for(const version of (full60?['rolling_dro_v3']:['demand_fill_v3','rolling_dro_v
  sh.getRange('A12').values=[['服务定义：'+(old?'销量÷需求≥95%':'期末库存>0的商品－天数÷全部商品－天数，在95%–95.5%之间')]];
  sh.getRange('A14').values=[['库存需求比＝累计期末库存÷累计需求，越低越好。6000商品，28天；两项服务指标同时报告。']];
  sh.getRange('A16').values=[['来源：同目录summary.csv、frozen_parameters.json及detail_*.csv.gz；完整数学模型见上一级REPORT.md。']];
- if(full60)sh.getRange('A18').values=[['三轮1–24→25–36、1–36→37–48、1–48→49–60合并选参，最终60期拟合，独立测试文件28期。']];
+ if(full60)sh.getRange('A18').values=[[service95?'训练29–60拟合、1–28重启留出选反馈；三轮前缀诊断；全部60期最终拟合，独立测试28期。':'三轮1–24→25–36、1–36→37–48、1–48→49–60合并选参，最终60期拟合，独立测试文件28期。']];
  const segment=await read(out,'summary_by_segment.csv');
  const seg=sheet('爆品长尾结果','全部爆品和全部长尾品的独立测试表现',
   ['方法','类别','SKU数','销量','需求','需求满足率','正库存商品天','全部商品天','正库存比例','累计期末库存','库存需求比'],
@@ -68,8 +69,33 @@ for(const version of (full60?['rolling_dro_v3']:['demand_fill_v3','rolling_dro_v
   detail.getRange(`A5:A${last}`).setNumberFormat('0');detail.getRange(`A5:B${last}`).format.horizontalAlignment='center';detail.getRange(`B5:B${last}`).setNumberFormat('@');
   detail.getRange(`D5:E${last}`).setNumberFormat('#,##0');detail.getRange(`J5:AA${last}`).setNumberFormat('#,##0');
  }
- const val=full60?await read(path.join(root,'experiments/full60_revision/outputs'),'candidate_validation.csv'):await read(out,'ro_validation.csv');
- if(full60){
+ const val=service95?await read(out,'candidate_validation.csv'):full60?await read(path.join(root,'experiments/full60_revision/outputs'),'candidate_validation.csv'):await read(out,'ro_validation.csv');
+ if(service95){
+  const chosen=JSON.parse(await fs.readFile(path.join(out,'frozen_parameters.json'),'utf8')).selected;
+  const foldScores=await read(out,'candidate_validation_by_fold.csv');
+  const rs=foldScores.filter(r=>r.candidate===chosen[r.method].candidate);
+  const fd=sheet('训练验证','已选策略：28期重启留出用于选参，三轮12期前缀用于诊断',
+   ['方法','轮次','情景','拟合时期','验证时期','计分时期','正库存比例','需求满足率','库存需求比'],
+   rs.map(r=>[labels[r.method],r.fold,r.case==='reset'?'周期重启':'日历延续',r.fit_periods,r.validation_periods,r.score_periods,r.positive_stock_ratio,r.fill_rate,r.inventory_demand_ratio]));
+  fd.getRange('B5:B46').setNumberFormat('0');fd.getRange('G5:H46').setNumberFormat('0.0000%');fd.getRange('I5:I46').setNumberFormat('0.000000');
+  const lib=sheet('策略候选','108个反馈候选：训练28期重启P在95%–95.5%内最小化J',
+   ['方法','候选号','正库存比例','需求满足率','库存需求比','近期窗口','训练先验','响应偏置'],
+   val.map(r=>[labels[r.method],r.candidate,r.positive_stock_ratio,r.fill_rate,r.inventory_demand_ratio,r.response_window,r.response_prior,r.response_bias]));
+  lib.getRange(`B5:B${val.length+4}`).setNumberFormat('0');lib.getRange(`C5:D${val.length+4}`).setNumberFormat('0.0000%');lib.getRange(`E5:E${val.length+4}`).setNumberFormat('0.000000');lib.getRange(`F5:G${val.length+4}`).setNumberFormat('0');lib.getRange(`H5:H${val.length+4}`).setNumberFormat('0.00');
+  const feedback=await read(out,'service_feedback.csv');
+  const fb=sheet('服务预算','逐期仅用已发生信息调整下一期水位；末期订单到达第29期',
+   ['方法','周期','累计正库存商品天','累计正库存比例','下一期预算比例','估计下一期服务','水位倍率λ','预算目标'],
+   feedback.map(r=>[labels[r.method],r.period,r.cumulative_positive,r.cumulative_service,r.requested_next_service,r.estimated_next_service,r.scale,r.feedback_target]));
+  fb.getRange('B5:C172').setNumberFormat('#,##0');fb.getRange('D5:F172').setNumberFormat('0.0000%');fb.getRange('G5:G172').setNumberFormat('0.000000');fb.getRange('H5:H172').setNumberFormat('0.0000%');
+  const comparison=await read(out,'version_comparison.csv');
+  const comp=sheet('版本对比','历史需求版、上一轮正库存版与本次服务95%版：训练方案不同',
+   ['版本','方法','销量','需求','需求满足率','正库存商品天','全部商品天','正库存比例','累计期末库存','库存需求比','本版服务达标'],
+   comparison.map(r=>[r.version,labels[r.method],r.sales_units,r.demand_units,null,r.positive_stock_sku_periods,r.total_sku_periods,null,r.ending_inventory_units,null,null]));
+  comp.getRange('A:A').format.columnWidth=32;comp.getRange('B:B').format.columnWidth=24;
+  comp.getRange('K5:K22').format.horizontalAlignment='center';
+  for(let i=0;i<comparison.length;i++){const r=i+5;comp.getRange(`E${r}`).formulas=[[`=C${r}/D${r}`]];comp.getRange(`H${r}`).formulas=[[`=F${r}/G${r}`]];comp.getRange(`J${r}`).formulas=[[`=I${r}/D${r}`]];comp.getRange(`K${r}`).formulas=[[i<6?`=IF(E${r}>=95%,"达到95%","低于95%")`:`=IF(AND(H${r}>=95%,H${r}<=95.5%),"范围内","范围外")`]];}
+  comp.getRange('C5:D22').setNumberFormat('#,##0');comp.getRange('F5:G22').setNumberFormat('#,##0');comp.getRange('I5:I22').setNumberFormat('#,##0');comp.getRange('E5:E22').setNumberFormat('0.0000%');comp.getRange('H5:H22').setNumberFormat('0.0000%');comp.getRange('J5:J22').setNumberFormat('0.000000');
+ }else if(full60){
   const ro=sheet('RO训练选参','三轮验证合并36期：RO宽度仅从训练集选择', ['区间宽度Γ','需求满足率','正库存比例','库存需求比'],val.filter(r=>r.method==='RO').map(r=>[r.gamma,r.fill_rate,r.positive_stock_ratio,r.inventory_demand_ratio]));
   ro.getRange(`B5:C${val.filter(r=>r.method==='RO').length+4}`).setNumberFormat('0.0000%');
   ro.getRange(`D5:D${val.filter(r=>r.method==='RO').length+4}`).setNumberFormat('0.000000');
@@ -90,7 +116,8 @@ for(const version of (full60?['rolling_dro_v3']:['demand_fill_v3','rolling_dro_v
  await fs.writeFile(path.join(out,'workbook_preview.png'),new Uint8Array(await png.arrayBuffer()));
  if(full60){
   const qa=process.env.REPLENISHMENT_QA_DIR??path.join(root,'../_delivery_tools/rolling_cv_qa');await fs.mkdir(qa,{recursive:true});
-  for(const [name,range] of [['爆品长尾结果','A1:K16'],['逐期结果','A1:G12'],['最近一期全部SKU','A1:O12'],['完整周期样本','A1:O12'],['RO训练选参','A1:D12'],['三轮验证','A1:G15']]){
+  const views=[['爆品长尾结果','A1:K16'],['逐期结果','A1:G12'],['最近一期全部SKU','A1:O12'],['完整周期样本','A1:O12'],...(service95?[['训练验证','A1:I12'],['策略候选','A1:H12'],['服务预算','A1:H12'],['版本对比','A1:K22']]:[['RO训练选参','A1:D12'],['三轮验证','A1:G15']])];
+  for(const [name,range] of views){
    const image=await wb.render({sheetName:name,range,scale:1.15,format:'png'});
    await fs.writeFile(path.join(qa,`新版_${name}.png`),new Uint8Array(await image.arrayBuffer()));
   }

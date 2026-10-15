@@ -1,0 +1,8 @@
+{
+  "first_positive": 5357,
+  "sku_periods": 168000,
+  "max_possible_service": 0.996172619047619,
+  "first_stock_controllable": false,
+  "frozen_parameters_sha256": "8f056701c71f3ff0c22584b6887959dc9b846e530c302fe8de1dfa136b11c524",
+  "test_results_used_for_selection": false
+}

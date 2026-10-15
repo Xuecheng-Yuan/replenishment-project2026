@@ -7,6 +7,7 @@ on:
       - 'experiments/version_comparison/**'
       - 'experiments/ro_extension/**'
       - 'experiments/full60_revision/**'
+      - 'experiments/service95_revision/**'
       - 'scripts/*animation*'
       - 'scripts/animation/**'
       - '汇报成果/2026-10-15/**'
@@ -18,6 +19,7 @@ on:
       - 'experiments/version_comparison/**'
       - 'experiments/ro_extension/**'
       - 'experiments/full60_revision/**'
+      - 'experiments/service95_revision/**'
       - 'scripts/*animation*'
       - 'scripts/animation/**'
       - '汇报成果/2026-10-15/**'
@@ -44,5 +46,6 @@ jobs:
       - run: python -m unittest discover -s experiments/ro_extension -p test_ro.py -v
       - run: python experiments/ro_extension/verify_ro.py
       - run: python experiments/ro_extension/verify_ablation.py
+      - run: python experiments/ro_extension/verify_service95.py
       - run: python scripts/verify_animation.py
       - run: python experiments/version_comparison/build_comparison.py
