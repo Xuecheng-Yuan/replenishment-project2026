@@ -1,0 +1,56 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>六种补货方法比较</title>
+<style>body{font:16px "Microsoft YaHei",sans-serif;color:#17324d;max-width:1200px;margin:40px auto;padding:0 24px}table{border-collapse:collapse;width:100%}td,th{text-align:right;padding:12px;border-bottom:1px solid #ddd}td:first-child,th:first-child{text-align:left}img{width:100%}a{color:#34698e}.bar{background:#34698e;height:24px;margin:6px 0;color:white;min-width:100px;padding:4px;white-space:nowrap}select{font:inherit;padding:5px}</style><h1>正库存天数版：六种方法结果</h1><p>完整6000商品×28天测试。服务要求：正库存商品天比例95%–95.5%。</p><p>库存需求比＝累计期末库存/累计需求，越低越好。RO采用需求区间最坏情形，Γ仅在训练集选取。</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>方法</th>
+      <th>需求满足率</th>
+      <th>正库存天数比例</th>
+      <th>库存需求比↓</th>
+      <th>损失需求</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>特征聚类DRO</td>
+      <td>98.9416%</td>
+      <td>95.0679%</td>
+      <td>0.550971</td>
+      <td>957491.0</td>
+    </tr>
+    <tr>
+      <td>不分组DRO</td>
+      <td>98.9758%</td>
+      <td>95.0946%</td>
+      <td>0.594139</td>
+      <td>926561.0</td>
+    </tr>
+    <tr>
+      <td>爆品/长尾DRO</td>
+      <td>98.9477%</td>
+      <td>95.1405%</td>
+      <td>0.555746</td>
+      <td>951976.0</td>
+    </tr>
+    <tr>
+      <td>传统(s,S)</td>
+      <td>98.8976%</td>
+      <td>95.2262%</td>
+      <td>0.515894</td>
+      <td>997297.0</td>
+    </tr>
+    <tr>
+      <td>零半径经验模型</td>
+      <td>98.9263%</td>
+      <td>95.3429%</td>
+      <td>0.533223</td>
+      <td>971288.0</td>
+    </tr>
+    <tr>
+      <td>传统区间RO</td>
+      <td>98.9711%</td>
+      <td>95.0077%</td>
+      <td>0.589326</td>
+      <td>930771.0</td>
+    </tr>
+  </tbody>
+</table><p><a href="../REPORT.md">数学模型与报告</a>　<a href="../outputs_v4/replenishment_comparison.xlsx">下载Excel</a>　<a href="../../../version_comparison/COMPARISON.md">新旧版比较</a></p><h2>切换指标</h2><select id="metric"><option value="inventory_demand_ratio">库存需求比</option><option value="fill_rate">需求满足率</option><option value="positive_stock_ratio">正库存天数比例</option></select><div id="bars"></div><img alt="六种方法库存与服务比较" src="six_method_comparison.png"><img alt="逐期比较" src="period_comparison.png"><script>const data=[{"method": "特征聚类DRO", "fill_rate": 0.9894159467775522, "positive_stock_ratio": 0.9506785714285716, "inventory_demand_ratio": 0.5509713394741022}, {"method": "不分组DRO", "fill_rate": 0.989757845308369, "positive_stock_ratio": 0.9509464285714284, "inventory_demand_ratio": 0.5941385769241351}, {"method": "爆品/长尾DRO", "fill_rate": 0.9894769092863608, "positive_stock_ratio": 0.951404761904762, "inventory_demand_ratio": 0.5557462127773727}, {"method": "传统(s,S)", "fill_rate": 0.9889759334274812, "positive_stock_ratio": 0.9522619047619048, "inventory_demand_ratio": 0.515894429383014}, {"method": "零半径经验模型", "fill_rate": 0.9892634354930492, "positive_stock_ratio": 0.9534285714285714, "inventory_demand_ratio": 0.5332231910845686}, {"method": "传统区间RO", "fill_rate": 0.98971130819829, "positive_stock_ratio": 0.9500773809523808, "inventory_demand_ratio": 0.5893261202065492}];function draw(){let k=document.getElementById('metric').value,max=Math.max(...data.map(r=>r[k]));document.getElementById('bars').replaceChildren(...data.map(r=>{let e=document.createElement('div');e.className='bar';e.style.width=(r[k]/max*90)+'%';e.textContent=r.method+' '+(k==='inventory_demand_ratio'?r[k].toFixed(6):(r[k]*100).toFixed(4)+'%');return e}));}document.getElementById('metric').addEventListener('change',draw);draw();</script></html>

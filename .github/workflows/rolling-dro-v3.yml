@@ -5,12 +5,14 @@ on:
       - 'experiments/rolling_dro_v3/**'
       - 'experiments/demand_fill_v3/**'
       - 'experiments/version_comparison/**'
+      - 'experiments/ro_extension/**'
       - '.github/workflows/rolling-dro-v3.yml'
   pull_request:
     paths:
       - 'experiments/rolling_dro_v3/**'
       - 'experiments/demand_fill_v3/**'
       - 'experiments/version_comparison/**'
+      - 'experiments/ro_extension/**'
       - '.github/workflows/rolling-dro-v3.yml'
   workflow_dispatch:
 jobs:
@@ -31,4 +33,6 @@ jobs:
       - run: python experiments/demand_fill_v3/verify_published.py
       - run: python experiments/demand_fill_v3/verify_workbook_v3.py
       - run: python experiments/demand_fill_v3/verify_archive.py
+      - run: python -m unittest discover -s experiments/ro_extension -p test_ro.py -v
+      - run: python experiments/ro_extension/verify_ro.py
       - run: python experiments/version_comparison/build_comparison.py

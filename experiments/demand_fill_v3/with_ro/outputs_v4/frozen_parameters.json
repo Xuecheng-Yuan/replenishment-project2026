@@ -1,0 +1,87 @@
+{
+  "target_fill": 0.95,
+  "forward_control_target": 0.9580576277958447,
+  "forecast": {
+    "blend": 1.0,
+    "window": 3,
+    "prior": 0.0
+  },
+  "selected": {
+    "DRO_cluster": {
+      "method": "DRO_cluster",
+      "beta": 0.9580576277958447,
+      "radius": 0.1,
+      "forward_fill": 0.9937332018155695,
+      "forward_inventory_ratio": 0.16731875437134477,
+      "reset_fill": 0.9506763050922835,
+      "reset_inventory_ratio": 0.136262662824173
+    },
+    "DRO_global": {
+      "method": "DRO_global",
+      "beta": 0.9680576277958447,
+      "radius": 0.05,
+      "forward_fill": 0.99662590127956,
+      "forward_inventory_ratio": 0.1962912306300961,
+      "reset_fill": 0.9504945437502589,
+      "reset_inventory_ratio": 0.13364539041849516
+    },
+    "DRO_category": {
+      "method": "DRO_category",
+      "beta": 0.9580576277958447,
+      "radius": 0.1,
+      "forward_fill": 0.9942693309178798,
+      "forward_inventory_ratio": 0.165793427362005,
+      "reset_fill": 0.9516564835927209,
+      "reset_inventory_ratio": 0.1365315738122853
+    },
+    "sS": {
+      "method": "sS",
+      "p_s": 0.75,
+      "p_S": 0.85,
+      "forward_fill": 0.9929290528395291,
+      "forward_inventory_ratio": 0.16608786648649881,
+      "reset_fill": 0.9504238150489366,
+      "reset_inventory_ratio": 0.13555781511402162
+    },
+    "SAA": {
+      "method": "SAA",
+      "beta": 0.9880576277958447,
+      "radius": 0.0,
+      "forward_fill": 0.9959332969417504,
+      "forward_inventory_ratio": 0.20121306457068913,
+      "reset_fill": 0.953528171926959,
+      "reset_inventory_ratio": 0.14442066801534256
+    },
+    "RO": {
+      "method": "RO",
+      "gamma": 1.098,
+      "beta": 0.9580576277958447,
+      "forward_fill": 0.9958190369088996,
+      "reset_fill": 0.9500298786906863,
+      "forward_service": NaN,
+      "reset_service": NaN,
+      "forward_inventory_ratio": 0.18341911341055117,
+      "reset_inventory_ratio": 0.13246482317076247,
+      "lower_relative": 0.824115962090918,
+      "upper_relative": 1.1933632197006157,
+      "uncertainty_set": "nonnegative relative-demand box [max(0,mu-gamma*sigma),mu+gamma*sigma]",
+      "mu": 1.0087395908957668,
+      "sigma": 0.16814538142518104
+    }
+  },
+  "lead_time": 1,
+  "review_period": 0,
+  "horizon": 4,
+  "test_periods_restart": true,
+  "inventory_rule": "after demand t, order; receive before demand t+1",
+  "objective": "minimize sum of period-ending inventory / sum of demand",
+  "objective_metric": "inventory_demand_ratio",
+  "objective_direction": "min",
+  "ambiguity": "rectangular W-infinity balls around nonnegative relative residual samples",
+  "selection": "training-only forward and early-reset blocked validation",
+  "test_used_in_prior_revision_diagnosis": true,
+  "training_periods": 60,
+  "test_periods": 28,
+  "skus": 6000,
+  "ro_calibration": "training only; width grid 0:0.025:8 then local 0.001 refinement; original selection rules"
+}
