@@ -1,5 +1,11 @@
 # Replenishment Project 2026
 
+## 当前：完整60期训练修正版
+
+[修正与交付报告](experiments/full60_revision/CHANGE_REPORT.md) · [当前结果及Excel](experiments/full60_revision/README.md) · [服务约束单因素报告](experiments/full60_revision/REPORT.md)
+
+新版和单因素实验均按1–32期拟合、33–60期向前验证选参，然后用全部60期最终拟合。六种方法的测试正库存比例均未达到95%–95.5%，不再引用原32期版本的达标结论。下文原新版结果作为历史追溯。
+
 ## 最新六策略场景动画（2026-10-15）
 
 - [动画、启动方式与指标说明](汇报成果/2026-10-15/README.md)
@@ -8,9 +14,11 @@
 
 新增传统区间 RO，支持当前正库存服务版和历史数量满足率版切换，六个独立窗口同步播放。离线 HTML 无需安装依赖；动画数值来自冻结真实轨迹，小人和货架图标为示意。
 
-## 新旧两版新增传统RO（2026-10-15）
+上述动画使用全60期修正之前的冻结轨迹，仅作历史演示；当前全60期结果、图表与达标状态请以本页顶部修正报告为准。
 
-两版均已补充“传统区间鲁棒优化RO”，现在各有六种方法。最新交付位于各版的 `with_ro` 子文件夹，原五方法结果保留。
+## 历史：新旧两版新增传统RO（2026-10-15）
+
+历史两版均已补充“传统区间鲁棒优化RO”，各有六种方法。该历史交付位于各版的 `with_ro` 子文件夹，原五方法结果保留；当前新版为full60_revision。
 
 - [旧版：六方法报告、Excel与可视化](experiments/demand_fill_v3/with_ro/README.md)
 - [新版：六方法报告、Excel与可视化](experiments/rolling_dro_v3/with_ro/README.md)
@@ -27,7 +35,7 @@
 
 本轮展示区分yuan xuecheng的预测与决策学习方向、kristina的鲁棒优化方向。既有代码与历史汇报保留不变。
 
-## 当前交付：四期滚动分布鲁棒补货
+## 历史交付：被替代的32期拟合版本
 
 旧的需求满足率约束版已完整独立保存在[experiments/demand_fill_v3](experiments/demand_fill_v3/README.md)，包含原报告、Excel、代码和结果。[两版对比报告](experiments/version_comparison/COMPARISON.md)同时列出服务定义、建模差异和新增RO后的六种策略结果。
 

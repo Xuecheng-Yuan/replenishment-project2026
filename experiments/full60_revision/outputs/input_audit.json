@@ -1,0 +1,14 @@
+{
+  "inputs": [
+    {
+      "file": "replenishment_train.xlsx",
+      "sha256": "773169c50b878922b67dc15882a758950abed2d9f6eb607774a47cfb326fa608"
+    },
+    {
+      "file": "replenishment_test.xlsx",
+      "sha256": "9010d3d44b9f56b835efe17bc7e3e628f809f5d2c91d656d6b6876ee18a13074"
+    }
+  ],
+  "cache_sha256": "c9e32fcc1641dc94e2413e4fcb2ab3c73ae55cab810380e350b901eccfa0dafb",
+  "validation": "streamed all worksheets; checked keys, categories, initial stock, finite nonnegative demand/features"
+}

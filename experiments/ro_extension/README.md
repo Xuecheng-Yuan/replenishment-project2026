@@ -1,5 +1,7 @@
 # 新旧两版新增传统RO
 
+> 当前新版已修正为全部60期最终拟合。请阅读[全60期修正与交付报告](../full60_revision/CHANGE_REPORT.md)及[当前结果](../full60_revision/README.md)。下文原32期新版及原重置验证仅保留作历史追溯。当前重跑命令为`python experiments/ro_extension/constraint_ablation.py`，输出full60_revision。
+
 两版均增加第六种方法“传统区间RO”，与三种DRO、传统(s,S)、SAA同时比较。原始五方法交付保留，最新六方法交付在各版的 `with_ro` 文件夹。
 
 |版本|报告|Excel|可视化|
