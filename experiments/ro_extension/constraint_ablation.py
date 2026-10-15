@@ -11,6 +11,7 @@ import pandas as pd
 from extend_with_ro import ROOT, LABELS, box
 
 HOME=ROOT/'experiments/full60_revision'
+FOLDS=((24,36),(36,48),(48,60))
 
 def digest(a):return hashlib.sha256(np.ascontiguousarray(a).tobytes()).hexdigest()
 
@@ -19,6 +20,34 @@ def pick(frame, arm):
     eligible=frame[mask]
     if eligible.empty:raise RuntimeError(f'No training-feasible candidate: {arm}')
     return eligible.sort_values(['inventory_demand_ratio','candidate'],kind='stable').iloc[0]
+
+def aggregate_summaries(records):
+    """Pool primitive totals across validation episodes, rather than average ratios."""
+    totals={k:sum(r[k] for r in records) for k in (
+        'positive_stock_sku_periods','total_sku_periods','ending_inventory_units',
+        'demand_units','sales_units','lost_units','order_units','periods')}
+    n=records[0]['skus'];T=totals['periods'];denom=totals['demand_units']
+    return dict(**totals,skus=n,fill_rate=totals['sales_units']/denom,
+        positive_stock_ratio=totals['positive_stock_sku_periods']/totals['total_sku_periods'],
+        inventory_demand_ratio=totals['ending_inventory_units']/denom,
+        cycle_service=sum(r['cycle_service']*r['total_sku_periods'] for r in records)/totals['total_sku_periods'],
+        avg_inventory_per_sku=sum(r['avg_inventory_per_sku']*r['periods'] for r in records)/T,
+        avg_ending_inventory_per_sku=totals['ending_inventory_units']/(T*n),
+        final_stock=records[-1]['final_stock'],final_pipeline=records[-1]['final_pipeline'])
+
+def validation_initial_stock(y,initial,forecast,low,high=None):
+    """State after a fit-window replay; only the next arrival joins inventory.
+
+    The historical replay establishes state, and contributes no validation score.
+    Only the first planned order is executed, as in the four-horizon simulator.
+    """
+    stock=initial.copy();pipeline=np.zeros_like(stock)
+    for t in range(len(y)):
+        stock=np.maximum(stock+pipeline-y[t],0.)
+        upper=np.floor(forecast[t,0]*(low if high is None else high))+1
+        pipeline=np.maximum(0.,np.ceil(upper-stock))
+        if high is not None:pipeline=np.where(stock<np.floor(forecast[t,0]*low)+1,pipeline,0.)
+    return stock+pipeline
 
 def main():
     sys.path.insert(0,str(ROOT/'experiments/rolling_dro_v3'))
@@ -29,50 +58,100 @@ def main():
     data=pipeline.verified_data(ROOT/'data/raw',out,False)
     y,x=data['train_y'].astype(float),data['train_x'].astype(float)
     init=data['initial_inventory'].astype(float)
-    # Chronological split: no validation demand or feature enters fitting.
-    cut=32
-    labels=model.cluster(y[:cut],x[:cut])[0]
-    forecast_validation=[]
+    if y.shape!=(60,6000) or data['test_y'].shape!=(28,6000):
+        raise ValueError('Expected the original train60/test28 workbooks with 6000 items')
+    fold_data=[]
+    for fold,(cut,end) in enumerate(FOLDS,1):
+        labels=model.cluster(y[:cut],x[:cut])[0]
+        fold_data.append(dict(fold=fold,cut=cut,end=end,labels=labels))
+    forecast_validation=[];forecast_by_fold=[]
     for blend in (0.,.5,1.):
         for window in (3,6,12):
             for prior in (0.,.5,1.,3.):
                 candidate=dict(blend=blend,window=window,prior=prior)
-                fm=model.Forecaster(y[:cut],labels,**candidate)
-                pred=model.rolling_predictions(fm,y[cut:],cut,history=y[:cut])[:,0]
-                forecast_validation.append(dict(**candidate,wape=float(abs(pred-y[cut:]).sum()/y[cut:].sum())))
+                errors=[];demands=[]
+                for f in fold_data:
+                    cut,end=f['cut'],f['end']
+                    fm=model.Forecaster(y[:cut],f['labels'],**candidate)
+                    pred=model.rolling_predictions(fm,y[cut:end],cut,history=y[:cut])[:,0]
+                    error=float(abs(pred-y[cut:end]).sum());demand=float(y[cut:end].sum())
+                    forecast_by_fold.append(dict(**candidate,fold=f['fold'],fit_periods=f'1-{cut}',
+                        validation_periods=f'{cut+1}-{end}',absolute_error=error,demand_units=demand,wape=error/demand))
+                    errors.append(error);demands.append(demand)
+                forecast_validation.append(dict(**candidate,absolute_error=sum(errors),demand_units=sum(demands),wape=sum(errors)/sum(demands)))
     settings={k:min(forecast_validation,key=lambda r:r['wape'])[k] for k in ('blend','window','prior')}
     pd.DataFrame(forecast_validation).to_csv(out/'forecast_validation.csv',index=False,encoding='utf-8-sig')
-    fitted=model.Forecaster(y[:cut],labels,**settings)
-    fc=model.make_forecasts(fitted,y[cut:],cut,history=y[:cut])
-    residual=model.residual_oof(y[:cut],labels,**settings)[0]
-    print('[chronological] fit 1-32; validate 33-60; forecast',settings,flush=True)
-    groups=pipeline.variant_labels(labels,data['is_hot'])
-    recipes=[]; rows=[];lowbank=[];highbank=[]
-    def add(method,low,high=None,**recipe):
-        index=len(rows)
-        r=model.simulate(y[cut:],init,fc,low,high,positive_guard=True)['summary']
-        rows.append(dict(candidate=index,method=method,**recipe,**r))
-        recipes.append(dict(candidate=index,method=method,**recipe))
-        lowbank.append(np.asarray(low,float));highbank.append(np.asarray(low if high is None else high,float))
+    pd.DataFrame(forecast_by_fold).to_csv(out/'forecast_validation_by_fold.csv',index=False,encoding='utf-8-sig')
+    for f in fold_data:
+        cut,end,labels=f['cut'],f['end'],f['labels']
+        fitted=model.Forecaster(y[:cut],labels,**settings)
+        f['fc']=model.make_forecasts(fitted,y[cut:end],cut,history=y[:cut])
+        f['warm_fc']=model.make_forecasts(fitted,y[:cut],0)
+        f['residual']=model.residual_oof(y[:cut],labels,**settings)[0]
+        f['groups']=pipeline.variant_labels(labels,data['is_hot'])
+        f['level_cache']={};f['quantile_cache']={}
+    print('[rolling calibration] 1-24 -> 25-36; 1-36 -> 37-48; 1-48 -> 49-60; forecast',settings,flush=True)
+    recipes=[];rows=[];rows_by_fold=[]
+    def levels(f,recipe):
+        method=recipe['method'];residual=f['residual'];labels=f['labels']
+        if method=='RO':return np.full(6000,box(residual,recipe['gamma'])[1]),None
+        if method=='sS':
+            def quantile(p):
+                if p not in f['quantile_cache']:f['quantile_cache'][p]=ss_quantiles(residual,labels,p)
+                return f['quantile_cache'][p]
+            return quantile(recipe['p_s'])*recipe['scale'],quantile(recipe['p_S'])*recipe['scale']
+        key=(method,recipe['beta'])
+        if key not in f['level_cache']:
+            f['level_cache'][key]=model.risk_levels(residual,labels if method=='SAA' else f['groups'][method],recipe['beta'],0.)[0]
+        return (f['level_cache'][key]+recipe['radius'])*recipe['scale'],None
+    def add(method,**recipe):
+        index=len(rows);entry=dict(candidate=index,method=method,**recipe);parts=[]
+        for f in fold_data:
+            low,high=levels(f,entry)
+            validation_initial=validation_initial_stock(y[:f['cut']],init,f['warm_fc'],low,high)
+            r=model.simulate(y[f['cut']:f['end']],validation_initial,f['fc'],low,high,positive_guard=True)['summary']
+            rows_by_fold.append(dict(**entry,fold=f['fold'],fit_periods=f"1-{f['cut']}",
+                validation_periods=f"{f['cut']+1}-{f['end']}",validation_initial_available_units=float(validation_initial.sum()),**r));parts.append(r)
+        rows.append(dict(**entry,**aggregate_summaries(parts)));recipes.append(entry)
     # Exactly the same union of controllers is offered to both service arms.
     # Fixed chance-DRO controller generator: the outer service rule is the treatment.
     for method in ('DRO_cluster','DRO_global','DRO_category','SAA'):
         for beta in (.5,.6,.7,.75,.8,.85,.9,.95,.96,.97,.98,.99,.995,.999):
             for radius in ((0.,) if method=='SAA' else (.005,.01,.025,.05,.075,.1,.15,.2,.3,.5)):
-                level=model.risk_levels(residual,labels if method=='SAA' else groups[method],beta,radius)[0]
                 for scale in ((.75,1.,1.125,1.25) if method=='SAA' else (.75,1.,1.25)):
-                    add(method,level*scale,beta=beta,radius=radius,scale=scale)
+                    add(method,beta=beta,radius=radius,scale=scale)
         print('[library]',method,len(rows),flush=True)
     for ps in (.5,.6,.7,.75,.8,.85,.9,.95,.975,.99,.999):
         for gap in (0.,.025,.05,.1,.15):
             pS=min(ps+gap,.999)
-            lo=ss_quantiles(residual,labels,ps);hi=ss_quantiles(residual,labels,pS)
             for scale in np.arange(.75,1.501,.025):
-                add('sS',lo*scale,hi*scale,p_s=ps,p_S=pS,scale=float(scale))
+                add('sS',p_s=ps,p_S=pS,scale=float(scale))
+    print('[library] sS',len(rows),flush=True)
     for gamma in np.arange(0,8.0001,.01):
-        add('RO',np.full(6000,box(residual,gamma)[1]),gamma=float(gamma))
+        add('RO',gamma=float(gamma))
+    # Training-only feasibility refinement, applied identically to both arms.
+    # Original candidate indices remain stable; test data are not read here.
+    refinement=[]
+    for step in (.025,.005):
+        frame=pd.DataFrame(rows)
+        for method in LABELS:
+            subset=frame[frame.method==method]
+            if subset.positive_stock_ratio.between(.95,.955).any():continue
+            if method not in ('DRO_cluster','DRO_global','DRO_category','SAA'):
+                continue
+            before=len(rows)
+            prototypes={ (r['beta'],r['radius']) for r in recipes if r['method']==method }
+            for beta,radius in sorted(prototypes):
+                known=[r['scale'] for r in recipes if r['method']==method and r['beta']==beta and r['radius']==radius]
+                for scale in np.round(np.arange(.75,1.250001,step),6):
+                    if any(abs(float(scale)-v)<1e-8 for v in known):continue
+                    add(method,beta=beta,radius=radius,scale=float(scale))
+            refinement.append(dict(method=method,trigger='no positive-service training-feasible candidate',
+                scale_lower=.75,scale_upper=1.25,scale_step=step,added_candidates=len(rows)-before))
+            print('[training-only refinement]',method,'scale step',step,'added',len(rows)-before,flush=True)
     validation=pd.DataFrame(rows)
     validation.to_csv(out/'candidate_validation.csv',index=False,encoding='utf-8-sig')
+    pd.DataFrame(rows_by_fold).to_csv(out/'candidate_validation_by_fold.csv',index=False,encoding='utf-8-sig')
     frozen=[]
     for method in LABELS:
         subset=validation[validation.method==method]
@@ -81,10 +160,18 @@ def main():
             frozen.append(dict(arm=arm,method=method,candidate=int(chosen.candidate),
                 train_fill=float(chosen.fill_rate),train_positive=float(chosen.positive_stock_ratio),
                 train_inventory_ratio=float(chosen.inventory_demand_ratio)))
-    control=dict(forecast=settings,fit_periods='1-32 (calibration), 1-60 (final)',validation_periods='33-60',
+    calibration_folds=[dict(fold=f['fold'],fit_periods=list(range(1,f['cut']+1)),validation_periods=list(range(f['cut']+1,f['end']+1)),
+        fit_y_sha256=digest(y[:f['cut']]),fit_x_sha256=digest(x[:f['cut']]),
+        validation_y_sha256=digest(y[f['cut']:f['end']]),labels_sha256=digest(f['labels']),
+        residual_sha256=digest(f['residual']),forecast_sha256=digest(f['fc']),warm_forecast_sha256=digest(f['warm_fc'])) for f in fold_data]
+    control=dict(forecast=settings,fit_periods='1-24 / 1-36 / 1-48 (calibration), 1-60 (final)',validation_periods='25-60 (3 rolling folds)',
+        calibration_folds=calibration_folds,validation_aggregation='sum primitive totals across 3 separate 12-period episodes; recompute ratios',
+        calibration_refinement=refinement,
+        validation_initialization='carry candidate-specific stock and next arrival from a fit-window replay; score only the following 12 validation periods',
+        test_initialization='Period_1 restart with original initial stock, empty pipeline and empty test observation history',
+        residual_method='expanding-window forecast residuals with groups fixed within each outer fit slice',
         final_fit_periods=list(range(1,61)),final_fit_observations=int(y.size),training_y_sha256=digest(y),
         refit=True,positive_integer_guard=True,library_size=len(rows),
-        residual_sha256=digest(residual),forecast_validation_sha256=digest(fc),labels_sha256=digest(labels),
         initial_sha256=digest(init),objective='min sum ending / sum demand',
         treatment={'fill':'training fill >= .95','positive':'training positive-stock ratio in [.95,.955]'},
         common_tie_break='inventory_demand_ratio then candidate index',selected=frozen,
@@ -133,14 +220,18 @@ def main():
     pd.DataFrame(result).to_csv(out/'summary.csv',index=False,encoding='utf-8-sig')
     pd.DataFrame(periods).to_csv(out/'periods.csv',index=False,encoding='utf-8-sig')
     pd.DataFrame(per_sku).to_csv(out/'sku_summary.csv',index=False,encoding='utf-8-sig')
-    np.savez_compressed(out/'shared_model.npz',labels=labels,relative_residual=residual,forecasts_validation=fc,forecasts_test=ft,initial=init,
+    fold_arrays={}
+    for f in fold_data:
+        for key in ('labels','residual','fc','warm_fc'):fold_arrays[f"fold{f['fold']}_{key}"]=f[key]
+    np.savez_compressed(out/'shared_model.npz',**fold_arrays,forecasts_validation=np.concatenate([f['fc'] for f in fold_data]),forecasts_test=ft,initial=init,
         train_y_all60=y,final_labels=full_labels,final_relative_residual=full_residual,
         final_slope=final.slope,final_intercept=final.intercept)
     latest=HOME/'new_positive/outputs_v4';latest.mkdir(parents=True,exist_ok=True)
     pipeline.METHODS=tuple(LABELS)
     pipeline.output_results(latest,positive_runs,test,ft,data['item_id'],full_labels,data['is_hot'])
     positive_frozen=dict(service_metric='positive_stock_ratio',service_lower=.95,service_upper=.955,
-        model_fit_periods='1-60',calibration_fit_periods='1-32',calibration_periods='33-60',refit_after_calibration=True,
+        model_fit_periods='1-60',calibration_fit_periods='1-24 / 1-36 / 1-48',calibration_periods='25-60 (3 rolling folds)',
+        calibration_folds=calibration_folds,refit_after_calibration=True,
         forecast=settings,lead_time=1,horizon=4,selected={r['method']:recipes[r['candidate']] for r in frozen if r['arm']=='positive'})
     (latest/'frozen_parameters.json').write_text(json.dumps(positive_frozen,ensure_ascii=False,indent=2),encoding='utf-8')
     wide=pd.read_csv(latest/'decision_comparison_full.csv')
@@ -172,7 +263,7 @@ def make_report():
         '|约束|方法|训练库存需求比|测试需求满足率|测试正库存比例|测试库存需求比↓|', '|---|---|---:|---:|---:|---:|']
     for r in s.itertuples():lines.append(f'|{r.arm}|{LABELS[r.method]}|{r.train_inventory_ratio:.6f}|{r.fill_rate:.4%}|{r.positive_stock_ratio:.4%}|{r.inventory_demand_ratio:.6f}|')
     lines+=['','## 如何排除混杂因素','',
-        '两组共用第1–32期拟合、第33–60期按时间向前验证；预测超参数也仅按此向前验证误差选取。选参结束后，预测器、特征聚类和样本外残差库全部用训练集第1–60期重新拟合，再评估测试集。两组使用相同初始库存、整数处理、L=1、H=4、失销处理、库存需求比目标及排序规则。',
+        '两组共用三轮滚动验证：1–24期拟合、25–36期验证；1–36期拟合、37–48期验证；1–48期拟合、49–60期验证。每轮只使用更早的训练数据拟合聚类、预测器与残差，验证时依次吸收已经观察到的需求。每个候选在该轮拟合期内回放库存，以拟合末端库存和在途到货承接验证首期，历史回放只用于状态初始化，不计入验证成绩，也不使用未来验证需求。三轮共36期的销量、需求、库存与正库存计数相加后重算F、P和J，据此选参，不直接平均三轮比率。P范围针对三轮合并成绩，逐轮成绩也单独报告。选参结束后，预测器、特征聚类和固定分组下的扩展窗预测残差库使用训练集第1–60期最终拟合，再评估独立测试文件。测试仍从原始初始库存、零在途和Period_1开始。两组使用相同整数处理、L=1、H=4、失销处理、库存需求比目标及排序规则。',
         '每种方法的候选参数和候选补货控制器完全相同，同一候选在训练集只计算一次，结果同时交给两种约束筛选。DRO控制器的构造公式保持一致（正库存机会约束水位），这里只改变外层实际服务可行性规则。因此这是外层服务指标的单因素检验，而不是把旧版stop-loss DRO公式与新版chance-DRO公式再次混在一起比较。',
         '需求满足率组选择训练F≥95%的候选；正库存组选择训练95%≤P≤95.5%的候选。两组随后都最小化训练库存需求比，平局按同一候选编号排序。约束改变后最优参数发生变化，是处理作用的结果，不是另一个被人为改变的因素。',
         '参数选择只用训练数据。frozen_design.json在测试回放前写入，保存共享数组SHA256、候选库和最终编号。candidate_validation.csv保存同一个候选在两种服务指标下的表现。',

@@ -8,17 +8,40 @@ import matplotlib.pyplot as plt
 from constraint_ablation import HOME
 from extend_with_ro import LABELS
 
+def json_ready(value):
+    if isinstance(value,dict):return {k:json_ready(v) for k,v in value.items()}
+    if isinstance(value,list):return [json_ready(v) for v in value]
+    if isinstance(value,float) and not np.isfinite(value):return None
+    return value
+
 def main():
     out=HOME/'outputs';s=pd.read_csv(out/'summary.csv');sku=pd.read_csv(out/'sku_summary.csv')
+    design=json.loads((out/'frozen_design.json').read_text(encoding='utf-8'))
+    fold_scores=pd.read_csv(out/'candidate_validation_by_fold.csv')
+    selected_folds=[]
+    for selected in design['selected']:
+        for row in fold_scores[fold_scores.candidate==selected['candidate']].to_dict('records'):
+            selected_folds.append(dict(arm=selected['arm'],**row))
+    selected_folds=pd.DataFrame(selected_folds)
+    selected_folds.to_csv(out/'selected_validation_by_fold.csv',index=False,encoding='utf-8-sig')
     plt.rcParams['font.sans-serif']=['Microsoft YaHei','DejaVu Sans'];plt.rcParams['axes.unicode_minus']=False
     methods=list(LABELS);fig,axs=plt.subplots(1,2,figsize=(13,5))
     for arm,color,offset,title in [('fill','#34698e',-.18,'需求满足率约束'),('positive','#ad694c',.18,'正库存比例约束')]:
         sub=s[s.arm==arm].set_index('method').loc[methods]
         axs[0].bar(np.arange(6)+offset,sub.inventory_demand_ratio,.36,label=title,color=color)
         axs[1].bar(np.arange(6)+offset,sub.train_inventory_ratio,.36,label=title,color=color)
-    for ax,title in zip(axs,['冻结后测试：库存需求比','训练内部验证：库存需求比']):
+    for ax,title in zip(axs,['冻结后测试：库存需求比','三轮36期合并验证：库存需求比']):
         ax.set_xticks(np.arange(6),[LABELS[m] for m in methods],rotation=23);ax.set_title(title);ax.legend(fontsize=9);ax.spines[['top','right']].set_visible(False)
     fig.tight_layout();fig.savefig(out/'constraint_only_comparison.png',dpi=170);plt.close(fig)
+    fig,ax=plt.subplots(figsize=(11,5))
+    for method in methods:
+        scores=selected_folds[(selected_folds.arm=='positive')&(selected_folds.method==method)].sort_values('fold')
+        ax.plot(scores.fold,scores.positive_stock_ratio*100,marker='o',label=LABELS[method])
+    ax.axhspan(95,95.5,color='#87ac91',alpha=.3,label='合并选参目标95%–95.5%')
+    ax.set_xticks([1,2,3],['25–36期','37–48期','49–60期']);ax.set_ylabel('本轮正库存比例（%）')
+    ax.set_title('已选策略的三轮验证表现（目标约束作用于三轮合并值）')
+    ax.spines[['top','right']].set_visible(False);ax.legend(ncol=3,fontsize=9)
+    fig.tight_layout();fig.savefig(out/'rolling_validation_service.png',dpi=170);plt.close(fig)
     mechanism=[]
     for (arm,method,cat),f in sku.groupby(['arm','method','category']):
         mechanism.append(dict(arm=arm,method=method,category=cat,skus=len(f),fill_rate=f.sales.sum()/f.demand.sum(),
@@ -62,11 +85,16 @@ def main():
     for version,name in [('demand_fill_v3','旧版：需求满足率'),('rolling_dro_v3','被替代32期新版：正库存比例')]:
         frame=pd.read_csv(HOME.parent/version/'with_ro/outputs_v4/summary.csv').query("scope=='all_28_periods'")
         for r in frame.to_dict('records'):historical.append(dict(version=name,**r))
-    design=json.loads((out/'frozen_design.json').read_text(encoding='utf-8'))
+    previous=HOME/'history/single_holdout_32_28/summary.csv'
+    if previous.exists():
+        for r in pd.read_csv(previous).query("arm=='positive'").to_dict('records'):
+            historical.append(dict(version='上次60期：一次32/28划分',**r))
     selected=[dict(**r,recipe=design['recipe'][r['candidate']]) for r in design['selected']]
     payload=dict(historical=historical,controlled=s.to_dict('records'),category=m.to_dict('records'),
-        bootstrap=b.to_dict('records'),selected=selected,labels=LABELS,effect=dict(value=effect,lower=ci[0],upper=ci[1]))
-    (out/'workbook_data.json').write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding='utf-8')
+        bootstrap=b.to_dict('records'),selected=selected,selected_folds=selected_folds.to_dict('records'),
+        calibration_folds=design['calibration_folds'],forecast_validation=pd.read_csv(out/'forecast_validation.csv').to_dict('records'),
+        labels=LABELS,effect=dict(value=effect,lower=ci[0],upper=ci[1]))
+    (out/'workbook_data.json').write_text(json.dumps(json_ready(payload),ensure_ascii=False,indent=2,allow_nan=False),encoding='utf-8')
     print(HOME/'REPORT.md')
 
 if __name__=='__main__':main()

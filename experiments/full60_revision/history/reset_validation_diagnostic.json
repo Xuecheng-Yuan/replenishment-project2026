@@ -1,0 +1,33 @@
+{
+  "discontinued_initialization": "reset original low initial stock at each later training block with empty pipeline",
+  "reason": "L=1 makes first validation period uncontrollable; even perfect fulfillment and positive stock after that cannot meet targets",
+  "folds": [
+    {
+      "fold": 1,
+      "fit_periods": "1-24",
+      "validation_periods": "25-36",
+      "demand": 69855538.0,
+      "unavoidable_first_period_lost": 4267874.0,
+      "maximum_possible_positive_stock_sku_periods": 67171
+    },
+    {
+      "fold": 2,
+      "fit_periods": "1-36",
+      "validation_periods": "37-48",
+      "demand": 93473766.0,
+      "unavoidable_first_period_lost": 6177193.0,
+      "maximum_possible_positive_stock_sku_periods": 66647
+    },
+    {
+      "fold": 3,
+      "fit_periods": "1-48",
+      "validation_periods": "49-60",
+      "demand": 114807260.0,
+      "unavoidable_first_period_lost": 8122526.0,
+      "maximum_possible_positive_stock_sku_periods": 66398
+    }
+  ],
+  "fill_rate_upper_bound": 0.9332428907117728,
+  "positive_stock_ratio_upper_bound": 0.9269259259259259,
+  "adopted_initialization": "carry synthetic inventory and next arrival from fit-history replay; score only the 36 validation periods; independent test still restarts"
+}

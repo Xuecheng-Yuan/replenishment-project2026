@@ -7,6 +7,9 @@ on:
       - 'experiments/version_comparison/**'
       - 'experiments/ro_extension/**'
       - 'experiments/full60_revision/**'
+      - 'scripts/*animation*'
+      - 'scripts/animation/**'
+      - '汇报成果/2026-10-15/**'
       - '.github/workflows/rolling-dro-v3.yml'
   pull_request:
     paths:
@@ -15,6 +18,9 @@ on:
       - 'experiments/version_comparison/**'
       - 'experiments/ro_extension/**'
       - 'experiments/full60_revision/**'
+      - 'scripts/*animation*'
+      - 'scripts/animation/**'
+      - '汇报成果/2026-10-15/**'
       - '.github/workflows/rolling-dro-v3.yml'
   workflow_dispatch:
 jobs:
@@ -38,4 +44,5 @@ jobs:
       - run: python -m unittest discover -s experiments/ro_extension -p test_ro.py -v
       - run: python experiments/ro_extension/verify_ro.py
       - run: python experiments/ro_extension/verify_ablation.py
+      - run: python scripts/verify_animation.py
       - run: python experiments/version_comparison/build_comparison.py
