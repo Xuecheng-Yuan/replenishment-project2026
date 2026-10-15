@@ -10,8 +10,9 @@ const read=async(out,name)=>{
  const cols=lines.shift().split(',');
  return lines.map(l=>Object.fromEntries(l.split(',').map((v,i)=>[cols[i],v!==''&&Number.isFinite(Number(v))?Number(v):v])));
 };
-for(const version of ['demand_fill_v3','rolling_dro_v3']){
- const out=path.join(root,'experiments',version,'with_ro/outputs_v4');
+const full60=process.argv.includes('--full60');
+for(const version of (full60?['rolling_dro_v3']:['demand_fill_v3','rolling_dro_v3'])){
+ const out=full60?path.join(root,'experiments/full60_revision/new_positive/outputs_v4'):path.join(root,'experiments',version,'with_ro/outputs_v4');
  const old=version==='demand_fill_v3';
  const data=(await read(out,'summary.csv')).filter(r=>r.scope==='all_28_periods');
  const wb=Workbook.create();
@@ -51,8 +52,9 @@ for(const version of ['demand_fill_v3','rolling_dro_v3']){
  const toRows=rs=>rs.map(r=>[r.period,String(r.item_id),r.category,r.cluster,r.actual_demand,r.forecast_h1,r.forecast_h2,r.forecast_h3,r.forecast_h4,...methods.map(m=>r['order_'+m]),...methods.map(m=>r['lost_'+m]),...methods.map(m=>r['ending_'+m])]);
  sheet('最近一期全部SKU','第28期全部商品：预测与六种决策',headers,toRows(await read(out,'latest_decisions.csv')));
  sheet('完整周期样本','前12个商品完整28期：预测与六种决策',headers,toRows(await read(out,'sample_decisions.csv')));
- const val=await read(out,'ro_validation.csv');
- sheet('RO训练选参','RO宽度搜索：仅使用训练集', ['区间宽度Γ','前推需求满足率','重置需求满足率','前推正库存比例','重置正库存比例','前推库存需求比','重置库存需求比'],val.map(r=>[r.gamma,r.forward_fill,r.reset_fill,r.forward_service,r.reset_service,r.forward_inventory_ratio,r.reset_inventory_ratio]));
+ const val=full60?await read(path.join(root,'experiments/full60_revision/outputs'),'candidate_validation.csv'):await read(out,'ro_validation.csv');
+ if(full60) sheet('RO训练选参','1–32期拟合，33–60期向前验证', ['区间宽度Γ','需求满足率','正库存比例','库存需求比'],val.filter(r=>r.method==='RO').map(r=>[r.gamma,r.fill_rate,r.positive_stock_ratio,r.inventory_demand_ratio]));
+ else sheet('RO训练选参','RO宽度搜索：仅使用训练集', ['区间宽度Γ','前推需求满足率','重置需求满足率','前推正库存比例','重置正库存比例','前推库存需求比','重置库存需求比'],val.map(r=>[r.gamma,r.forward_fill,r.reset_fill,r.forward_service,r.reset_service,r.forward_inventory_ratio,r.reset_inventory_ratio]));
  wb.recalculate();
  console.log((await wb.inspect({kind:'table',range:'结论!A4:J10',include:'values,formulas',tableMaxRows:7,tableMaxCols:10,maxChars:1200})).ndjson);
  console.log((await wb.inspect({kind:'match',searchTerm:'#REF!|#DIV/0!|#VALUE!|#NAME\\?|#NUM!|#NULL!|#SPILL!|#CALC!',options:{useRegex:true,maxResults:10},maxChars:1000})).ndjson);

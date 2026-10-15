@@ -1,0 +1,58 @@
+{
+  "service_metric": "positive_stock_ratio",
+  "service_lower": 0.95,
+  "service_upper": 0.955,
+  "model_fit_periods": "1-60",
+  "calibration_fit_periods": "1-32",
+  "calibration_periods": "33-60",
+  "refit_after_calibration": true,
+  "forecast": {
+    "blend": 1.0,
+    "window": 3,
+    "prior": 0.0
+  },
+  "lead_time": 1,
+  "horizon": 4,
+  "selected": {
+    "DRO_cluster": {
+      "candidate": 351,
+      "method": "DRO_cluster",
+      "beta": 0.99,
+      "radius": 0.2,
+      "scale": 0.75
+    },
+    "DRO_global": {
+      "candidate": 458,
+      "method": "DRO_global",
+      "beta": 0.6,
+      "radius": 0.025,
+      "scale": 1.25
+    },
+    "DRO_category": {
+      "candidate": 1215,
+      "method": "DRO_category",
+      "beta": 0.995,
+      "radius": 0.1,
+      "scale": 0.75
+    },
+    "sS": {
+      "candidate": 2464,
+      "method": "sS",
+      "p_s": 0.95,
+      "p_S": 0.999,
+      "scale": 0.775
+    },
+    "SAA": {
+      "candidate": 1289,
+      "method": "SAA",
+      "beta": 0.95,
+      "radius": 0.0,
+      "scale": 1.0
+    },
+    "RO": {
+      "candidate": 3179,
+      "method": "RO",
+      "gamma": 1.58
+    }
+  }
+}

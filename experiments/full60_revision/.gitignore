@@ -1,0 +1,3 @@
+new_positive/outputs_v4/detail_*.csv
+new_positive/outputs_v4/decision_comparison_full.csv
+**/*.inspect.ndjson

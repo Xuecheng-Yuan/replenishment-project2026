@@ -1,5 +1,6 @@
 """Generate portable six-policy plots and a self-contained HTML view."""
 from pathlib import Path
+import sys
 import html, json
 import numpy as np
 import pandas as pd
@@ -10,13 +11,14 @@ from extend_with_ro import ROOT, VERSIONS, LABELS
 
 plt.rcParams['font.sans-serif']=['Microsoft YaHei','DejaVu Sans']
 plt.rcParams['axes.unicode_minus']=False
-for version in VERSIONS:
-    home=ROOT/'experiments'/version/'with_ro'; out=home/'outputs_v4'
+full60='--full60' in sys.argv
+for version in (('rolling_dro_v3',) if full60 else VERSIONS):
+    home=ROOT/'experiments/full60_revision/new_positive' if full60 else ROOT/'experiments'/version/'with_ro'; out=home/'outputs_v4'
     vis=home/'visualization'; vis.mkdir(exist_ok=True)
     old=version==VERSIONS[0]
     data=pd.read_csv(out/'summary.csv').query("scope=='all_28_periods'")
     metric='fill_rate' if old else 'positive_stock_ratio'
-    title='需求满足率版' if old else '正库存天数版'
+    title='需求满足率版' if old else ('正库存天数版（完整60期训练）' if full60 else '正库存天数版')
     names=[LABELS[m] for m in data.method]
     colors=['#34698e','#7595ac','#3b8576','#a97a38','#a4a5a7','#a34c46']
     fig,axs=plt.subplots(1,2,figsize=(13,4.8))
@@ -27,7 +29,7 @@ for version in VERSIONS:
     axs[1].bar(names,data[metric]*100,color=colors)
     axs[1].axhline(95,color='#a34c46',linestyle='--',label='95%')
     if not old: axs[1].axhspan(95,95.5,color='#87ac91',alpha=.3,label='95%–95.5%')
-    axs[1].set_ylim(94, max(100,data[metric].max()*100+1))
+    axs[1].set_ylim(min(94,data[metric].min()*100-1), max(100,data[metric].max()*100+1))
     axs[1].set_title(('需求满足率' if old else '正库存天数比例')+'（%）')
     for i,v in enumerate(data[metric]*100): axs[1].text(i,v+.1,f'{v:.3f}%',ha='center',fontsize=9)
     for ax in axs:
