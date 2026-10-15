@@ -1,0 +1,6 @@
+{
+  "relative_lower": 0.824115962090918,
+  "relative_upper": 1.1933632197006157,
+  "realized_next_period_interval_coverage": 0.547641975308642,
+  "note": "Diagnostic only; not used to select gamma; observed demands can fall outside the uncertainty set."
+}

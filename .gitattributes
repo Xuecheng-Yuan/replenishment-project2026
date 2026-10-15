@@ -8,3 +8,4 @@ experiments/demand_fill_v3/** -text whitespace=cr-at-eol
 experiments/demand_fill_v3/outputs_v4/* whitespace=cr-at-eol
 experiments/demand_fill_v3/visualization/*.svg whitespace=cr-at-eol,-blank-at-eol
 experiments/demand_fill_v3/visualization/index.html whitespace=cr-at-eol,-blank-at-eol
+experiments/rolling_dro_v3/with_ro/outputs_v4/* -text whitespace=cr-at-eol

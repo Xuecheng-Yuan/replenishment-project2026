@@ -4,11 +4,11 @@ import pandas as pd
 
 ROOT=Path(__file__).resolve().parent
 EXPERIMENTS=ROOT.parent
-LABELS={'DRO_cluster':'特征聚类DRO','DRO_global':'不分组DRO','DRO_category':'爆品/长尾DRO','sS':'传统(s,S)','SAA':'SAA'}
+LABELS={'DRO_cluster':'特征聚类DRO','DRO_global':'不分组DRO','DRO_category':'爆品/长尾DRO','sS':'传统(s,S)','SAA':'SAA','RO':'传统区间RO'}
 
 
 def load(folder):
-    out=EXPERIMENTS/folder/'outputs_v4'
+    out=EXPERIMENTS/folder/'with_ro/outputs_v4'
     s=pd.read_csv(out/'summary.csv').query("scope=='all_28_periods'").set_index('method')
     if 'positive_stock_ratio' not in s:
         stock=pd.read_csv(out/'positive_stock_service.csv').query("scope=='all_28_periods'").set_index('method')
@@ -30,7 +30,7 @@ def main():
     frame=pd.DataFrame(rows)
     frame.to_csv(ROOT/'results_comparison.csv',index=False,encoding='utf-8-sig')
     lines=['# 两版补货模型对比','','## 结论','',
-      '旧版要求销量/需求≥95%，新版要求期末正库存商品－天占比在95%–95.5%。两版分别达到各自服务目标；旧版最优为爆品/长尾DRO，新版最优为传统(s,S)。旧版的正库存比例只有74.70%–80.91%，所以不能用旧版较低的库存需求比证明它在新服务要求下更优。','',
+      '旧版要求销量/需求≥95%，新版要求期末正库存商品－天占比在95%–95.5%。本次两版各增加传统区间RO，共六种方法。旧版最优仍为爆品/长尾DRO，新版最优仍为传统(s,S)。旧版较低的库存需求比对应不同的服务口径，不能据此判断它在新服务要求下更优。','',
       '两版均使用相同原始训练集和测试集，6000个商品、完整28天测试、相同初始库存和零初始在途。提前期1、失销不结转、预测4天且仅执行最近1天。共同库存指标为累计期末库存÷累计需求，越低越好。','',
       '## 定义及实现差异','',
       '| 项目 | 旧版：需求满足率约束 | 新版：正库存服务约束 |',
@@ -57,6 +57,12 @@ def main():
         eligible=s[mask].sort_values('inventory_demand_ratio')
         lines += [title+'：'+' → '.join(LABELS[m] for m in eligible.index)+'。']
     lines += ['', '同一版内部，在共同数据、共同服务口径下比较更有意义。新版三种DRO中，特征聚类DRO库存需求比最低，但比传统(s,S)高6.80%；旧版爆品/长尾DRO比传统(s,S)低2.18%。','',
+      '## 新增传统RO','',
+      '传统RO采用由训练样本外相对需求均值μ、标准差σ构造的区间集合[max(0,μ−Γσ),μ+Γσ]。Γ只在训练集选择，旧版Γ=1.098，新版Γ=4.406。旧版对集合内每个需求点限制失销比例，新版要求整数目标库存严格大于区间上界。DRO则约束分布模糊集内的最坏期望或概率。两版采用各自原有的服务校准规则和最终拟合流程。','',
+      '旧版RO需求满足率96.7100%，正库存比例74.2548%，库存需求比0.174962；新版RO需求满足率98.9711%，正库存比例95.0077%，库存需求比0.589326。新版RO高于特征聚类DRO和传统(s,S)的库存需求比，低于不分组DRO。六方法的其余五种原始轨迹保持字节一致。','',
+      '- [旧版六方法报告](../demand_fill_v3/with_ro/REPORT.md)及[Excel](../demand_fill_v3/with_ro/outputs_v4/replenishment_comparison.xlsx)。',
+      '- [新版六方法报告](../rolling_dro_v3/with_ro/REPORT.md)及[Excel](../rolling_dro_v3/with_ro/outputs_v4/replenishment_comparison.xlsx)。',
+      '- [RO运行说明与文件导航](../ro_extension/README.md)。','',
       '## 文件与复现','',
       '- [旧版完整独立文件夹](../demand_fill_v3/README.md)：原代码、交付报告、数学报告、Excel、图表、冻结参数和全部结果。','- [新版完整文件夹](../rolling_dro_v3/README.md)：当前正库存服务版本。','- [旧版Excel](../demand_fill_v3/outputs_v4/replenishment_comparison.xlsx)与[新版Excel](../rolling_dro_v3/outputs_v4/replenishment_comparison.xlsx)。','',
       '旧版从提交f569b116d7f13bee0cb2d34c5242c8240e9dda88恢复，原数值报告和Excel保持字节一致。导航链接适配独立目录；归档文件的来源与哈希在ARCHIVE_PROVENANCE.json。','',

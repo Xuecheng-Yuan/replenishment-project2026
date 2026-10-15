@@ -1,5 +1,16 @@
 # Replenishment Project 2026
 
+## 新旧两版新增传统RO（2026-10-15）
+
+两版均已补充“传统区间鲁棒优化RO”，现在各有六种方法。最新交付位于各版的 `with_ro` 子文件夹，原五方法结果保留。
+
+- [旧版：六方法报告、Excel与可视化](experiments/demand_fill_v3/with_ro/README.md)
+- [新版：六方法报告、Excel与可视化](experiments/rolling_dro_v3/with_ro/README.md)
+- [两版六方法比较](experiments/version_comparison/COMPARISON.md)
+- [RO代码、数学模型说明与本地运行](experiments/ro_extension/README.md)
+
+旧版RO需求满足率96.7100%，库存需求比0.174962；新版RO正库存天数比例95.0077%，库存需求比0.589326。原有五种方法逐商品逐期轨迹未变，两版最优方法仍分别为爆品/长尾DRO和传统(s,S)。
+
 ## 最新联合汇报与交互网站（2026-10-14）
 
 - [最新汇报PPT](汇报成果/2026-10-14/补货项目汇报_20261014.pptx)
@@ -10,7 +21,7 @@
 
 ## 当前交付：四期滚动分布鲁棒补货
 
-旧的需求满足率约束版已完整独立保存在[experiments/demand_fill_v3](experiments/demand_fill_v3/README.md)，包含原报告、Excel、代码和结果。[两版对比报告](experiments/version_comparison/COMPARISON.md)同时列出服务定义、建模差异和五种策略的结果。
+旧的需求满足率约束版已完整独立保存在[experiments/demand_fill_v3](experiments/demand_fill_v3/README.md)，包含原报告、Excel、代码和结果。[两版对比报告](experiments/version_comparison/COMPARISON.md)同时列出服务定义、建模差异和新增RO后的六种策略结果。
 
 可运行代码、可视化和最终结果位于[experiments/rolling_dro_v3](experiments/rolling_dro_v3/README.md)，采用**正库存服务水平95%–95.5%、提前期1、无额外盘点等待、缺货丢失**。包含特征聚类DRO、不分组DRO、爆品/长尾DRO、传统(s,S)和零半径经验模型，预测4期、只执行最近1期。
 
