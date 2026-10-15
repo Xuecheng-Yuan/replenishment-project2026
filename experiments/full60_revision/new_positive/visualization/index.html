@@ -1,5 +1,5 @@
 <!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>六种补货方法比较</title>
-<style>body{font:16px "Microsoft YaHei",sans-serif;color:#17324d;max-width:1200px;margin:40px auto;padding:0 24px}table{border-collapse:collapse;width:100%}td,th{text-align:right;padding:12px;border-bottom:1px solid #ddd}td:first-child,th:first-child{text-align:left}img{width:100%}a{color:#34698e}.bar{background:#34698e;height:24px;margin:6px 0;color:white;min-width:100px;padding:4px;white-space:nowrap}select{font:inherit;padding:5px}</style><h1>正库存天数版（完整60期训练）：六种方法结果</h1><p>完整6000商品×28天测试。服务要求：正库存商品天比例95%–95.5%。</p><p>库存需求比＝累计期末库存/累计需求，越低越好。RO采用需求区间最坏情形，Γ仅在训练集选取。</p><table class="dataframe">
+<style>body{font:16px "Microsoft YaHei",sans-serif;color:#17324d;max-width:1200px;margin:40px auto;padding:0 24px}table{border-collapse:collapse;width:100%}td,th{text-align:right;padding:12px;border-bottom:1px solid #ddd}td:first-child,th:first-child{text-align:left}img{width:100%}a{color:#34698e}.bar{background:#34698e;height:24px;margin:6px 0;color:white;min-width:100px;padding:4px;white-space:nowrap}select{font:inherit;padding:5px}</style><h1>正库存天数版（三轮滚动验证，完整60期训练）：六种方法结果</h1><p>完整6000商品×28天测试。服务要求：正库存商品天比例95%–95.5%。</p><p>选参：1–24期拟合/25–36期验证、1–36/37–48、1–48/49–60，按36期合并成绩冻结参数；之后用全部60期重新拟合，在独立测试Excel的28期评估，测试Period_1重新起算。</p><p>库存需求比＝累计期末库存/累计需求，越低越好。RO采用需求区间最坏情形，Γ仅在训练集选取。</p><table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th>方法</th>
@@ -12,45 +12,45 @@
   <tbody>
     <tr>
       <td>特征聚类DRO</td>
-      <td>97.4796%</td>
-      <td>85.0804%</td>
-      <td>0.216787</td>
-      <td>2280127.0</td>
+      <td>97.6735%</td>
+      <td>83.1958%</td>
+      <td>0.227080</td>
+      <td>2104668.0</td>
     </tr>
     <tr>
       <td>不分组DRO</td>
-      <td>98.6021%</td>
-      <td>89.1571%</td>
-      <td>0.335973</td>
-      <td>1264574.0</td>
+      <td>97.5164%</td>
+      <td>79.6554%</td>
+      <td>0.216449</td>
+      <td>2246758.0</td>
     </tr>
     <tr>
       <td>爆品/长尾DRO</td>
-      <td>96.9569%</td>
-      <td>85.0179%</td>
-      <td>0.189318</td>
-      <td>2752940.0</td>
+      <td>95.7267%</td>
+      <td>80.3762%</td>
+      <td>0.146332</td>
+      <td>3865834.0</td>
     </tr>
     <tr>
       <td>传统(s,S)</td>
-      <td>95.7230%</td>
-      <td>79.7827%</td>
-      <td>0.154788</td>
-      <td>3869232.0</td>
+      <td>97.5449%</td>
+      <td>83.0393%</td>
+      <td>0.222495</td>
+      <td>2221009.0</td>
     </tr>
     <tr>
       <td>零半径经验模型</td>
-      <td>98.1082%</td>
-      <td>86.9714%</td>
-      <td>0.263637</td>
-      <td>1711396.0</td>
+      <td>97.0384%</td>
+      <td>81.2333%</td>
+      <td>0.191104</td>
+      <td>2679209.0</td>
     </tr>
     <tr>
       <td>传统区间RO</td>
-      <td>98.3085%</td>
-      <td>86.1351%</td>
-      <td>0.287819</td>
-      <td>1530207.0</td>
+      <td>97.8911%</td>
+      <td>82.5470%</td>
+      <td>0.244065</td>
+      <td>1907800.0</td>
     </tr>
   </tbody>
-</table><p><a href="../REPORT.md">数学模型与报告</a>　<a href="../outputs_v4/replenishment_comparison.xlsx">下载Excel</a>　<a href="../../../version_comparison/COMPARISON.md">新旧版比较</a></p><h2>切换指标</h2><select id="metric"><option value="inventory_demand_ratio">库存需求比</option><option value="fill_rate">需求满足率</option><option value="positive_stock_ratio">正库存天数比例</option></select><div id="bars"></div><img alt="六种方法库存与服务比较" src="six_method_comparison.png"><img alt="逐期比较" src="period_comparison.png"><script>const data=[{"method": "特征聚类DRO", "fill_rate": 0.9747956006668048, "positive_stock_ratio": 0.8508035714285714, "inventory_demand_ratio": 0.216786561258749}, {"method": "不分组DRO", "fill_rate": 0.9860214680663067, "positive_stock_ratio": 0.8915714285714286, "inventory_demand_ratio": 0.3359725328027764}, {"method": "爆品/长尾DRO", "fill_rate": 0.9695691515865889, "positive_stock_ratio": 0.8501785714285715, "inventory_demand_ratio": 0.1893175069723036}, {"method": "传统(s,S)", "fill_rate": 0.957229720782756, "positive_stock_ratio": 0.7978273809523809, "inventory_demand_ratio": 0.1547882646054094}, {"method": "零半径经验模型", "fill_rate": 0.9810823220806416, "positive_stock_ratio": 0.8697142857142857, "inventory_demand_ratio": 0.2636374375774031}, {"method": "传统区间RO", "fill_rate": 0.9830851753913488, "positive_stock_ratio": 0.8613511904761905, "inventory_demand_ratio": 0.2878192474768015}];function draw(){let k=document.getElementById('metric').value,max=Math.max(...data.map(r=>r[k]));document.getElementById('bars').replaceChildren(...data.map(r=>{let e=document.createElement('div');e.className='bar';e.style.width=(r[k]/max*90)+'%';e.textContent=r.method+' '+(k==='inventory_demand_ratio'?r[k].toFixed(6):(r[k]*100).toFixed(4)+'%');return e}));}document.getElementById('metric').addEventListener('change',draw);draw();</script></html>
+</table><p><a href="../REPORT.md">数学模型与报告</a>　<a href="../outputs_v4/replenishment_comparison.xlsx">下载Excel</a>　<a href="../../../version_comparison/COMPARISON.md">新旧版比较</a></p><h2>按商品范围比较</h2><p>总体指标使用全部6000商品，分组指标使用全部480种爆品、全部5520种长尾品。95%–95.5%的选参约束作用于总体。</p><select id="population"><option>全部6000商品</option><option>爆品</option><option>长尾品</option></select> <select id="metric"><option value="inventory_demand_ratio">库存需求比</option><option value="fill_rate">需求满足率</option><option value="positive_stock_ratio">正库存天数比例</option></select><div id="bars"></div><img alt="六种方法库存与服务比较" src="six_method_comparison.png"><img alt="逐期比较" src="period_comparison.png"><img alt="全部商品、爆品与长尾品的服务和库存比较" src="population_comparison.png"><script>const data=[{"population": "全部6000商品", "method": "特征聚类DRO", "fill_rate": 0.976735114870445, "positive_stock_ratio": 0.8319583333333334, "inventory_demand_ratio": 0.2270802162819375}, {"population": "全部6000商品", "method": "不分组DRO", "fill_rate": 0.9751644597704204, "positive_stock_ratio": 0.7965535714285714, "inventory_demand_ratio": 0.2164493385468308}, {"population": "全部6000商品", "method": "爆品/长尾DRO", "fill_rate": 0.9572672820891808, "positive_stock_ratio": 0.8037619047619048, "inventory_demand_ratio": 0.1463318858449774}, {"population": "全部6000商品", "method": "传统(s,S)", "fill_rate": 0.9754490878101876, "positive_stock_ratio": 0.8303928571428572, "inventory_demand_ratio": 0.2224953713538132}, {"population": "全部6000商品", "method": "零半径经验模型", "fill_rate": 0.9703841700339104, "positive_stock_ratio": 0.8123333333333334, "inventory_demand_ratio": 0.1911042003809698}, {"population": "全部6000商品", "method": "传统区间RO", "fill_rate": 0.978911282990873, "positive_stock_ratio": 0.8254702380952381, "inventory_demand_ratio": 0.2440653108214134}, {"population": "爆品", "method": "特征聚类DRO", "fill_rate": 0.9763455345289034, "positive_stock_ratio": 0.8250744047619047, "inventory_demand_ratio": 0.2058563494655397}, {"population": "长尾品", "method": "特征聚类DRO", "fill_rate": 0.978292984643054, "positive_stock_ratio": 0.8325569358178054, "inventory_demand_ratio": 0.3119510812755705}, {"population": "爆品", "method": "不分组DRO", "fill_rate": 0.9759574080057368, "positive_stock_ratio": 0.8214285714285714, "inventory_demand_ratio": 0.2021864064682374}, {"population": "长尾品", "method": "不分组DRO", "fill_rate": 0.971993585998517, "positive_stock_ratio": 0.7943905279503105, "inventory_demand_ratio": 0.2734845335623032}, {"population": "爆品", "method": "爆品/长尾DRO", "fill_rate": 0.9526641649585258, "positive_stock_ratio": 0.6600446428571428, "inventory_demand_ratio": 0.1097265103653189}, {"population": "长尾品", "method": "爆品/长尾DRO", "fill_rate": 0.9756744147726484, "positive_stock_ratio": 0.8162590579710145, "inventory_demand_ratio": 0.2927109555616718}, {"population": "爆品", "method": "传统(s,S)", "fill_rate": 0.9747947971700368, "positive_stock_ratio": 0.8148065476190476, "inventory_demand_ratio": 0.1999088991547304}, {"population": "长尾品", "method": "传统(s,S)", "fill_rate": 0.9780654919304738, "positive_stock_ratio": 0.8317481884057971, "inventory_demand_ratio": 0.3128150783739194}, {"population": "爆品", "method": "零半径经验模型", "fill_rate": 0.9690929659474248, "positive_stock_ratio": 0.7693452380952381, "inventory_demand_ratio": 0.16493058535112}, {"population": "长尾品", "method": "零半径经验模型", "fill_rate": 0.975547489642506, "positive_stock_ratio": 0.8160714285714286, "inventory_demand_ratio": 0.2957683205816033}, {"population": "爆品", "method": "传统区间RO", "fill_rate": 0.9794276637207024, "positive_stock_ratio": 0.8508928571428571, "inventory_demand_ratio": 0.230186747612769}, {"population": "长尾品", "method": "传统区间RO", "fill_rate": 0.9768463586495276, "positive_stock_ratio": 0.8232595755693581, "inventory_demand_ratio": 0.2995634759096158}];function draw(){let k=document.getElementById('metric').value,p=document.getElementById('population').value,rows=data.filter(r=>r.population===p),max=Math.max(...rows.map(r=>r[k]));document.getElementById('bars').replaceChildren(...rows.map(r=>{let e=document.createElement('div');e.className='bar';e.style.width=(r[k]/max*90)+'%';e.textContent=r.method+' '+(k==='inventory_demand_ratio'?r[k].toFixed(6):(r[k]*100).toFixed(4)+'%');return e}));}document.getElementById('metric').addEventListener('change',draw);document.getElementById('population').addEventListener('change',draw);draw();</script></html>

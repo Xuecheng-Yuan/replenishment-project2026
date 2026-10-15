@@ -1,4 +1,4 @@
-"""Build the full-60 revision package; refuse to overwrite existing folders."""
+"""Build the rolling-validation/full-60 package; refuse existing destinations."""
 from pathlib import Path
 import argparse, hashlib, json, shutil, subprocess
 from extend_with_ro import ROOT
@@ -9,11 +9,15 @@ def main(dest):
     if dest.exists():raise FileExistsError(dest)
     project=dest/'项目';project.mkdir(parents=True)
     prefixes=('experiments/demand_fill_v3/','experiments/rolling_dro_v3/',
-        'experiments/ro_extension/','experiments/version_comparison/','docs/rolling_dro_v3/')
+        'experiments/ro_extension/','experiments/version_comparison/','docs/rolling_dro_v3/',
+        '汇报成果/2026-10-15/','scripts/')
     tracked=subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode('utf-8').split('\0')
     paths={Path(p) for p in tracked if p.startswith(prefixes)}
     paths.add(Path('experiments/version_comparison/HISTORICAL_COMPARISON_32.md'))
     paths.update(p.relative_to(ROOT) for p in (ROOT/'experiments/ro_extension').iterdir() if p.is_file())
+    for folder in ('scripts','汇报成果/2026-10-15'):
+        paths.update(p.relative_to(ROOT) for p in (ROOT/folder).rglob('*')
+            if p.is_file() and '__pycache__' not in p.parts and p.name!='最近启动状态.json')
     for p in HOME.rglob('*'):
         if not p.is_file() or p.name.endswith('.inspect.ndjson') or '__pycache__' in p.parts:continue
         if p.suffix=='.csv' and (p.name.startswith('detail_') or p.name=='decision_comparison_full.csv'):continue
@@ -35,8 +39,10 @@ def main(dest):
     shutil.copy2(HOME/'outputs/constraint_only_comparison.png',charts/'仅服务约束变化_全60期.png')
     shutil.copy2(HOME/'new_positive/visualization/six_method_comparison.png',charts/'新版全60期六方法.png')
     shutil.copy2(ROOT/'experiments/demand_fill_v3/with_ro/visualization/six_method_comparison.png',charts/'旧版六方法.png')
-    (project/'README.md').write_text('# 完整60期训练修正版\n\n请阅读上一级00_阅读说明.md及任务完成报告.md。当前结果在experiments/full60_revision，rolling_dro_v3中原32期结果仅作历史追溯。\n',encoding='utf-8')
-    (dest/'复核全部结果.bat').write_text('@echo off\r\ncd /d "%~dp0项目"\r\npython experiments/ro_extension/verify_ablation.py\r\nif errorlevel 1 exit /b 1\r\npython experiments/ro_extension/verify_ro.py\r\nif errorlevel 1 exit /b 1\r\npython experiments/demand_fill_v3/verify_archive.py\r\npause\r\n',encoding='gbk')
+    animation=dest/'动画';shutil.copytree(ROOT/'汇报成果/2026-10-15/动画',animation,
+        ignore=shutil.ignore_patterns('最近启动状态.json'))
+    (project/'README.md').write_text('# 三轮滚动验证与完整60期训练版\n\n请阅读上一级00_阅读说明.md及任务完成报告.md。当前结果在experiments/full60_revision，rolling_dro_v3中原32期结果仅作历史追溯。动画在汇报成果/2026-10-15/动画/index.html，可切换全部6000、爆品和长尾品。\n',encoding='utf-8')
+    (dest/'复核全部结果.bat').write_text('@echo off\r\ncd /d "%~dp0项目"\r\npython experiments/ro_extension/verify_ablation.py\r\nif errorlevel 1 exit /b 1\r\npython scripts/verify_animation.py\r\nif errorlevel 1 exit /b 1\r\npython experiments/ro_extension/verify_ro.py\r\nif errorlevel 1 exit /b 1\r\npython experiments/demand_fill_v3/verify_archive.py\r\npause\r\n',encoding='gbk')
     manifest={str(p.relative_to(dest)).replace('\\','/'):hashlib.sha256(p.read_bytes()).hexdigest()
         for p in dest.rglob('*') if p.is_file()}
     (dest/'文件清单_SHA256.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
