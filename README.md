@@ -1,5 +1,11 @@
 # Replenishment Project 2026
 
+## 约束变化原因重做实验（2026-10-16）
+
+[机制探索报告PDF](experiments/constraint_mechanism/reports/机制探索报告.pdf) · [完整实验报告PDF](experiments/constraint_mechanism/reports/完整实验报告.pdf) · [代码、原始结果与复现说明](experiments/constraint_mechanism/README.md)
+
+重做1620训练候选、108实验单元，逐行核验806.4万条测试轨迹。单独改约束会改变可行域及部分排序；焦点两方法的数值翻转还涉及反馈与风险包络，最终预测差异已排除。新版(s,S)相对分类DRO的差异区间跨0，稳定优势尚未确认。该诊断实验与下方正式95.28%左右的交付结果独立保存。
+
 ## 当前：服务水平95%–95.5%的完整60期版本
 
 [本次交付报告与数学模型](experiments/service95_revision/REPORT.md) · [当前六方法Excel与三版对照](experiments/service95_revision/outputs_v4/replenishment_comparison.xlsx) · [全部商品、爆品、长尾动画](汇报成果/2026-10-15/动画/index.html)

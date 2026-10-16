@@ -1,0 +1,408 @@
+{
+  "protocol_sha256": "c5e1a44200b815c287d91e7e370a1504c664a3ee47d4481a6d3ac4a94ac7fe07",
+  "selected": [
+    {
+      "method": "DRO_cluster",
+      "family": "static",
+      "arm": "fill95",
+      "candidate": 68,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_cluster",
+      "family": "static",
+      "arm": "positive95",
+      "candidate": 104,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_cluster",
+      "family": "static",
+      "arm": "positive_band",
+      "candidate": 104,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_cluster",
+      "family": "budget",
+      "arm": "fill95",
+      "candidate": 264,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_cluster",
+      "family": "budget",
+      "arm": "positive95",
+      "candidate": 242,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_cluster",
+      "family": "budget",
+      "arm": "positive_band",
+      "candidate": 242,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_cluster",
+      "family": "union",
+      "arm": "fill95",
+      "candidate": 68,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_cluster",
+      "family": "union",
+      "arm": "positive95",
+      "candidate": 242,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_cluster",
+      "family": "union",
+      "arm": "positive_band",
+      "candidate": 242,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_global",
+      "family": "static",
+      "arm": "fill95",
+      "candidate": 335,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_global",
+      "family": "static",
+      "arm": "positive95",
+      "candidate": 374,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_global",
+      "family": "static",
+      "arm": "positive_band",
+      "candidate": 374,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_global",
+      "family": "budget",
+      "arm": "fill95",
+      "candidate": 533,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_global",
+      "family": "budget",
+      "arm": "positive95",
+      "candidate": 536,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_global",
+      "family": "budget",
+      "arm": "positive_band",
+      "candidate": 536,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_global",
+      "family": "union",
+      "arm": "fill95",
+      "candidate": 335,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_global",
+      "family": "union",
+      "arm": "positive95",
+      "candidate": 536,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_global",
+      "family": "union",
+      "arm": "positive_band",
+      "candidate": 536,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_category",
+      "family": "static",
+      "arm": "fill95",
+      "candidate": 607,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_category",
+      "family": "static",
+      "arm": "positive95",
+      "candidate": 644,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_category",
+      "family": "static",
+      "arm": "positive_band",
+      "candidate": 644,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_category",
+      "family": "budget",
+      "arm": "fill95",
+      "candidate": 804,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_category",
+      "family": "budget",
+      "arm": "positive95",
+      "candidate": 806,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_category",
+      "family": "budget",
+      "arm": "positive_band",
+      "candidate": 806,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_category",
+      "family": "union",
+      "arm": "fill95",
+      "candidate": 607,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_category",
+      "family": "union",
+      "arm": "positive95",
+      "candidate": 806,
+      "training_feasible": true
+    },
+    {
+      "method": "DRO_category",
+      "family": "union",
+      "arm": "positive_band",
+      "candidate": 806,
+      "training_feasible": true
+    },
+    {
+      "method": "sS",
+      "family": "static",
+      "arm": "fill95",
+      "candidate": 879,
+      "training_feasible": true
+    },
+    {
+      "method": "sS",
+      "family": "static",
+      "arm": "positive95",
+      "candidate": 915,
+      "training_feasible": true
+    },
+    {
+      "method": "sS",
+      "family": "static",
+      "arm": "positive_band",
+      "candidate": 915,
+      "training_feasible": true
+    },
+    {
+      "method": "sS",
+      "family": "budget",
+      "arm": "fill95",
+      "candidate": 1074,
+      "training_feasible": true
+    },
+    {
+      "method": "sS",
+      "family": "budget",
+      "arm": "positive95",
+      "candidate": 1076,
+      "training_feasible": true
+    },
+    {
+      "method": "sS",
+      "family": "budget",
+      "arm": "positive_band",
+      "candidate": 1076,
+      "training_feasible": true
+    },
+    {
+      "method": "sS",
+      "family": "union",
+      "arm": "fill95",
+      "candidate": 879,
+      "training_feasible": true
+    },
+    {
+      "method": "sS",
+      "family": "union",
+      "arm": "positive95",
+      "candidate": 1076,
+      "training_feasible": true
+    },
+    {
+      "method": "sS",
+      "family": "union",
+      "arm": "positive_band",
+      "candidate": 1076,
+      "training_feasible": true
+    },
+    {
+      "method": "SAA",
+      "family": "static",
+      "arm": "fill95",
+      "candidate": 1148,
+      "training_feasible": true
+    },
+    {
+      "method": "SAA",
+      "family": "static",
+      "arm": "positive95",
+      "candidate": 1184,
+      "training_feasible": true
+    },
+    {
+      "method": "SAA",
+      "family": "static",
+      "arm": "positive_band",
+      "candidate": 1184,
+      "training_feasible": true
+    },
+    {
+      "method": "SAA",
+      "family": "budget",
+      "arm": "fill95",
+      "candidate": 1344,
+      "training_feasible": true
+    },
+    {
+      "method": "SAA",
+      "family": "budget",
+      "arm": "positive95",
+      "candidate": 1322,
+      "training_feasible": true
+    },
+    {
+      "method": "SAA",
+      "family": "budget",
+      "arm": "positive_band",
+      "candidate": 1322,
+      "training_feasible": true
+    },
+    {
+      "method": "SAA",
+      "family": "union",
+      "arm": "fill95",
+      "candidate": 1148,
+      "training_feasible": true
+    },
+    {
+      "method": "SAA",
+      "family": "union",
+      "arm": "positive95",
+      "candidate": 1322,
+      "training_feasible": true
+    },
+    {
+      "method": "SAA",
+      "family": "union",
+      "arm": "positive_band",
+      "candidate": 1322,
+      "training_feasible": true
+    },
+    {
+      "method": "RO",
+      "family": "static",
+      "arm": "fill95",
+      "candidate": 1408,
+      "training_feasible": true
+    },
+    {
+      "method": "RO",
+      "family": "static",
+      "arm": "positive95",
+      "candidate": 1444,
+      "training_feasible": true
+    },
+    {
+      "method": "RO",
+      "family": "static",
+      "arm": "positive_band",
+      "candidate": 1444,
+      "training_feasible": true
+    },
+    {
+      "method": "RO",
+      "family": "budget",
+      "arm": "fill95",
+      "candidate": 1613,
+      "training_feasible": true
+    },
+    {
+      "method": "RO",
+      "family": "budget",
+      "arm": "positive95",
+      "candidate": 1616,
+      "training_feasible": true
+    },
+    {
+      "method": "RO",
+      "family": "budget",
+      "arm": "positive_band",
+      "candidate": 1616,
+      "training_feasible": true
+    },
+    {
+      "method": "RO",
+      "family": "union",
+      "arm": "fill95",
+      "candidate": 1408,
+      "training_feasible": true
+    },
+    {
+      "method": "RO",
+      "family": "union",
+      "arm": "positive95",
+      "candidate": 1616,
+      "training_feasible": true
+    },
+    {
+      "method": "RO",
+      "family": "union",
+      "arm": "positive_band",
+      "candidate": 1616,
+      "training_feasible": true
+    }
+  ],
+  "training_y_sha256": "812c79d6421a857350f5d304131bbea200181c5388ace966119a611e5e3fce3d",
+  "training_x_sha256": "d294ab0b1df045adf3ff52fc5fa72b3c99f222e818e603297c38dcf2ccca337c",
+  "validation_forecast_sha256": "1dce334b143280decd462ddf47bacaf725ca9a648349ba60b679f36b4f5de370",
+  "validation_labels_sha256": "cb58bc6461c09aab8acdc0d99da14c09a92ce736062a5d3dc01c898d830c15b1",
+  "validation_residual_sha256": "df7645a24535d01aa6f6b97ffdc26242895e3d6f757d0809c07cabc77f4dc2cf",
+  "final_labels_sha256": "776cbf16e4455590abf8d8431cd6dc4e21d95f8aba29d33761724fcb0a34b233",
+  "final_residual_sha256": "0ef97e5e2eccb5ec4aebeeec4e2d1cccc9f120cf6762866398cb3fda3584d4d7",
+  "final_fit_observations": 360000,
+  "initial_sha256": "d6fb0ccef492d0068de8ea57a5791c76751b8cdf0730bd8a17f062a7e429b45a",
+  "policy_hashes": {
+    "DRO_cluster_full60_low": "abf17b7dddeadfe5352ac903e069a12ac8fd8f4632d8d72f936c4bdf738bdf1a",
+    "DRO_cluster_envelope_low": "9928984b40cb2d3ead815f9bd25feb33b15abd86aff9fc9963391e6465da0fd2",
+    "DRO_global_full60_low": "a48f2302f7f6dba8ce4bde24423406352fef3443a05062df948231ca9a7ab28d",
+    "DRO_global_envelope_low": "4247edacc868c25f4b4c74e44d75b45b8fa3dbe81df9a0349f89e59edd448dde",
+    "DRO_category_full60_low": "ea98d315e494e6d88c6c6b20042ed88d3abd45854cdba9b43f96e522111af591",
+    "DRO_category_envelope_low": "209a1177ba24c05f49a719cedae872a50f1c8433c8adf4a4a20af4cd25299c42",
+    "sS_full60_low": "2c4d86605e34cd43561195e236f94114ca87c642f19fc693fd2821d2e076b6c5",
+    "sS_full60_high": "70ba366b5bd8155dae83f22a21881d4fd6f8df10ce0b2a271d40e57e515e11e2",
+    "sS_envelope_low": "588084308a807cf7f8ff59cd61705106ff80c9aaffa9e248826715c83266832f",
+    "sS_envelope_high": "0ab3f044f56f57f9553253ed4cdc6fd31144345102194846ff8dfa63796193b6",
+    "SAA_full60_low": "76bc13785450e1139e1c383c593227178f332a792c22ff68f90eb72d5e7641d2",
+    "SAA_envelope_low": "bf53db5eed89f4fd46563b6a0eb57d2c118c0eb3c0cb556434dc26c303330e86",
+    "RO_full60_low": "92698565c2c3897b39538b26bf8b62cfcea9d923f19dd4c1fcf68a6005e2d185",
+    "RO_envelope_low": "cf13a25cfe59f94dc5a30cd3c0588cba5c8b41d1aa69170497459afad677f774"
+  }
+}

@@ -1,0 +1,23 @@
+name: Constraint mechanism evidence
+on:
+  push:
+    paths:
+      - 'experiments/constraint_mechanism/**'
+      - '.github/workflows/constraint-mechanism.yml'
+  pull_request:
+    paths:
+      - 'experiments/constraint_mechanism/**'
+      - '.github/workflows/constraint-mechanism.yml'
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r experiments/rolling_dro_v3/requirements_v3.txt
+      - run: python experiments/constraint_mechanism/verify_ci.py

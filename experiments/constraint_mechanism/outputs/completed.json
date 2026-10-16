@@ -1,0 +1,11 @@
+{
+  "protocol_sha256": "c5e1a44200b815c287d91e7e370a1504c664a3ee47d4481a6d3ac4a94ac7fe07",
+  "selection_sha256": "0f54f30a57f2de1b72bec4777d201f42b19c2f1e85c1668c114128724781e022",
+  "elapsed_seconds": 118.46218132972717,
+  "candidate_rows": 1620,
+  "selected_cells": 108,
+  "unique_test_replays": 48,
+  "test_trace_rows": 8064000,
+  "code_sha256": "23024a69520657fa862b1ecd39298d7e74e9541e49b102a501288b484ff98b85",
+  "note": "Raw test file loaded for hash audit at start; no numerical test score was used for selection in this run. Existing test was previously examined."
+}

@@ -1,0 +1,13 @@
+{
+  "bootstrap_replicates": 1000,
+  "seed": 20261016,
+  "block": "paired full28-day SKU, stratified hot/tail",
+  "counts": {
+    "hot": 480,
+    "tail": 5520
+  },
+  "denominator_min": 86608972.0,
+  "denominator_max": 93358072.0,
+  "logical_example_verified": true,
+  "qualification": "CIs condition on the fitted policies; exploratory contrasts are not multiplicity adjusted."
+}
