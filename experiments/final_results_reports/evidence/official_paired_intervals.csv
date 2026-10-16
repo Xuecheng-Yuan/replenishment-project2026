@@ -1,0 +1,3 @@
+family,envelope,arm,delta_J,ci_low,ci_high,both_test_feasible,category_test_feasible,ss_test_feasible
+published,old,historical,-0.0037567054476285,-0.0056532332578391,-0.0019896345372849,True,,
+published,current,historical,0.000949058589083,-0.0033091121830231,0.0047769505583098,True,,
