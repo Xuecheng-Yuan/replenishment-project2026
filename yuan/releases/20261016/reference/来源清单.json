@@ -1,0 +1,213 @@
+[
+  {
+    "source": "yuan/common/features.py",
+    "sha256": "87263953130b77266428600cc30e35042e49bcffb8de6234cd5ecc1680145bc0",
+    "objects": [
+      "SupervisedData",
+      "build_supervised_data"
+    ]
+  },
+  {
+    "source": "outputs/teacher_retrained_20261013/程序/通用工具.py",
+    "sha256": "ee94d68a937874965e362484e03281f8adc169a78f8628a1a728e4886bfbbe5e",
+    "objects": [
+      "common_features",
+      "normalized_features"
+    ]
+  },
+  {
+    "source": "yuan/models/linear_regression.py",
+    "sha256": "3816da3394e73ed85fac65df8279b0a0dc136d6e95f8eaa111266d56bf4d7802",
+    "objects": [
+      "build"
+    ]
+  },
+  {
+    "source": "yuan/models/ridge.py",
+    "sha256": "608bd1a6edeb83b1753ae208d7f97c5e39c79c1da3dd520cecb7fead025e9910",
+    "objects": [
+      "build"
+    ]
+  },
+  {
+    "source": "yuan/models/lasso.py",
+    "sha256": "b57b365c4673fcac700835deab5bfb49ed9736283cf770490b414f8f679163b3",
+    "objects": [
+      "build"
+    ]
+  },
+  {
+    "source": "yuan/models/elastic_net.py",
+    "sha256": "8cd7d4131b92572092755ebdf8379ea4b41f2599993634372a8d5a76991e7a08",
+    "objects": [
+      "build"
+    ]
+  },
+  {
+    "source": "yuan/models/svr.py",
+    "sha256": "46ec3770b6e80b2d128086a6192a4f990a1a22dcaf26b197f7978bf2ac3ac528",
+    "objects": [
+      "build"
+    ]
+  },
+  {
+    "source": "yuan/models/random_forest.py",
+    "sha256": "5cfcad40093588c2d75fb8b17f5fa56685ceb4020d14d078f3960c24cb4d075e",
+    "objects": [
+      "build"
+    ]
+  },
+  {
+    "source": "yuan/models/xgboost.py",
+    "sha256": "7d9fd7fd867fc40883fb0ad5a3456219e2a7b789c44106c21777e6f7bcdb7e94",
+    "objects": [
+      "build"
+    ]
+  },
+  {
+    "source": "yuan/models/lightgbm.py",
+    "sha256": "440e2ffb974ef5d5d9470ce7a42ad5f2b45d5681c84bc26c2c9cb035e96eb99c",
+    "objects": [
+      "build"
+    ]
+  },
+  {
+    "source": "yuan/models/catboost.py",
+    "sha256": "b1afefe88ba7a53a5d14223000693b06a9370bf468b4d9831bd67b89849bd0cb",
+    "objects": [
+      "build"
+    ]
+  },
+  {
+    "source": "yuan/models/spo_linear.py",
+    "sha256": "35057f356a2694e3b96e3564e7d8c31a1fa0418994a19c3e54e8cc4d9ca5c3c6",
+    "objects": [
+      "SPOPlusLinear"
+    ]
+  },
+  {
+    "source": "yuan/models/xgboost_spo.py",
+    "sha256": "478cda11459ec1b6e1f99b1f1a2c50e955cbcb08e35d1c0eb4b1377c56d145dc",
+    "objects": [
+      "XGBSPOHybrid",
+      "hybrid_grad_hess"
+    ]
+  },
+  {
+    "source": "yuan/models/lightgbm_spo.py",
+    "sha256": "e98fe4a98936357226d986952934f60bf7d90b1bea81a1887382164f2bf03665",
+    "objects": [
+      "LGBMSPOHybrid"
+    ]
+  },
+  {
+    "source": "yuan/models/direct_lightgbm.py",
+    "sha256": "a79a4ad45f622b6346383c31692d054c82a06eb3484f88e12e51a417c9350763",
+    "objects": [
+      "LGBMDirectSPOPolicy",
+      "direct_spo_rank_grad_hess"
+    ]
+  },
+  {
+    "source": "outputs/teacher_retrained_20261013/程序/classical.py",
+    "sha256": "c9109ebb856ac0e817ed07be239267df97608e523a1b203f5524c5d5fe676515",
+    "objects": [
+      "configurations",
+      "history_prediction",
+      "ml_bundle",
+      "ml_fit",
+      "ml_predict"
+    ]
+  },
+  {
+    "source": "outputs/teacher_retrained_20261013/程序/retune_scales.py",
+    "sha256": "537340151bf95a67dc34fdc176f3ee8e3aa6f2dfd042236d33e40c8feebb5bcb",
+    "objects": [
+      "cv_scale"
+    ]
+  },
+  {
+    "source": "outputs/teacher_retrained_20261013/程序/spo_training.py",
+    "sha256": "20f2d13177e52ea8731df1e11ed4dedbe242570d0012776e1d38f12956dbdc29",
+    "objects": [
+      "augment",
+      "build_training",
+      "centers",
+      "estimator",
+      "policy",
+      "targets"
+    ]
+  },
+  {
+    "source": "outputs/teacher_retrained_20261013/程序/neural_training.py",
+    "sha256": "ed339dc29310330578ccc6ad9fd445927aecdb4922ff34d568f08d51281e352f",
+    "objects": [
+      "DemandNet",
+      "DirectNet",
+      "calibration",
+      "fine_tune",
+      "inner",
+      "nll",
+      "objective",
+      "prediction",
+      "prepare",
+      "pretrained",
+      "runtime_policy",
+      "scenarios",
+      "train_one",
+      "with_basis"
+    ]
+  },
+  {
+    "source": "outputs/collaborator_reproduction_20261012/source/model_v2.py",
+    "sha256": "75513efbaf10841d61f62f3cef12707f5c6bc22fc80ad813b3c8bab71c3a685f",
+    "objects": [
+      "cluster",
+      "feature_matrix"
+    ]
+  },
+  {
+    "source": "outputs/teacher_retrained_20261013/程序/mpc_training.py",
+    "sha256": "3c44c368359406464d6f7f3ce4bc0fe341ebdd635cf58e135161b96d07f5aa15",
+    "objects": [
+      "fit_predict"
+    ]
+  },
+  {
+    "source": "outputs/teacher_retrained_20261013/程序/mpc_decision.py",
+    "sha256": "ebe32c6ceed6c131be3880006f602f13fce9ca98185750c6735380cf8c7c47e5",
+    "objects": [
+      "mpc_policy",
+      "train"
+    ]
+  },
+  {
+    "source": "outputs/sku_stacking_20261013/程序/ensemble_utils.py",
+    "sha256": "3f4c999aac14a46589bdb500ed87f3cdbd8154f90f9dd44b9c253e35616e4226",
+    "objects": [
+      "check_weights",
+      "predict",
+      "projection",
+      "risk_scale",
+      "train_raw",
+      "uncertainty"
+    ]
+  },
+  {
+    "source": "outputs/sku_stacking_20261013/程序/problem1.py",
+    "sha256": "ca47627cb4fa654050d86b574765bdea96e3581857d894d491cadde477bcd3be",
+    "objects": [
+      "fit_meta",
+      "global_weights",
+      "grouping",
+      "sku_weights"
+    ]
+  },
+  {
+    "source": "outputs/sku_stacking_20261013/程序/base_training.py",
+    "sha256": "0306733194589ea44f9fdbcb51cd6045f7bf7762603b5245e9d97e14e5a6c35c",
+    "objects": [
+      "fit"
+    ]
+  }
+]

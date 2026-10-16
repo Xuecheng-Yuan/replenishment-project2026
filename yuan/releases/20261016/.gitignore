@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.venv/
+runs/
+artifacts/
+data/*.xlsx
+data/*.npz
+website/app/src/data.json
+website/app/dist/
+website/app/.data-app-offline/
+website/offline/
+partners/kristina/upstream/experiments/service95_revision/outputs_v4/detail_*.csv.gz
+partners/kristina/upstream/experiments/service95_revision/outputs_v4/forecast_h1.csv
+*.zip

@@ -1,0 +1,44 @@
+{
+  "model": "baseline",
+  "version": "service_retrained_20261013",
+  "parameters": {
+    "model": "baseline",
+    "protocol": "teacher_95_96_v1",
+    "selected_only_on_train_validation": true,
+    "parameters": {},
+    "z": 5.068630695343018,
+    "validation": {
+      "z": 5.068630695343018,
+      "ready_rate": 0.95,
+      "inventory_demand_ratio": 0.7169847452694316,
+      "average_ending_total_inventory": 6548568.5,
+      "fill_rate": 0.9901915605319078,
+      "ready_passing_skus": 4896,
+      "minimum_sku_ready_rate": 0.1111111111111111,
+      "maximum_sku_ready_rate": 1.0,
+      "r": 1.3810496904781557,
+      "ending_inventory_units": 117874233.0,
+      "demand_units": 164402707.0,
+      "sales_units": 162790173.0,
+      "lost_units": 1612534.0,
+      "order_units": 162790173.0,
+      "final_stock": 5564582.0,
+      "final_pipeline": 10027885.0,
+      "interval_feasible": true,
+      "periods": 18,
+      "skus": 6000
+    },
+    "candidate": 0,
+    "training_seconds": 0.34998297691345215,
+    "search_count": 27,
+    "fit_cutoff": 42,
+    "validation_range": [
+      43,
+      60
+    ],
+    "refit_cutoff": 60,
+    "training_status": "trained",
+    "method": "fresh statistical/DRO fit + teacher validation",
+    "final_model_sha256": "6e3572f769a67639f890ee2673a5c28f487d21b794da1ad9c87368496745a58c"
+  }
+}

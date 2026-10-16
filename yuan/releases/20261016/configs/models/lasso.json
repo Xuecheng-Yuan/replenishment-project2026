@@ -1,0 +1,43 @@
+{
+  "model": "lasso",
+  "version": "service_retrained_20261013",
+  "parameters": {
+    "model": "lasso",
+    "protocol": "teacher_95_96_v1",
+    "selected_only_on_train_validation": true,
+    "parameters": {
+      "alpha": 0.001
+    },
+    "candidate": 0,
+    "z": 0.6284275054931641,
+    "validation": {
+      "z": 0.6284275054931641,
+      "ready_rate": 0.95,
+      "inventory_demand_ratio": 0.38676382621850625,
+      "average_ending_total_inventory": 3532501.111111111,
+      "fill_rate": 0.9985797739936241,
+      "ready_passing_skus": 2760,
+      "minimum_sku_ready_rate": 0.6666666666666666,
+      "maximum_sku_ready_rate": 1.0,
+      "r": 2.5818851358385984,
+      "ending_inventory_units": 63585020.0,
+      "demand_units": 164402707.0,
+      "sales_units": 164169218.0,
+      "lost_units": 233489.0,
+      "order_units": 165872653.0,
+      "final_stock": 6346152.0,
+      "final_pipeline": 4708761.0,
+      "interval_feasible": true,
+      "periods": 18,
+      "skus": 6000
+    },
+    "fit_cutoff": 42,
+    "refit_cutoff": 60,
+    "scale_mode": "fixed",
+    "uncertainty_candidates_compared": true,
+    "training_status": "trained",
+    "training_seconds": 3.969374656677246,
+    "final_model_sha256": "18bf8589671872e7a9152f5424145ab5b0812ae7313357829d3ae0006a5ca053",
+    "method": "fresh family predictor + fixed/relative training-residual scales, selected only on chronological validation"
+  }
+}

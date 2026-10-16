@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "models": 35,
+  "personal": 29,
+  "kristina": 6,
+  "skus": 6000,
+  "periods": 28,
+  "period_records": 980,
+  "upstream_files": 75,
+  "checks": [
+    "inventory_conservation",
+    "integer_orders",
+    "metrics",
+    "lossless_web_payload",
+    "cumulative_periods",
+    "local_paths",
+    "source_sha256"
+  ],
+  "limitation": "冻结轨迹及网站数据核验，不是从零重训。"
+}

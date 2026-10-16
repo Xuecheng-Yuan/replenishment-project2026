@@ -1,0 +1,285 @@
+{
+  "sources": [
+    {
+      "source": "outputs/teacher_retrained_20261013/results/baseline/trajectory.npz",
+      "sha256": "fc8506dfe086192a74cece957e4e7b177533cb9ab51efea8e937014c736a030b"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/baseline/summary.json",
+      "sha256": "0ff497bd37cc27a0119613b9a08fc25203cfa4ef6fdca18a0d8a04a029190674"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/naive/trajectory.npz",
+      "sha256": "12709abf9a068275d9b837c03b7389e5af44952b2c760f07641cba17442394b4"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/naive/summary.json",
+      "sha256": "eb86836d367ea0d294ce890220039237c68ed9ba195b83b2f1584daff61c6e60"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/moving_average/trajectory.npz",
+      "sha256": "70ce72b45b16aa50e830ad0478166845d8373b1e881377dc10d5f3e55d298fcf"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/moving_average/summary.json",
+      "sha256": "6df9cdcfa45df0fa37d08b22b0f42554d2f001042ee2833bae07180fe7cdee29"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/exponential_smoothing/trajectory.npz",
+      "sha256": "6a974e52124c6e05d2eccb699b798ef993d49c912fe250861658540f448de462"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/exponential_smoothing/summary.json",
+      "sha256": "31a5ade2bef171c8c405106fb8b69e5258fc9a031f5286a3997f3d55aeea2b86"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/arima/trajectory.npz",
+      "sha256": "dc08e4fea7dc91de0bea5ab3ff146d0051df44110508e759e9e40b6f5ae5e632"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/arima/summary.json",
+      "sha256": "fcfd706d998b9d745a7c051840cc346e35d6451cbb991bf40e82905d28f362fe"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/linear_regression/trajectory.npz",
+      "sha256": "453a3a41edafb8508fa8590687d6cc4db5ae5bd7a72b4916408e08e8f5e6442f"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/linear_regression/summary.json",
+      "sha256": "a2093d4b09a87e735c1b60e9b687b58fdd93c1e1e7d193d12d64af0a27df42c0"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/ridge/trajectory.npz",
+      "sha256": "70924bf98ca84d9a626bbd987ce56d9a9d554779e9299f359306d38da0258b69"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/ridge/summary.json",
+      "sha256": "93f4686cf914ad62bf90cd098a6477749de5ac95cf85099108913986820c4308"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/lasso/trajectory.npz",
+      "sha256": "1904a9870e82d5e538fa06f930e4e29fddacc8b1066cbe1af9c6d18cd983e098"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/lasso/summary.json",
+      "sha256": "c1fe69616ee195e88cecf3ab3acf6e4d817c3c6c80132b06cb5887e7f05f268e"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/elastic_net/trajectory.npz",
+      "sha256": "dbd87c185927a463d25a8302092498ddf03a8c2ece770036277fb18d198b1ebb"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/elastic_net/summary.json",
+      "sha256": "6be9524d16fb3abf2d72f7c8657fd2801c583474714724785d6cc96ce45987a4"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/svr/trajectory.npz",
+      "sha256": "d0b92daf5d4f85efcc2f0d49c2fb406c741b1fa6ab2be571822ff4671057c19a"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/svr/summary.json",
+      "sha256": "66786867026fd77fadc51e53540d618e0aba94bbdb61895263d9f23e3b67b339"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/random_forest/trajectory.npz",
+      "sha256": "fc7c53bcea9c9a6b691f28ff0f352b6fd69820b2ab18d04804d495a11e26df2a"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/random_forest/summary.json",
+      "sha256": "508a6acb98e8da269eebd02047206fd2a0083b3b6f4592b632db74bb31f5296c"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/xgboost/trajectory.npz",
+      "sha256": "a497abbe955bdc3694850ac4323ba3ab6e3dda7110ad07c5b904f9f73f978f55"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/xgboost/summary.json",
+      "sha256": "345858f15306feca446ed651e915969cc666f9aaf16a879a6243e1a4fe031ea3"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/lightgbm/trajectory.npz",
+      "sha256": "b6c011ea13f642a48b55dd4c6e68f397d444202ceb930d6756a63f0230be946f"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/lightgbm/summary.json",
+      "sha256": "1f3df853fa6aec21d321397e7c2bf900bef1ff6557f7fd07c5b2933960b24488"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/catboost/trajectory.npz",
+      "sha256": "f23a984d517e79ae683eee0167bbe2b5d7c93f83834d5a8165487d4cfdc6bded"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/catboost/summary.json",
+      "sha256": "c56af0a7b8391771a615357e587ae28b6b699c5d6144a5602fea6785072bdd1b"
+    },
+    {
+      "source": "outputs/spo_action_refinement_20261015/results/spo_linear/B_refine_only/trajectory.npz",
+      "sha256": "a877013082f1730e5c1a9d413178691c89869dde965da24555cfd7fb49196280"
+    },
+    {
+      "source": "outputs/spo_action_refinement_20261015/results/spo_linear/B_refine_only/summary.json",
+      "sha256": "7257eadb94debad6426f7db50ee1340ab3da4bcd2be7823f83a1a0de08b0c757"
+    },
+    {
+      "source": "outputs/spo_action_refinement_20261015/results/xgboost_spo/A_original/trajectory.npz",
+      "sha256": "4d3455f6be04ea9b8406cdc935ba4cb8b16def0aed2d2fb4f6c76d7e242ee52f"
+    },
+    {
+      "source": "outputs/spo_action_refinement_20261015/results/xgboost_spo/A_original/summary.json",
+      "sha256": "baaf21b03fbe38977705fa89675d786211efdc77303a54f224c56f9238249d92"
+    },
+    {
+      "source": "outputs/spo_action_refinement_20261015/results/lightgbm_spo/B_refine_only/trajectory.npz",
+      "sha256": "ea888826c7632817fbc85c8ebb2c121e9b95d1a82570983b7665ea8b7d346f2b"
+    },
+    {
+      "source": "outputs/spo_action_refinement_20261015/results/lightgbm_spo/B_refine_only/summary.json",
+      "sha256": "a5ab0b378b23f67a91c4f487b48c95df3a7d5335b0a1f1bcfd6267549925f56d"
+    },
+    {
+      "source": "outputs/spo_action_refinement_20261015/results/direct_xgboost/B_refine_only/trajectory.npz",
+      "sha256": "6873a14a359a880494bcaa63b35bd57db582215d83cffdb3ef418d2fc1e8e18d"
+    },
+    {
+      "source": "outputs/spo_action_refinement_20261015/results/direct_xgboost/B_refine_only/summary.json",
+      "sha256": "9ee1712387d429d7f84ad0029121e48ea6a1193e2e9f3342d9e5d9f50b0c3d13"
+    },
+    {
+      "source": "outputs/spo_action_refinement_20261015/results/direct_lightgbm/B_refine_only/trajectory.npz",
+      "sha256": "eab54c2dff4f886591e10c5fd8444194d56db8ed85c14e35c48101c646d4712f"
+    },
+    {
+      "source": "outputs/spo_action_refinement_20261015/results/direct_lightgbm/B_refine_only/summary.json",
+      "sha256": "96b9e3f23ddc4a978be99d14965abb6cf3425f7cd723afabaf8350268c17793f"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/nn_scenario/trajectory.npz",
+      "sha256": "b6a287cb32576307cd1a9911f025d150bb37f06aa2d258f95d8ff4b567648aa1"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/nn_scenario/summary.json",
+      "sha256": "772ab33bed061d16d5af914c1b32b1b6fd6206aabb6d37377fd5e84c357ab414"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/dfl_improved/trajectory.npz",
+      "sha256": "216729f2fa3d703d6f7d2527b8f18f0ccf6e6ea398dd576295b3440bd82d9058"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/dfl_improved/summary.json",
+      "sha256": "b89071498bfc74bec641ec43245615f04f6a884356f6f48cdde55a729e925d71"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/service_policy/trajectory.npz",
+      "sha256": "16d243b8f7884c2370fdc295151f64d1475886600ea4d078da5939057d60bdb3"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/service_policy/summary.json",
+      "sha256": "bbf8ee13160dc6b780a81d3261e3c0bd999c450e13155e588fb59703956a2391"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/online_learning/trajectory.npz",
+      "sha256": "0227c16404e3917cbf3b4de0a4e0805ee5fa457dd0056c35c4e743b7a2a25a76"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/online_learning/summary.json",
+      "sha256": "12c2e1a4927c3470fc6615f165fad9db611f3402c302ea594c8820a99cdaa246"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/turnover_dfl/trajectory.npz",
+      "sha256": "7fc77b4d9d3e76860fc44c66e459e2bf777437c1e014b2f3a2dbce0cc1a32033"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/turnover_dfl/summary.json",
+      "sha256": "b44b5452b264575bf4cb27467526354af9182f7d469bc692b67bb9cc1b88dc3b"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/adaptive_mpc/trajectory.npz",
+      "sha256": "1b86e981e121c9d58a8d46a30d33996dd0e4e30630c676687f4ee5733cd20d81"
+    },
+    {
+      "source": "outputs/teacher_retrained_20261013/results/adaptive_mpc/summary.json",
+      "sha256": "120823105d0be772e5fb43b46b11879614c403874cac4b21ca728ae032d68df1"
+    },
+    {
+      "source": "outputs/sku_stacking_20261013/results/equal_mean/trajectory.npz",
+      "sha256": "10449e48af3fd4acc4f95e5f84335cd0201d4a24a7c24b0040f659e26506ccc5"
+    },
+    {
+      "source": "outputs/sku_stacking_20261013/results/equal_mean/summary.json",
+      "sha256": "e464e6079f7a18fdc80080c0a905e42631d75737f17fde70ea1af71e0c3f5f4a"
+    },
+    {
+      "source": "outputs/sku_stacking_20261013/results/global_stacking/trajectory.npz",
+      "sha256": "deb9a3d550e7d5e8121296173631487dc0645654edb761417981e391d756ee6f"
+    },
+    {
+      "source": "outputs/sku_stacking_20261013/results/global_stacking/summary.json",
+      "sha256": "ca5aa7ba7a7c1bc823a76308d3749a7d68ebc89b0dcee48eea99f894d1ed6846"
+    },
+    {
+      "source": "outputs/sku_stacking_20261013/results/sku_stacking/trajectory.npz",
+      "sha256": "559fd3998395c082e440c9fce5c50f7f2e2a093814309ab086b2a6c061e06764"
+    },
+    {
+      "source": "outputs/sku_stacking_20261013/results/sku_stacking/summary.json",
+      "sha256": "60dd585fb84b3bf426763aa748bf08b33a7eba0e1c0b1c01eb868dfd321bf73f"
+    },
+    {
+      "source": "outputs/sku_stacking_20261013/results/sku_router/trajectory.npz",
+      "sha256": "534d83b4012010c2a5078c269caaa8f4931646720fb2f800d88fac46b69f1f12"
+    },
+    {
+      "source": "outputs/sku_stacking_20261013/results/sku_router/summary.json",
+      "sha256": "0611dcb6a3f9b727bc6423ca442f280d1f955e3ad27597588c9c2228cfb5f12c"
+    },
+    {
+      "source": "yuan_release_20261016/partners/kristina/upstream/experiments/service95_revision/outputs_v4/detail_DRO_cluster.csv.gz",
+      "sha256": "d108c67c708f7a0ba1f9c5486978b9ab6f2f3d5bde42e7a6f16fd289217e5260"
+    },
+    {
+      "source": "yuan_release_20261016/partners/kristina/upstream/experiments/service95_revision/outputs_v4/summary.csv",
+      "sha256": "29d7379a27da7e59abed97f4120145e231c43bb3ff5f5f0280483d6295a73525"
+    },
+    {
+      "source": "yuan_release_20261016/partners/kristina/upstream/experiments/service95_revision/outputs_v4/detail_DRO_global.csv.gz",
+      "sha256": "0ee701ad8ac51388f218a3007556d0596ca41eb03c04a043041bac00d4d1f4c2"
+    },
+    {
+      "source": "yuan_release_20261016/partners/kristina/upstream/experiments/service95_revision/outputs_v4/summary.csv",
+      "sha256": "29d7379a27da7e59abed97f4120145e231c43bb3ff5f5f0280483d6295a73525"
+    },
+    {
+      "source": "yuan_release_20261016/partners/kristina/upstream/experiments/service95_revision/outputs_v4/detail_DRO_category.csv.gz",
+      "sha256": "e3397b4dd306ec0c13376369392f91a3884738f76a2baf8a08a0a5ae78663bf6"
+    },
+    {
+      "source": "yuan_release_20261016/partners/kristina/upstream/experiments/service95_revision/outputs_v4/summary.csv",
+      "sha256": "29d7379a27da7e59abed97f4120145e231c43bb3ff5f5f0280483d6295a73525"
+    },
+    {
+      "source": "yuan_release_20261016/partners/kristina/upstream/experiments/service95_revision/outputs_v4/detail_sS.csv.gz",
+      "sha256": "a43e0d3ee4a1e73afa5ca5cbc810023958af3f83f29c320f42d727fc1134d3df"
+    },
+    {
+      "source": "yuan_release_20261016/partners/kristina/upstream/experiments/service95_revision/outputs_v4/summary.csv",
+      "sha256": "29d7379a27da7e59abed97f4120145e231c43bb3ff5f5f0280483d6295a73525"
+    },
+    {
+      "source": "yuan_release_20261016/partners/kristina/upstream/experiments/service95_revision/outputs_v4/detail_SAA.csv.gz",
+      "sha256": "027c459455735c2c98dbe25197c0e53afb4b8b6b958e55bff1a7075df4ebbb4b"
+    },
+    {
+      "source": "yuan_release_20261016/partners/kristina/upstream/experiments/service95_revision/outputs_v4/summary.csv",
+      "sha256": "29d7379a27da7e59abed97f4120145e231c43bb3ff5f5f0280483d6295a73525"
+    },
+    {
+      "source": "yuan_release_20261016/partners/kristina/upstream/experiments/service95_revision/outputs_v4/detail_RO.csv.gz",
+      "sha256": "c2fbd5a2ee7a1ff480bc0105428ced6bd487cdea33d133f66070dbeb674ff790"
+    },
+    {
+      "source": "yuan_release_20261016/partners/kristina/upstream/experiments/service95_revision/outputs_v4/summary.csv",
+      "sha256": "29d7379a27da7e59abed97f4120145e231c43bb3ff5f5f0280483d6295a73525"
+    }
+  ],
+  "note": "既有正式实验轨迹的独立重算，不代表本次整理后全量重训。今日两个桌面ML项目及其混合对照分支未纳入。"
+}

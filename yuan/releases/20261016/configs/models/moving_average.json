@@ -1,0 +1,43 @@
+{
+  "model": "moving_average",
+  "version": "service_retrained_20261013",
+  "parameters": {
+    "model": "moving_average",
+    "protocol": "teacher_95_96_v1",
+    "selected_only_on_train_validation": true,
+    "parameters": {
+      "window": 3
+    },
+    "candidate": 0,
+    "z": 2.6854043006896973,
+    "validation": {
+      "z": 2.6854043006896973,
+      "ready_rate": 0.95,
+      "inventory_demand_ratio": 0.18462389430120515,
+      "average_ending_total_inventory": 1686259.3333333333,
+      "fill_rate": 0.9952244946915625,
+      "ready_passing_skus": 3323,
+      "minimum_sku_ready_rate": 0.3888888888888889,
+      "maximum_sku_ready_rate": 1.0,
+      "r": 5.390550873484993,
+      "ending_inventory_units": 30352668.0,
+      "demand_units": 164402707.0,
+      "sales_units": 163617601.0,
+      "lost_units": 785106.0,
+      "order_units": 166226164.0,
+      "final_stock": 1713046.0,
+      "final_pipeline": 10416521.0,
+      "interval_feasible": true,
+      "periods": 18,
+      "skus": 6000
+    },
+    "fit_cutoff": 42,
+    "refit_cutoff": 60,
+    "scale_mode": "fixed",
+    "uncertainty_candidates_compared": true,
+    "training_status": "trained",
+    "training_seconds": 3.040158271789551,
+    "final_model_sha256": "70d736a24ca863c45f8776d6836fd0147ce8b1f780282098c9206a68d25831c1",
+    "method": "fresh family predictor + fixed/relative training-residual scales, selected only on chronological validation"
+  }
+}

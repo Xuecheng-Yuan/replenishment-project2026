@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "model": "spo_linear",
+      "version": "B_refine_only",
+      "sku_periods": 168000,
+      "all_four_arrays_equal": true
+    },
+    {
+      "model": "xgboost_spo",
+      "version": "A_original",
+      "sku_periods": 168000,
+      "all_four_arrays_equal": true
+    },
+    {
+      "model": "lightgbm_spo",
+      "version": "B_refine_only",
+      "sku_periods": 168000,
+      "all_four_arrays_equal": true
+    },
+    {
+      "model": "direct_xgboost",
+      "version": "B_refine_only",
+      "sku_periods": 168000,
+      "all_four_arrays_equal": true
+    },
+    {
+      "model": "direct_lightgbm",
+      "version": "B_refine_only",
+      "sku_periods": 168000,
+      "all_four_arrays_equal": true
+    }
+  ],
+  "limitation": "核验已有权重的新推理路径，不等于新训练路径全量重训。"
+}

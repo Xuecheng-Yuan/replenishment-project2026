@@ -1,5 +1,11 @@
 # Replenishment Project 2026
 
+## Yuan：模型工程包与离线研究工作台（2026-10-16）
+
+[新版代码与中文总说明](yuan/releases/20261016/README.md) · [35个模型索引](yuan/releases/20261016/docs/模型索引.md) · [统一测试指标](yuan/releases/20261016/results/benchmark/README.md) · [离线网站与完整回放附件](https://github.com/Xuecheng-Yuan/replenishment-project2026/releases/tag/yuan-v2026.10.16)
+
+Yuan个人29方案与Kristina正式6方案分开署名；统一服务水平、Fill Rate和库存需求比J的评价定义，并保留双方验证协议差异。包含独立代码、逐模型补货说明、冻结参数和测试结果；完整网站与逐SKU订单在Release下载区。未纳入桌面两个外部ML项目，旧代码与Kristina原有报告保留。本次为工程整理、指标重算与限定范围复现，不是所有模型重新全量训练。
+
 ## 新旧两版定稿实验结果报告（2026-10-16）
 
 [旧版：需求满足率最终报告](experiments/final_results_reports/reports/旧版_需求满足率_最终实验结果报告.pdf) · [新版：正库存比例最终报告](experiments/final_results_reports/reports/新版_正库存比例_最终实验结果报告.pdf) · [可读文字、核验记录与复现代码](experiments/final_results_reports/README.md)

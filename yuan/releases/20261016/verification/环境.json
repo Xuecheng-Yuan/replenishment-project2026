@@ -1,0 +1,18 @@
+{
+  "python": "3.11.15 | packaged by conda-forge | (main, Mar  5 2026, 16:59:26) [Clang 19.1.7 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "architecture": "arm64",
+  "dependencies": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.8.0",
+    "xgboost": "3.2.0",
+    "lightgbm": "4.6.0",
+    "catboost": "1.2.10",
+    "torch": "2.12.0",
+    "openpyxl": "3.1.5",
+    "joblib": "1.5.3"
+  },
+  "note": "本机QA环境记录，不是精确可移植锁文件；ds解释器优先，torch环境site-packages补充。未修改系统安装。"
+}

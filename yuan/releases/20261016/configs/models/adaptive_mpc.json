@@ -1,0 +1,43 @@
+{
+  "model": "adaptive_mpc",
+  "version": "service_retrained_20261013",
+  "parameters": {
+    "model": "adaptive_mpc",
+    "protocol": "teacher_95_96_v1",
+    "selected_only_on_train_validation": true,
+    "validation": {
+      "ready_rate": 0.952324074074074,
+      "inventory_demand_ratio": 0.11328691807976131,
+      "average_ending_total_inventory": 1034704.2222222222,
+      "fill_rate": 0.9639079726345382,
+      "ready_passing_skus": 4342,
+      "minimum_sku_ready_rate": 0.0,
+      "maximum_sku_ready_rate": 1.0,
+      "r": 8.508554994460038,
+      "ending_inventory_units": 18624676.0,
+      "demand_units": 164402707.0,
+      "sales_units": 158469080.0,
+      "lost_units": 5933627.0,
+      "order_units": 160542662.0,
+      "final_stock": 1737278.0,
+      "final_pipeline": 8916662.0,
+      "interval_feasible": true,
+      "periods": 18,
+      "skus": 6000
+    },
+    "z": 3.125,
+    "rho": 80.0,
+    "alpha": 0.1,
+    "candidate": 0,
+    "horizon": 4,
+    "scenarios": 8,
+    "inner_steps": 12,
+    "group_count": 3,
+    "training_status": "trained",
+    "training_seconds": 25.039509057998657,
+    "fit_cutoff": 42,
+    "refit_cutoff": 60,
+    "final_model_sha256": "70b2f1827c86548b01b4ca41243806772a7d8d4fb406340593a6055db4f887fb",
+    "method": "fresh grouped four-head LightGBM + adaptive four-period teacher-loss scenario MPC; no imposed capacity"
+  }
+}

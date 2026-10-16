@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "tests": [
+    {
+      "name": "34方案、6000 SKU、28期，个人方向不含历史DRO",
+      "status": "passed"
+    },
+    {
+      "name": "34条完整矩阵：5712000个SKU周期守恒及全量三指标重算",
+      "status": "passed"
+    },
+    {
+      "name": "单SKU回放与累计指标首期、12期、28期边界",
+      "status": "passed"
+    },
+    {
+      "name": "预测矩阵维度与Kristina四步预测的正确时点",
+      "status": "passed"
+    },
+    {
+      "name": "六种坐标组合、两种服务方向的帕累托判别",
+      "status": "passed"
+    },
+    {
+      "name": "教学推演非负整数订货、一期提前期、无未来需求泄漏",
+      "status": "passed"
+    },
+    {
+      "name": "来源文件哈希、公式图片全部有对应渲染、失败实验不混入主比较",
+      "status": "passed"
+    },
+    {
+      "name": "前端解码与独立zlib解码逐元素一致",
+      "status": "passed"
+    }
+  ],
+  "browserVerification": "blocked_by_browser_security_policy_not_attempted_via_alternatives",
+  "verifiedSkuPeriods": 5712000,
+  "sourceSnapshotSha256": "81ef124be96560d880db4208d636dc7e3562da64ee4a035ef677ef8e3b506bf4"
+}

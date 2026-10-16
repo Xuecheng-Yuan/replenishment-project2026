@@ -1,0 +1,44 @@
+{
+  "model": "direct_lightgbm",
+  "version": "spo_refinement_20261015/B_refine_only",
+  "parameters": {
+    "actions": [
+      0.0,
+      1.3125,
+      1.625,
+      1.9375,
+      2.25,
+      2.5625,
+      2.875,
+      3.1875,
+      4.0
+    ],
+    "z": 0.0,
+    "penalty": 10.0,
+    "aligned": false,
+    "validation": {
+      "z": 0.0,
+      "ready_rate": 0.9520462962962963,
+      "fill_rate": 0.9043017278298222,
+      "inventory_demand_ratio": 0.25310848439983413,
+      "average_ending_total_inventory": 2311762.222222222,
+      "average_inventory_per_sku_period": 385.2937037037037,
+      "ready_passing_skus": 2948,
+      "minimum_sku_ready_rate": 0.1111111111111111,
+      "maximum_sku_ready_rate": 1.0,
+      "r": 3.5727831485937136,
+      "ending_inventory_units": 41611720.0,
+      "demand_units": 164402707.0,
+      "sales_units": 148669652.0,
+      "lost_units": 15733055.0,
+      "order_units": 150196407.0,
+      "final_stock": 2502377.0,
+      "final_pipeline": 8753757.0,
+      "interval_feasible": true,
+      "periods": 18,
+      "skus": 6000
+    },
+    "validation_selected": true,
+    "version": "B_refine_only"
+  }
+}

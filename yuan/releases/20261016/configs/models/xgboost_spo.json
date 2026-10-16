@@ -1,0 +1,43 @@
+{
+  "model": "xgboost_spo",
+  "version": "spo_refinement_20261015/A_original",
+  "parameters": {
+    "actions": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0,
+      2.5,
+      3.0,
+      3.5,
+      4.0
+    ],
+    "z": 0.7777777777777777,
+    "penalty": 10.0,
+    "aligned": false,
+    "validation": {
+      "ready_rate": 0.9525648148148148,
+      "fill_rate": 0.9881749027405005,
+      "inventory_demand_ratio": 0.2503690282910001,
+      "average_ending_total_inventory": 2286741.4444444445,
+      "average_inventory_per_sku_period": 381.1235740740741,
+      "ready_passing_skus": 4605,
+      "minimum_sku_ready_rate": 0.05555555555555555,
+      "maximum_sku_ready_rate": 1.0,
+      "r": 3.9468735789155196,
+      "ending_inventory_units": 41161346.0,
+      "demand_units": 164402707.0,
+      "sales_units": 162458629.0,
+      "lost_units": 1944078.0,
+      "order_units": 161969634.0,
+      "final_stock": 1952950.0,
+      "final_pipeline": 8023825.0,
+      "interval_feasible": true,
+      "periods": 18,
+      "skus": 6000
+    },
+    "validation_selected": true,
+    "version": "A_original"
+  }
+}

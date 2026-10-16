@@ -1,0 +1,45 @@
+{
+  "model": "catboost",
+  "version": "service_retrained_20261013",
+  "parameters": {
+    "model": "catboost",
+    "protocol": "teacher_95_96_v1",
+    "selected_only_on_train_validation": true,
+    "parameters": {
+      "iterations": 300,
+      "depth": 8,
+      "learning_rate": 0.05
+    },
+    "candidate": 1,
+    "z": 2.591165065765381,
+    "validation": {
+      "z": 2.591165065765381,
+      "ready_rate": 0.95,
+      "inventory_demand_ratio": 0.27035905801721377,
+      "average_ending_total_inventory": 2469320.0555555555,
+      "fill_rate": 0.9896799144554231,
+      "ready_passing_skus": 4425,
+      "minimum_sku_ready_rate": 0.05555555555555555,
+      "maximum_sku_ready_rate": 1.0,
+      "r": 3.6606131183975723,
+      "ending_inventory_units": 44447761.0,
+      "demand_units": 164402707.0,
+      "sales_units": 162706057.0,
+      "lost_units": 1696650.0,
+      "order_units": 160817189.0,
+      "final_stock": 2132611.0,
+      "final_pipeline": 6657843.0,
+      "interval_feasible": true,
+      "periods": 18,
+      "skus": 6000
+    },
+    "fit_cutoff": 42,
+    "refit_cutoff": 60,
+    "scale_mode": "relative",
+    "uncertainty_candidates_compared": true,
+    "training_status": "trained",
+    "training_seconds": 48.69034123420715,
+    "final_model_sha256": "37f9ecff275f54c4ff503debcce75bb0859256f628cfd5ed300dc05ebd255269",
+    "method": "fresh family predictor + fixed/relative training-residual scales, selected only on chronological validation"
+  }
+}

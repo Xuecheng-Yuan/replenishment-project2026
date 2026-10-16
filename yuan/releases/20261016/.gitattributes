@@ -1,0 +1,2 @@
+# 上游选择性快照保持原始字节，避免跨平台换行破坏SOURCE.json哈希。
+partners/kristina/upstream/** -text whitespace=cr-at-eol
