@@ -13,5 +13,7 @@ experiments/full60_revision/** -text whitespace=cr-at-eol
 experiments/service95_revision/** -text whitespace=cr-at-eol
 experiments/constraint_mechanism/** -text whitespace=cr-at-eol
 experiments/constraint_mechanism/reports/*.pdf binary
+experiments/final_results_reports/** -text whitespace=cr-at-eol
+experiments/final_results_reports/reports/*.pdf binary
 # Keep the animation delivery checksums stable across platforms.
 汇报成果/2026-10-15/** -text whitespace=cr-at-eol

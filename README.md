@@ -1,5 +1,11 @@
 # Replenishment Project 2026
 
+## 新旧两版定稿实验结果报告（2026-10-16）
+
+[旧版：需求满足率最终报告](experiments/final_results_reports/reports/旧版_需求满足率_最终实验结果报告.pdf) · [新版：正库存比例最终报告](experiments/final_results_reports/reports/新版_正库存比例_最终实验结果报告.pdf) · [可读文字、核验记录与复现代码](experiments/final_results_reports/README.md)
+
+两版各7页，分别包含数学模型与解读、全60期训练、六方法正式结果、爆品与长尾、整体及逐期图、四期预测误差和复现路径。重新回放201.6万条正式记录，结果未改：旧版分类DRO最低J=0.168340；新版(s,S)最低J=0.345958、P=95.2810%，相对分类DRO的稳定优势尚未确认。与下面的约束变化原因探索报告分开交付。
+
 ## 约束变化原因重做实验（2026-10-16）
 
 [机制探索报告PDF](experiments/constraint_mechanism/reports/机制探索报告.pdf) · [完整实验报告PDF](experiments/constraint_mechanism/reports/完整实验报告.pdf) · [代码、原始结果与复现说明](experiments/constraint_mechanism/README.md)

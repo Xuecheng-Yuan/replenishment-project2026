@@ -1,0 +1,55 @@
+{
+  "official_sources": [
+    {
+      "path": "experiments/demand_fill_v3/with_ro/outputs_v4/summary.csv",
+      "sha256": "26b9bbf2679467b2abb1dfb114988b0b8a0ad6dd9f83fcc11f4b86359ec0d508"
+    },
+    {
+      "path": "experiments/demand_fill_v3/with_ro/outputs_v4/results_by_period.csv",
+      "sha256": "b0cb11f57996dfbc292473265d503041687580d99b5071e71214b64352bab5c4"
+    },
+    {
+      "path": "experiments/demand_fill_v3/with_ro/outputs_v4/frozen_parameters.json",
+      "sha256": "05a6c0f1978e5f811a98c733a270e6b1aef7b773e25d74fa2fc1df12345abe9d"
+    },
+    {
+      "path": "experiments/demand_fill_v3/with_ro/outputs_v4/forecast_test_metrics.csv",
+      "sha256": "a510922489a955c782c218984d0878b76780babe95c627660c3987d39677a5ff"
+    },
+    {
+      "path": "experiments/service95_revision/outputs_v4/summary.csv",
+      "sha256": "29d7379a27da7e59abed97f4120145e231c43bb3ff5f5f0280483d6295a73525"
+    },
+    {
+      "path": "experiments/service95_revision/outputs_v4/results_by_period.csv",
+      "sha256": "90f416abb9663c283ce3fa343e1828ee29d1f87bd85bd596566734c93f0c15bd"
+    },
+    {
+      "path": "experiments/service95_revision/outputs_v4/frozen_parameters.json",
+      "sha256": "8f056701c71f3ff0c22584b6887959dc9b846e530c302fe8de1dfa136b11c524"
+    },
+    {
+      "path": "experiments/demand_fill_v3/with_ro/outputs_v4/forecast_test_metrics.csv",
+      "sha256": "a510922489a955c782c218984d0878b76780babe95c627660c3987d39677a5ff"
+    },
+    {
+      "path": "experiments/constraint_mechanism/outputs/paired_contrasts.csv",
+      "sha256": "c868976066f67a2de1524149a78f691d7e49549d1d7831d5c5a0bd304fc6a9cf"
+    }
+  ],
+  "input_audit": {
+    "inputs": [
+      {
+        "file": "replenishment_train.xlsx",
+        "sha256": "773169c50b878922b67dc15882a758950abed2d9f6eb607774a47cfb326fa608"
+      },
+      {
+        "file": "replenishment_test.xlsx",
+        "sha256": "9010d3d44b9f56b835efe17bc7e3e628f809f5d2c91d656d6b6876ee18a13074"
+      }
+    ],
+    "cache_sha256": "c9e32fcc1641dc94e2413e4fcb2ab3c73ae55cab810380e350b901eccfa0dafb",
+    "validation": "streamed all worksheets; checked keys, categories, initial stock, finite nonnegative demand/features"
+  },
+  "paired_interval_source": "experiments/constraint_mechanism/outputs/paired_contrasts.csv"
+}
