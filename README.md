@@ -1,6 +1,17 @@
 # Replenishment Project 2026
 
-## 当前：三轮滚动验证与完整60期训练版
+## 当前：服务水平95%–95.5%的完整60期版本
+
+[本次交付报告与数学模型](experiments/service95_revision/REPORT.md) · [当前六方法Excel与三版对照](experiments/service95_revision/outputs_v4/replenishment_comparison.xlsx) · [全部商品、爆品、长尾动画](汇报成果/2026-10-15/动画/index.html)
+
+六种方法独立测试28期的正库存比例为95.2798%–95.2893%，全部满足95%–95.5%。传统(s,S)库存需求比最低0.345958；三种DRO中爆品/长尾DRO最低0.346907。训练文件全部60期最终拟合，独立测试文件从Period_1重新开始，提前期1、失销、原始库存、零初始在途。
+
+当前增加因果服务预算反馈，逐期仅使用已经发生的需求、正库存计数与预测误差调整后续水位。反馈参数在训练内部28期回溯重启留出中选择；三轮向前/重启12期前缀另外诊断。完整训练、时间关系、108个反馈候选和42个已选情景均在报告和Excel说明。先前99%以上高库存实验单独归档，不作为当前结果。
+
+复现：`python experiments/ro_extension/service_band_revision.py`。核验：`python experiments/ro_extension/verify_service95.py`。下方各历史版本仅用于追溯，当前交付以本节链接为准。
+
+
+## 历史：PR7三轮滚动验证与完整60期训练版
 
 [修正与交付报告](experiments/full60_revision/CHANGE_REPORT.md) · [当前结果及Excel](experiments/full60_revision/README.md) · [服务约束单因素报告](experiments/full60_revision/REPORT.md)
 
@@ -16,7 +27,7 @@
 
 ## 历史：新旧两版新增传统RO（2026-10-15）
 
-历史两版均已补充“传统区间鲁棒优化RO”，各有六种方法。该历史交付位于各版的 `with_ro` 子文件夹，原五方法结果保留；当前新版为full60_revision。
+历史两版均已补充“传统区间鲁棒优化RO”，各有六种方法。该历史交付位于各版的 `with_ro` 子文件夹，原五方法结果保留；当前新版为service95_revision。
 
 - [旧版：六方法报告、Excel与可视化](experiments/demand_fill_v3/with_ro/README.md)
 - [新版：六方法报告、Excel与可视化](experiments/rolling_dro_v3/with_ro/README.md)

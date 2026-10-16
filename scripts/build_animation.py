@@ -51,6 +51,9 @@ def load_trace(folder, method):
     np.testing.assert_array_equal(a[1:], e[:-1] + q[:-1])
     np.testing.assert_array_equal(q.ravel(), f.planned_order_h1)
     assert np.all(q >= 0) and np.all(q == np.floor(q))
+    for h in range(1,5):
+        planned=f[f'planned_order_h{h}'].to_numpy()
+        assert np.all(planned>=0) and np.all(planned==np.floor(planned)), (method,h)
     start = np.vstack([a[0], e[:-1]])
     arrival = np.vstack([np.zeros(6000), q[:-1]])
     f['start'], f['arrival'] = start.ravel(), arrival.ravel()
@@ -67,13 +70,13 @@ def rows_for(f, ids):
 
 def build_bank(version):
     current = version == 'current'
-    folder = ROOT / ('experiments/full60_revision/new_positive/outputs_v4' if current else
+    folder = ROOT / ('experiments/service95_revision/outputs_v4' if current else
                      'experiments/demand_fill_v3/with_ro/outputs_v4')
     # The immutable historical RO file uses NaN for two inapplicable diagnostic
     # service fields. Represent those as JSON null; do not alter the archive.
     params = json.loads((folder / 'frozen_parameters.json').read_text(encoding='utf-8'), parse_constant=lambda _: None)
     if current:
-        design = json.loads((ROOT / 'experiments/full60_revision/outputs/frozen_design.json').read_text(encoding='utf-8'))
+        design = params
         assert design['final_fit_periods'] == list(range(1, 61)), 'Final fitting must use all 60 periods.'
         folds = design.get('validation_folds', design.get('calibration_folds'))
         assert folds, 'Run the approved three-fold calibration before rebuilding the animation.'
@@ -81,11 +84,13 @@ def build_bank(version):
         for fold, (cut, first, last) in zip(folds, FOLDS):
             assert fold['fit_periods'] == list(range(1, cut+1)), fold
             assert fold['validation_periods'] == list(range(first, last+1)), fold
-        with np.load(ROOT / 'experiments/full60_revision/outputs/shared_model.npz') as shared:
+        with np.load(folder / 'fitted_model.npz') as shared:
             residual = shared['final_relative_residual']
             mu, sigma = float(residual.mean()), float(residual.std())
         gamma = params['selected']['RO']['gamma']
-        ro = dict(mu=mu, sigma=sigma, gamma=gamma, upper=mu+gamma*sigma,
+        with np.load(folder/'policy_RO.npz') as policy:
+            envelope_upper=float(policy['low'].max())
+        ro = dict(mu=mu, sigma=sigma, gamma=gamma, upper=envelope_upper, full60_upper=mu+gamma*sigma,
                   lower=max(0., mu-gamma*sigma), beta=1.)
     else:
         old_ro = params['selected']['RO']
@@ -93,7 +98,7 @@ def build_bank(version):
                   upper=old_ro['upper_relative'], lower=old_ro['lower_relative'], beta=old_ro['beta'])
     methods, scopes, source, csv_rows = [], None, {(folder/'frozen_parameters.json').relative_to(ROOT).as_posix(): sha(folder/'frozen_parameters.json')}, []
     if current:
-        design_path = ROOT / 'experiments/full60_revision/outputs/frozen_design.json'
+        design_path = folder/'frozen_parameters.json'
         source[design_path.relative_to(ROOT).as_posix()] = sha(design_path)
     first_demand = None
     for method, label in METHODS.items():
@@ -124,7 +129,13 @@ def build_bank(version):
                                      period_P=row['positive']/row['sku_days'],
                                      period_FR=row['sales']/row['demand'], period_J=row['ending']/row['demand'],
                                      cumulative_P=c['P'], cumulative_FR=c['FR'], cumulative_J=c['J']))
-        methods.append(dict(id=method, label=label, scopes=by_scope))
+        method_data=dict(id=method,label=label,scopes=by_scope)
+        if current:
+            feedback_path=folder/'service_feedback.csv'
+            feedback=pd.read_csv(feedback_path)
+            method_data['feedback']=feedback[feedback.method==method].drop(columns='method').to_dict('records')
+            source[feedback_path.relative_to(ROOT).as_posix()]=sha(feedback_path)
+        methods.append(method_data)
         print(version, method, 'complete 168,000-row trace aggregated', flush=True)
     summary = pd.read_csv(folder / 'summary.csv').query("scope == 'all_28_periods'").set_index('method')
     for m in methods:
@@ -134,7 +145,7 @@ def build_bank(version):
                                   [r.positive_stock_ratio, r.fill_rate, r.inventory_demand_ratio], rtol=1e-12)
     for scope in scopes:
         scope.pop('ids')
-    return dict(version=version, label='新版 · 三轮滚动选参、全60期最终拟合' if current else '历史版 · 需求满足率约束',
+    return dict(version=version, label='新版 · 服务95%–95.5%、全60期最终拟合' if current else '历史版 · 需求满足率约束',
                 source_folder=folder.relative_to(ROOT).as_posix(), source_sha256=source, methods=methods, scopes=scopes,
                 parameters=params, ro=ro, validation_folds=folds if current else [],
                 final_training_periods=60, test_periods=28, test_file='replenishment_test.xlsx',

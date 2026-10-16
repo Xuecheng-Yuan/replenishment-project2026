@@ -26,7 +26,9 @@ def main():
         assert [(s['id'], s['n']) for s in data['scopes'][:3]] == [('all', 6000), ('hot', 480), ('tail', 5520)]
         if version == 'current':
             assert data['final_training_periods'] == 60 and len(data['validation_folds']) == 3
-            assert data['parameters']['model_fit_periods'] == '1-60'
+            assert data['parameters']['final_fit_periods'] == list(range(1,61))
+            assert data['service_lower']==.95 and data['service_upper']==.955
+            assert all(.95<=m['scopes']['all']['summary']['P']<=.955 for m in data['methods'])
         for rel, expected in data['source_sha256'].items():
             assert hashlib.sha256((ROOT/rel).read_bytes()).hexdigest() == expected, rel
         for method in data['methods']:
