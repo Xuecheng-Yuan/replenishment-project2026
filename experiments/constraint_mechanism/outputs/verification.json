@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "training_candidates": 1620,
+  "selection_cells": 108,
+  "test_trace_rows": 8064000,
+  "independent_inventory_flow": true,
+  "independent_waterline_rebuild": true,
+  "future_perturbation": true,
+  "protocol_sha256": "c5e1a44200b815c287d91e7e370a1504c664a3ee47d4481a6d3ac4a94ac7fe07",
+  "selection_sha256": "0f54f30a57f2de1b72bec4777d201f42b19c2f1e85c1668c114128724781e022"
+}

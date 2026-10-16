@@ -1,0 +1,105 @@
+{
+  "files": [
+    {
+      "version": "old",
+      "method": "DRO_cluster",
+      "path": "experiments/demand_fill_v3/with_ro/outputs_v4/detail_DRO_cluster.csv.gz",
+      "sha256": "85e4e0881a3eba82a9c34cfab5f95cbf04d2ad3e1db6b551885f248dc6f128b9"
+    },
+    {
+      "version": "old",
+      "method": "DRO_global",
+      "path": "experiments/demand_fill_v3/with_ro/outputs_v4/detail_DRO_global.csv.gz",
+      "sha256": "0206fc8cbc90740c59ea20ac55b428791811602caf7377e0e7d66a6dc615acdb"
+    },
+    {
+      "version": "old",
+      "method": "DRO_category",
+      "path": "experiments/demand_fill_v3/with_ro/outputs_v4/detail_DRO_category.csv.gz",
+      "sha256": "071f5be7244f15377a21c56bf2ff8ca0e6e17e7a01804bc29e33503f21e824f6"
+    },
+    {
+      "version": "old",
+      "method": "sS",
+      "path": "experiments/demand_fill_v3/with_ro/outputs_v4/detail_sS.csv.gz",
+      "sha256": "2caba369ddc1764e9a9f083d9a4c2c8f15750949a2e04dfd5f0d49f2b981de36"
+    },
+    {
+      "version": "old",
+      "method": "SAA",
+      "path": "experiments/demand_fill_v3/with_ro/outputs_v4/detail_SAA.csv.gz",
+      "sha256": "9407dc70ac03bed435657f01693e0d12887dcbc3545140a5fd262b570034e387"
+    },
+    {
+      "version": "old",
+      "method": "RO",
+      "path": "experiments/demand_fill_v3/with_ro/outputs_v4/detail_RO.csv.gz",
+      "sha256": "436e9c9fb87aafb4c9e26c5ec0514591b655ff43542c2039912afe22781ede24"
+    },
+    {
+      "version": "old",
+      "path": "experiments/demand_fill_v3/with_ro/outputs_v4/frozen_parameters.json",
+      "sha256": "05a6c0f1978e5f811a98c733a270e6b1aef7b773e25d74fa2fc1df12345abe9d"
+    },
+    {
+      "version": "current",
+      "method": "DRO_cluster",
+      "path": "experiments/service95_revision/outputs_v4/detail_DRO_cluster.csv.gz",
+      "sha256": "d108c67c708f7a0ba1f9c5486978b9ab6f2f3d5bde42e7a6f16fd289217e5260"
+    },
+    {
+      "version": "current",
+      "method": "DRO_global",
+      "path": "experiments/service95_revision/outputs_v4/detail_DRO_global.csv.gz",
+      "sha256": "0ee701ad8ac51388f218a3007556d0596ca41eb03c04a043041bac00d4d1f4c2"
+    },
+    {
+      "version": "current",
+      "method": "DRO_category",
+      "path": "experiments/service95_revision/outputs_v4/detail_DRO_category.csv.gz",
+      "sha256": "e3397b4dd306ec0c13376369392f91a3884738f76a2baf8a08a0a5ae78663bf6"
+    },
+    {
+      "version": "current",
+      "method": "sS",
+      "path": "experiments/service95_revision/outputs_v4/detail_sS.csv.gz",
+      "sha256": "a43e0d3ee4a1e73afa5ca5cbc810023958af3f83f29c320f42d727fc1134d3df"
+    },
+    {
+      "version": "current",
+      "method": "SAA",
+      "path": "experiments/service95_revision/outputs_v4/detail_SAA.csv.gz",
+      "sha256": "027c459455735c2c98dbe25197c0e53afb4b8b6b958e55bff1a7075df4ebbb4b"
+    },
+    {
+      "version": "current",
+      "method": "RO",
+      "path": "experiments/service95_revision/outputs_v4/detail_RO.csv.gz",
+      "sha256": "c2fbd5a2ee7a1ff480bc0105428ced6bd487cdea33d133f66070dbeb674ff790"
+    },
+    {
+      "version": "current",
+      "path": "experiments/service95_revision/outputs_v4/frozen_parameters.json",
+      "sha256": "8f056701c71f3ff0c22584b6887959dc9b846e530c302fe8de1dfa136b11c524"
+    }
+  ],
+  "all_inventory_identities_passed": true,
+  "all_frozen_policy_replays_passed": true,
+  "max_forecast_difference_vs_full60": 3.637978807091713e-12,
+  "forecasts_equivalent_at_1e_9": true,
+  "same_forecasts_old_current": false,
+  "forecast_hashes": {
+    "old_DRO_cluster": "33a85a192053e0b5f640a91a332bc7ca26c25011af3a11a8c77b1fd7bb2e0e00",
+    "old_DRO_global": "33a85a192053e0b5f640a91a332bc7ca26c25011af3a11a8c77b1fd7bb2e0e00",
+    "old_DRO_category": "33a85a192053e0b5f640a91a332bc7ca26c25011af3a11a8c77b1fd7bb2e0e00",
+    "old_sS": "33a85a192053e0b5f640a91a332bc7ca26c25011af3a11a8c77b1fd7bb2e0e00",
+    "old_SAA": "33a85a192053e0b5f640a91a332bc7ca26c25011af3a11a8c77b1fd7bb2e0e00",
+    "old_RO": "c0e83e9c8fee297c687d0623baf7b5eb12e109c2aee234a87adb06263a4beca0",
+    "current_DRO_cluster": "33a85a192053e0b5f640a91a332bc7ca26c25011af3a11a8c77b1fd7bb2e0e00",
+    "current_DRO_global": "33a85a192053e0b5f640a91a332bc7ca26c25011af3a11a8c77b1fd7bb2e0e00",
+    "current_DRO_category": "33a85a192053e0b5f640a91a332bc7ca26c25011af3a11a8c77b1fd7bb2e0e00",
+    "current_sS": "33a85a192053e0b5f640a91a332bc7ca26c25011af3a11a8c77b1fd7bb2e0e00",
+    "current_SAA": "33a85a192053e0b5f640a91a332bc7ca26c25011af3a11a8c77b1fd7bb2e0e00",
+    "current_RO": "33a85a192053e0b5f640a91a332bc7ca26c25011af3a11a8c77b1fd7bb2e0e00"
+  }
+}
